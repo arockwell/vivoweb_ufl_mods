@@ -46,3 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Institution
 ****************/
 div#institution { position: relative; }
+
+form#search {
+  padding-bottom: 0px;
+}

@@ -51,15 +51,16 @@ body {
 #wrap { background: #fff; }
 
 #contentwrap {
-  padding: 24px 20px;
   background: #D9D9D9;
+  width: 815px;
+  padding: 24px 20px;
+  margin: 0 auto;
 }
 
 #content {
   padding: 16px 12px;
   background: #fff;
   font-size: 108.33%; /* bumping up content text from 12px to 13px */
-  min-height:350px;
 }
 
 #footer {
@@ -69,20 +70,10 @@ body {
   padding: 16px 20px 40px 20px;
   text-align: right;
   clear: both;
+  width: 815px;
+  margin: 0 auto;
 }
 
-#research_instance {
-	background-color:red;
-	color:white;
-	font-size:1.25em;
-	font-weight:bold;
-	text-align:center;
-}
-
-#research_instance a {
-	color:white;
-}
-	
 /****************
 Global classes
 ****************/
@@ -141,14 +132,9 @@ ul#otherMenu li {
   margin-left: 4px;
 }
 
-ul#otherMenu li {
+ul#otherMenu li.border {
   padding-right: 4px;
   border-right: 1px solid #ccc;
-}
-
-ul#otherMenu li.last {
-  padding-right: 0;
-  border-right: none;
 }
 
 
@@ -160,7 +146,6 @@ div#navAndSearch {
   position: relative;
   background: #212d34;
 /*  background: #7d8b99;*/
-  border-top: 3px solid #3d454e;
 /*  border-top: 3px solid #4e4e4e;*/
   padding-left: 20px;
 /*  padding-right: 300px;*/
@@ -254,6 +239,11 @@ div#labelAndMoniker { margin-bottom: 1.5em; }
     display: inline;
 }
 
+#labelAndMoniker span.editLinks {
+	margin-left: 16px;
+	margin-top: -80px;
+}
+
 #label h2,
 #label h3 {
   display: inline;
@@ -291,8 +281,11 @@ a.externalLink:active {
 
 a.externalLink { color: #84a655; }
 
-div.description { margin-bottom: 1.5em; }
+#dprop-vitro-image div.citation {
+    margin-top: .5em;   
+}
 
+div.description { margin-bottom: 1.5em; }
 .propertyName,
 .propsItem h4 {
   font-size: 1em;
@@ -307,6 +300,7 @@ div.description { margin-bottom: 1.5em; }
   /* Fixes in IE6 the cut off text for data and object property names for individual display property groups. */
   *padding-left:24px !important;
 }
+	
 
 .propsItem,
 .datatypeProperties,
@@ -373,23 +367,9 @@ ul.tabEntities li {
 ul.tabEntities a { font-weight: bold; }
 
 ul.tabEntities a.externalLink, 
-.individualList a.externalLink {
+.entityList a.externalLink {
   text-decoration: none;
   font-weight: normal;
-}
-
-.individualList ul.individualData {
-    display: inline;
-}
-
-.individualList ul.individualData li {
-    display: inline;
-    border-right: solid 1px #a0a0a0;
-    padding-right: .3em;
-}
-
-.individualList ul.individualData li.last {
-    border: none;
 }
 
 div.blurb { color: #999; }
@@ -398,21 +378,21 @@ div.blurb a { font-weight: normal; }
 
 /* Index and List pages */
 .siteMap ul,
-.individualList ul { margin-left: 0; }
+.entityList ul { margin-left: 0; }
 
 .siteMap li { 
   list-style-type: none; 
   color: #9c9c9c;
 }
 
-.individualList li { 
+.entityList li { 
   list-style-type: none;
   color: #9c9c9c;
   margin-bottom: .5em;
  }
  
 .siteMap li a,
-.individualList li a { font-weight: bold; }
+.entityList li a { font-weight: bold; }
  
 .siteMap h2 { margin-bottom: .5em; }
 
@@ -610,7 +590,7 @@ IE6 does not support :hover so it will see everything
 span.entityMoreSpan {
   display: block;
   font-style: italic;
-  background: url(../site_icons/plus.gif) left center no-repeat;
+  background: url(../../vivo-basic/site_icons/plus.gif) left center no-repeat;
   padding-left: 14px;
   margin: .5em 0;
   line-height: 1em;  
@@ -625,7 +605,7 @@ span.entityMoreSpan:hover {
 
 div.navlinkblock:hover span.entityMoreSpan,
 div.navlinkblock-expanded span.entityMoreSpan {
-  background: url(../site_icons/minus.gif) left center no-repeat;
+  background: url(../../vivo-basic/site_icons/minus.gif) left center no-repeat;
 }
 
 
@@ -643,7 +623,12 @@ div.extraEntities {
 Frontend Edit Controls and Forms
 ********************************/
 
-div.editingForm { background: none; }
+div.editingForm {
+  background: none;
+  width: 590px;
+  float: left;
+  margin-top: -20px;
+}
 
 div.editingForm hr { display: none; }
 
@@ -653,14 +638,14 @@ a.add {
   width: 1em;
   height: 1em;
   padding: 4px;
-  background: #ebebeb url(../site_icons/plus_transparent.gif) center center no-repeat;
+  background: #ebebeb url(../../vivo-basic/site_icons/plus_transparent.gif) center center no-repeat;
   text-indent: -9999px;
   overflow: hidden;
 }
 
 a.add:hover {
-  background-image: url(../site_icons/plus_transparent_hover.gif);
-  background-color: #576772; 
+  background-image: url(../../vivo-basic/site_icons/plus_transparent_hover.gif);
+  background-color: #000; 
 }
 
 ul.properties { margin: 0; }
@@ -688,6 +673,7 @@ em.nonEditable { font-size: 84.62%; } /* 13px down to 11px */
 span.editLinks a {
   color: #da8622;
   font-weight: normal;
+  display: block;
 }
 
 span.editLinks a:hover { color: #000; }
@@ -697,15 +683,14 @@ span.editLinks a.edit { padding-right: 4px; }
 .statementWrap:hover span.editLinks,
 .statementWrap:hover em.nonEditable {
   display: block;
-  width: 6em;
+  width: 3.7em;
   padding: 2px 0 4px 0;
   position: absolute;
   top: -2px;
-  left: -6em;
+  left: -3.7em;
   line-height: 1.5em;
-  background: #fff;
   z-index: 10;
-  text-align: center;
+  text-align: left;
 }
 
 
@@ -749,94 +734,261 @@ h3.associate {
   text-align: left;
 }
 
-/************************
-Upload Images
-************************/
-
-div.thumbnail img { 
-border:3px solid #d5d5d5;
-}
 
 /************************
-Miscellaneous
+  UF Vivo Styles (pchap)
 ************************/
-
-.clear{
-clear:both;
+body {
+	padding: 0;
+	background-color: #999999;
+}
+a {font-weight:bold;color: #23578F}
+a:hover {color: #FF4A00;}
+a.more {background: transparent url("../images/more.png") right bottom no-repeat; padding-right: 10px; font-size: 87%;}
+#wrap {
+	background: url("../images/bg.png") repeat-x #999999;
+}
+.container {
+	width: 100%;
+}
+#identity, #contentwrap, #footer, #navAndSearch, #contentWrap {
+	border-left: 3px solid #aaa;
+	border-right: 3px solid #aaa;
+}
+#header {
+	margin: 0 auto;
+	width: 861px;
+}
+#institution {
+	margin: 0 auto;
+	height: 41px;
+}
+#logo {
+	background: url("../images/smathers.png") no-repeat transparent;
+	float: left;
+	font-size: 14px;
+	height: 40px;
+	overflow: hidden;
+	width: 300px;
+}
+#logo a {
+	display:block;
+	height:100%;
+	text-indent:-999em;
+	width:100%;	
+}
+form#search {
+	float:right;
+	width: 304px;
+	margin-top: -2px;
+}
+#searchbox {
+	color:#333333;
+	padding:2px 3px;
+	float: left;
+	width: 250px;
+}
+#search input#image {
+	float: right;
+	margin-top: -1px;
+}
+#searchBody .searchText {
+	text-align: right;
+	padding-top:3px;
+}
+#searchBody {
+	background: #DCE6EE url("../images/bg_ltblue.png") repeat-x;
+	padding: 16px 20px 16px;
+	margin-bottom: 14px;
+	border: 1px solid #9ac1d2;
+}
+#searchForm {
+	padding: 4px;
+	margin-bottom: 4px;
+	border: 2px inset #eee;
+	background-color: #fff;
+}
+#searchForm input[type=text] {
+	padding: 4px 1px;
+	margin: 0;
+	border: 1px solid #fff;
+	width: 483px;
+	font-size: 120%;
+}
+#searchForm input[type=image] {
+	margin: 3px 0 -7px 0;
+}
+#identity {
+	background: url("../images/headerbg.jpg") repeat-x #133b60;
+	overflow: auto;
+}
+#identity h1 {
+	background: url("../images/vivologo.png") no-repeat 0 0 transparent;
+	width: 602px;
+	height: 36px;
+	margin: 36px 0 30px 24px;
+	padding: 0;
+}
+div#navAndSearch {
+	background-color:#FFFFFF;
+	padding: 0px;
+}
+#navAndSearch li {
+	margin: 0px;
+}
+#primary {
+	background:url("../images/bg_secNav.png") repeat-x scroll center top #BDBDBE;
+	overflow:hidden;
+	width: 100%;
+	border-bottom: solid 20px #FFFFFF;
+}
+ul#primary li a {
+	padding: 8px 0;
+	width: 142px;
+	text-align: center;
+}
+#primary li {
+    display: block;
+    float: left;
+    font: bold 88% Verdana, Arial, Helvetica, sans-serif;
+    margin-top: 9px;
+}
+#primary li a:link, #primary li a:active, #primary li a:visited, #primary li a:hover {
+    background: url("../images/bg_tabdark_right.png") right top no-repeat;
+    color: #fff;
+    display: block;
+}
+#primary li a span {
+    display: block;
+    background: url("../images/bg_tabdark_left.png") left top no-repeat;
+    padding: 0.7em 0.7em 0.7em 1.5em;
+    margin-right: 0.6em;
+    text-align: center;
+}
+#primary li a:hover, #primary li a.active:link, #primary li a.active:visited {
+    background: url("../images/bg_tablight_right.png") right top no-repeat;
+    color: #fff;
+    color: #555;
+}
+#primary li a:hover span, #primary li a.active span {
+    background: url("../images/bg_tablight_left.png") left top no-repeat;
+}
+#contentwrap {
+	background-color: #fff;
+	min-height:360px;
+	overflow: auto;
+}
+div.withSidebar#contentwrap {
+	background: #fff url("../images/bg_grey.png") right top repeat-y;
+}
+#content {
+	background-color: transparent;	
+}
+.withSidebar #content {
+	width: 570px;
+	float: left;
+	margin-top: -40px;
+}
+#sidebar {
+	width: 187px;
+	float: right;
+	margin-top: -40px;
+}
+#contentwrap ul {
+	list-style: none;
+	margin: 0;
+}
+#contentwrap li {
+	list-style: none;
+	padding: 0 0 0.8em;
+	line-height: 1.4em;
+}
+ul#profileList li {
+	float: left;
+	margin-right: 2px;
+}
+#sidebar h2 {
+	background: #6c6d6d url("../images/bg_heading_sidebar3.png") no-repeat 0px 0px;
+	padding: 6px 12px 10px 18px;
+	margin: 16px -20px 12px -16px;
+	font-size: 1.2em;
+	color: #fff;
+}
+#sidebar h3 {
+	margin-bottom: 0.3em;
+	font-size: 96%;
+}
+h2 {
+	color: #1c354a;
+	font-size: 1.4em;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+div.tab h2 {
+	padding: 0 12px;
+	margin: 0px;
+	border-bottom: 1px solid #ccc;
+	background: url("../images/arrow.png") no-repeat 0 4px;
 }
 
-.hidden{
-display:none !important;
+
+.titleText {
+	font-size: 134%;
+	font-weight: bold;
+	line-height: 1.4em;
+	color: #1d4e74;
+}
+#content img {border: 1px solid #999;}
+img.border {border: 1px solid #999;}
+img.alignleft {float: left; margin: 2px 16px 10px 0px;}
+
+
+#tab-col1, #tab-col2 {
+	width: 47%;
+	float: left;
+	margin-top: 12px;
+}
+#tab-col2 {
+	margin-left: 30px;
+}
+#footer {
+	background-color: #555;
+	border-top: 3px solid #aaa;
+	text-align: left;
+}
+.footerLinks {	
+	position: relative;
+}
+ul.otherNav li {
+	padding: 0 6px 0 0;	
+	margin-right: 6px;
+}
+#uflogo {position: absolute; top: 10px; right: 10px;}
+
+/********************************************
+  UF Vivo Styles Profile Page (pchap)
+********************************************/
+#label h2, #label h3 {
+	display:block;
+	background: #EBEBEB url("../images/bg_grey_heading.png") no-repeat;
+	padding: 10px 4px 10px 22px;
+}
+.propertyName {
+	background: #EBEBEB url("../images/bg_grey_heading.png") no-repeat 0px -6px;
+	padding: 6px 12px 6px 22px;
+	margin-left: 0px;
+	color: #333;
+	float: none;
+	text-transform: capitalize;
+	font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 120%;
+}
+.thumbnail img {
+	padding: 3px;
+	border: 1px solid #999;
+	background-color: #fff;
 }
 
-
-/************************
-style for those with javascript disable
-************************/
-
-#javascriptDisableWrapper, ie67DisableWrapper{
-margin-top:15px;
-width:500px;
-height:300px;
-}
-
-#javascriptDisableContent, #ie67DisableContent{
-width:500px;
-height:100px;
-border:3px solid #bee6f8;
-}
-#ie67DisableContent{
-width:80%;
-margin-bottom:200px;
-}
-#javascriptDisableContent img, #ie67DisableContent img{
-float:left;
-margin-top:36px;
-margin-left:30px;
-}
-
-#javascriptDisableContent p, #ie67DisableContent p{
-font-size:1.1em;
-color:#384c5d;	
-line-height:100px;
-padding-left:65px;
-}
-#ie67DisableContent p{
-line-height:normal;
-padding-top:36px;
-}
-
-
-/* styles for error alerts */
-
-#errorAlert{
-	color:#900;
-	padding:0px;
-	margin-bottom:5px;
-	height:30px;
-	
-}
-
-
-#errorAlert img{
-	float:left;
-	margin:0;
-	padding:0;
-
-	
-	
-}
-
-#errorAlert  p{
-padding-left:40px;
-font-size:0.9em;
-
-
-}
-
-/* styles for contact us page */
-
-.contactUsReturnHome{
-margin-top:30px;
-margin-bottom:250px;
+/** HAX!!! **/
+#VClassURI {
+	width: 258px;
 }

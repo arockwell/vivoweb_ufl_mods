@@ -1,5 +1,5 @@
 <#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
-
+<#--
 <div id="searchBlock">
     <form id="searchForm" action="${urls.search}" >                    
         <label for="search">Search </label>
@@ -17,3 +17,4 @@
         <input class="search-form-submit" name="submit" type="submit"  value="Search" />
     </form>
 </div>
+-->

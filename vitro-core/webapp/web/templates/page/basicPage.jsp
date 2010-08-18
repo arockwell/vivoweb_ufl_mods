@@ -82,21 +82,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <c:set var="bodyJsp"><c:out value="${requestScope.bodyJsp}" default="/debug.jsp"/></c:set>
         
 <jsp:include page="doctype.jsp"/>
-<head>
-  <jsp:include page="headContent.jsp"/>
-</head>
-<body ${requestScope.bodyAttr}>
-<div id="wrap" class="container">
-  <div id="header">
-    <jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
-    <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
-  </div><!--header-->
-    <hr class="hidden" />
-    <div id="contentwrap">
-        
+  <head>
+    <jsp:include page="headContent.jsp"/>
+  </head>
+  <body ${requestScope.bodyAttr}>
+    <div id="wrap" class="container">
+      <div id="header">
+<jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
+        <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
+      </div><!--header-->
+      <hr class="hidden" />
+      <div id="contentwrap" class="withSidebar">
         <c:import url="${bodyJsp}"/>
-    </div> <!-- contentwrap -->
-    <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
-</div> <!-- wrap -->
-</body>
+        ${ftl_identity}
+      </div> <!-- contentwrap -->
+      <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
+    </div> <!-- wrap -->
+  </body>
 </html>

@@ -26,105 +26,107 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* styles for uploading a picture */
-#photoUploadContainer{
-	margin-left: 0px;
-	width:500px;
-	height:280px;
-	background:#fff;
-	padding:15px;
-}
-
-#photoUploadDefaultImageContainer{
-	
-	width:120px;
-	float:left;
-
+/* styles for log in */
+#formLogin{
+	width:300px;
+	padding:0px;
+	margin:0px;
+	text-align:left;
+	background-color:#FFF;
 	
 }
 
-#photoUploadDefaultImageContainer img{
-	
-	border:3px solid #CCC;
-	margin-bottom:10px;
-	
-}
-
-#photoUploadForm{
-	width:280px;
-	float:left;
-	padding-top:45px;
-	padding-left:15px;
-	
-}
-
-#photoUploadForm form label{
-	display:block;
-	padding-bottom:10px;
-
-	
-}
-
-#photoUploadForm  label span{
-	font-size:0.7em;
-
-	
-}
-
-#photoUploadForm form input{
-	margin-bottom:10px;
-
-	
-}
-
-
-/* styles for cropping a picture */
-
-#photoCroppingContainer{
-	margin-left: 0px;
-	width:750px;
-	height:450px;
-	background:#fff;
-
-	padding:15px;
+.noOutterBox{
+	width:340px;
+	padding:0px;
+	border: none;
+	margin:0px;
 	
 	
 }
 
-#photoCroppingPreview{
-	width:180px;
-	float:left;
-
+#formLogin h2 {
+font-size:1.3em;
+line-height:1em;
+margin-top:0px;
+margin-bottom:1em;
+color:#111;
 }
 
 
-.photoCroppingNote{
-	margin-top:15px;
-	font-size:0.8em;
+#formLogin h6 {
+font-size:1.2em;
+line-height:1em;
+margin-top:0px;
+margin-bottom:1em;
+color:#111;
 }
 
-#photoCropping{
-	width:500px;
-	float:right;
-	padding-top:30px;
-	padding-left:15px;
+#formLogin form {
+margin: 0;
+padding: 0;
 
+}
+
+#formLogin label{
+display:block;
+margin-bottom:0.5em;
+font-weight:bold;
+
+
+}
+
+#formLogin label span{
+color:#900;
+
+
+}
+
+#formLogin input{
+display:block;
+margin-bottom:1.5em;
+width: 200px;
+
+}
+#formLogin textarea{
+width: 300px;
+display:block;
+margin-bottom:1.5em;
+
+
+}
+
+#formLogin .checkBox{
+display:inline;
+width:1em;
+margin-bottom: 1em;
+
+}
+#formLogin p.small{
+	font-size: 0.8em;
 	
 }
 
 
-/* styles for deleting a picture */
 
-#photoDeletingContainer{
-	margin-left: 0px;
-	width:500px;
-	height:330px;
-	background:#fff;
-	border:1px solid grey;
-	padding:15px;
+#formLogin input.submit{
+
+	width: auto;
+	padding: 0 0.9em;
+	display:inline;
 	
 }
-/* styles for error alerts */
+
+.requestAccount{
+	padding: 1em 0 0 2em;
+	margin-bottom:0;
+}
+
+.requestAccountNoOutterBox{
+	padding: 1em 0 0 0;
+	margin-bottom:0;
+}
+
 #errorAlert{
 	color:#900;
 	padding:0px;
@@ -151,22 +153,54 @@ line-height:30px;
 	
 }
 
-a{
-color:#FF7700; 
+
+##confirmationAlert {
+	color:#169f43;
+	padding:0px;
+	margin-bottom:5px;
+	
+	height:30px;
+	
 }
 
-a.cancelUpload:link,  a.cancelUpload:visited {
-color:#FF7700; 
+
+##confirmationAlert  img{
+	float:left;
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	
+	
 }
 
-a.cancelUpload:hover {
-color:#FFF;
-background-color:#FF7700;
+##confirmationAlert   p{
+padding-left:30px;
+font-size:0.9em;
+line-height:30px;
+	
 }
 
-a.cancelUpload:active {
-color:#FF7700;
+
+
+
+.formFieldAlert{
+	border:2px solid #900;
+
 }
 
+.red{
+color:#900;	
+}
+
+
+
+
+p.passwordNote{
+margin:0;
+padding:0;
+margin-top:-8px;
+font-size:0.8em;
+color:#615e5e;	
+}
 
 
