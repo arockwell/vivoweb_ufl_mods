@@ -1,0 +1,213 @@
+/*
+Copyright (c) 2010, Cornell University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* styles for log in */
+#formLogin{
+	width:600px;
+	padding:0px;
+	margin:0px;
+	text-align:left;
+	background-color:#FFF;
+	
+	
+}
+
+.noOutterBox{
+	width:340px;
+	padding:0px;
+	border: none;
+	margin:0px;
+	
+	
+}
+
+#formLogin h2 {
+font-size:1.3em;
+line-height:1em;
+margin-top:0px;
+margin-bottom:1em;
+color:#111;
+}
+
+
+#formLogin h6 {
+font-size:1.2em;
+line-height:1em;
+margin-top:0px;
+margin-bottom:1em;
+color:#111;
+}
+
+#formLogin form {
+margin: 0;
+padding: 0;
+
+}
+
+#formLogin label{
+display:block;
+margin-bottom:0.5em;
+font-weight:bold;
+
+
+}
+
+#formLogin label span{
+color:#900;
+
+
+}
+
+#formLogin input{
+display:block;
+margin-bottom:1.5em;
+width: 200px;
+
+}
+#formLogin textarea{
+width: 300px;
+display:block;
+margin-bottom:1.5em;
+
+
+}
+
+#formLogin .checkBox{
+display:inline;
+width:1em;
+margin-bottom: 1em;
+
+}
+#formLogin p.small{
+	font-size: 0.8em;
+	
+}
+
+
+
+#formLogin input.submit{
+
+	width: auto;
+	padding: 0 0.9em;
+	display:inline;
+	
+}
+
+.requestAccount{
+	padding: 1em 0 0 2em;
+	margin-bottom:0;
+}
+
+.requestAccountNoOutterBox{
+	padding: 1em 0 0 0;
+	margin-bottom:0;
+}
+
+#errorAlert{
+	color:#900;
+	padding:0px;
+	margin-bottom:5px;
+	
+	height:30px;
+	
+}
+
+
+#errorAlert img{
+	float:left;
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	
+	
+}
+
+#errorAlert  p{
+padding-left:35px;
+font-size:0.9em;
+line-height:30px;
+	
+}
+
+
+##confirmationAlert {
+	color:#169f43;
+	padding:0px;
+	margin-bottom:5px;
+	
+	height:30px;
+	
+}
+
+
+##confirmationAlert  img{
+	float:left;
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	
+	
+}
+
+#confirmationAlert   p{
+padding-left:30px;
+font-size:0.9em;
+line-height:30px;
+	
+}
+
+.formFieldAlert{
+	border:2px solid #900;
+}
+
+.red{
+color:#900;	
+}
+
+/* In IE6/7, .hidden defined in screen.css doesn't override
+ * display: inline-block defined for #adminDashboard .pageBodyGroup,
+ * so define again with context selector here.
+ */
+#adminDashboard .pageBodyGroup.hidden {
+    display: none !important;   
+}
+
+p.passwordNote{
+margin:0;
+padding:0;
+margin-top:-8px;
+font-size:0.8em;
+color:#615e5e;	
+}
+
+.or{
+	display:inline;
+	vertical-align:middle;
+}
+
+

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!--
+Copyright (c) 2010, Cornell University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<!-- ====================================================================== 
+	 Build script for the NIH VIVO product.
+	 
+	 The deploy.properties file contains both build properties and runtime 
+	 properties.
+	     
+	 The required build properties are:
+	 	vitroCore.dir
+	    tomcat.home
+	    webapp.name
+	     ====================================================================== -->
+<project name="nihvivo" default="describe">
+
+	<!--
+		Load the properties from deploy.properties.
+	-->
+	<property name="deploy.properties.file" location="deploy.properties" />
+	<fail message="You must create a &quot;${deploy.properties.file}&quot; file.">
+		<condition>
+			<not>
+				<available file="${deploy.properties.file}" />
+			</not>
+		</condition>
+	</fail>
+	<property file="${deploy.properties.file}" />
+	<fail unless="vitro.core.dir"
+	      message="${deploy.properties.file} must contain a value for vitro.core.dir" />
+
+	<!--
+		Override the default location for project modifications.
+	-->
+	<property name="product.modifications.dir" location="./productMods" />
+
+
+	<!--
+		Set this property so the core themes will not be included in the build.
+	-->
+	<property name="skip.core.themes" value="true" />
+
+	<!--
+		Tell the licenser where to find its properties for this product.
+	-->
+	<property name="licenser.product.properties.file"
+	          location="config/licenser/licenser.properties" />
+
+	<!--
+		Now get the standard product-build file.
+	-->
+	<import file="${vitro.core.dir}/webapp/product-build.xml" />
+
+	<!-- ================================= 
+          target: acceptance              
+         ================================= -->
+	<target name="acceptance" description="--> Run the Selenium acceptance tests.">
+		<ant dir="${vitro.core.dir}/utilities/testrunner" target="run" inheritall="false">
+			<property name="acceptance.dir" location="${basedir}/utilities/acceptance-tests" />
+			<property name="acceptance.batch" value="${acceptance.batch}" />
+		</ant>
+	</target>
+
+</project>
