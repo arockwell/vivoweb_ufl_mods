@@ -30,11 +30,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /* ----------------- body start --------------------------- */
+div#contentwrap.withSidebar  {
+	background: #FFF;
+}
+#sidebar { 
+	display: none;
+}
 #body{
-	max-width:900px;
-	min-width:800px; 
-	margin:0 auto; 
-	position:relative;
+	width:815px; margin:0 auto; position:relative;
 	background: white;
 }
 #bodyPannel{
@@ -45,7 +48,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	padding-right: 28px;
 	padding-bottom: 0;*/
 	padding-left: 16px;
-	height: 840px;
+	height: 790px;
 }
 #dataPanel div {
 	font-family: Arial, Helvetica, sans-serif;
@@ -60,13 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	color:#13968c;
 	font-size: 14px;
 }
-#dataPanel .author_stats .numbers {
+#dataPanel .works .numbers {
 	text-align: right;
 	width: 40px;
 	float:left;
-}
-
-/* container override from liquid.css */
-.container {
- width: inherit; 
 }
