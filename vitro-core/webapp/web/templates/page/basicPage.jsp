@@ -80,26 +80,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <c:set var="portal" value="${requestScope.portalBean}"/>
 <c:set var="themeDir"><c:out value="${portal.themeDir}" /></c:set>
 <c:set var="bodyJsp"><c:out value="${requestScope.bodyJsp}" default="/debug.jsp"/></c:set>
-<c:set var="urls_siteAdmin"><c:out value="${urls.siteAdmin}" /></c:set>
-<c:set var="urls_logout"><c:out value="${urls.logout}" /></c:set>
-<c:set var="urls_login"><c:out value="${urls.login}" /></c:set>
         
 <jsp:include page="doctype.jsp"/>
-  <head>
-    <jsp:include page="headContent.jsp"/>
-  </head>
-  <body ${requestScope.bodyAttr}>
-    <div id="wrap" class="container">
-      <div id="header">
-<jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
-        <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
-      </div><!--header-->
-      <hr class="hidden" />
-      <div id="contentwrap" class="withSidebar">
+<head>
+  <jsp:include page="headContent.jsp"/>
+</head>
+<body ${requestScope.bodyAttr}>
+<div id="wrap" class="container">
+  <div id="header">
+    <jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
+    <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
+  </div><!--header-->
+    <hr class="hidden" />
+    <div id="contentwrap" class="withSidebar">
+
         <c:import url="${bodyJsp}"/>
         ${ftl_sidebar}
-      </div> <!-- contentwrap -->
-      <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
-    </div> <!-- wrap -->
-  </body>
+    </div> <!-- contentwrap -->
+    <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
+</div> <!-- wrap -->
+</body>
 </html>
