@@ -64,6 +64,7 @@ public class FreeMarkerComponentGenerator extends FreeMarkerHttpServlet {
         
         request.setAttribute("ftl_identity", get("identity", root, config));
         request.setAttribute("ftl_menu", get("menu", root, config));
+        request.setAttribute("ftl_sidebar", get("sidebar", root, config));
         request.setAttribute("ftl_search", get("search", root, config));
         request.setAttribute("ftl_footer", get("footer", root, config));
         request.setAttribute("ftl_googleAnalytics", get("googleAnalytics", root, config));
