@@ -120,7 +120,7 @@ public class ShibauthAdminAuthenticate extends VitroHttpServlet  {
             //   1) cold (have username but haven't received initial password)
             //   2) initial password has been set but user mis-typed it
             //   3) correctly typed initial password and oldpassword set to provided password; have to enter a different one
-            //   4) entered same password again
+            //   4) entered same `1password again
             //   5) entered a new private password, and bypass this stage because logincount set to 1
             // then check for users DBA has set to require changing password (md5password is null, oldpassword is not)
             //
