@@ -240,7 +240,7 @@ public class CoAuthorshipVisCodeGenerator {
 		}
 		
 		
-		String sparklineDisplayOptions = "{width: 63, height: 21, showAxisLines: false, " 
+		String sparklineDisplayOptions = "{width: 65, height: 30, showAxisLines: false, " 
 											+ "showValueLabels: false, labelPosition: 'none'}";
 		
 		if (providedVisContainerID != null) {
@@ -536,8 +536,8 @@ public class CoAuthorshipVisCodeGenerator {
 		if (yearToUniqueCoauthors.size() > 0) {
 			
 		String secondaryContextPath = "";
-		if (!contextPath.contains("/admin/visQuery")) {
-			secondaryContextPath = "/admin/visQuery";
+		if (!contextPath.contains(VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX)) {
+			secondaryContextPath = VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX;
 		}
 			
 			
@@ -574,8 +574,8 @@ public class CoAuthorshipVisCodeGenerator {
 		if (yearToUniqueCoauthors.size() > 0) {
 			
 			String secondaryContextPath = "";
-			if (!contextPath.contains("/admin/visQuery")) {
-				secondaryContextPath = "/admin/visQuery";
+			if (!contextPath.contains(VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX)) {
+				secondaryContextPath = VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX;
 			}
 			
 			String fullTimelineNetworkURL = contextPath

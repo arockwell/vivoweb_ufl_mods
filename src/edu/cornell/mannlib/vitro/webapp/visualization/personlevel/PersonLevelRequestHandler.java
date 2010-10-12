@@ -64,22 +64,18 @@ import edu.cornell.mannlib.vitro.webapp.visualization.visutils.QueryHandler;
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.UtilityFunctions;
 import edu.cornell.mannlib.vitro.webapp.visualization.visutils.VisualizationRequestHandler;
 
-public class PersonLevelRequestHandler extends VisualizationRequestHandler {
+public class PersonLevelRequestHandler implements VisualizationRequestHandler {
 
     private static final String EGO_PUB_SPARKLINE_VIS_CONTAINER_ID = "ego_pub_sparkline";
     private static final String UNIQUE_COAUTHORS_SPARKLINE_VIS_CONTAINER_ID = 
     									"unique_coauthors_sparkline";
     
-	public PersonLevelRequestHandler(VitroRequest vitroRequest,
-			HttpServletRequest request, HttpServletResponse response, Log log) {
+	public void generateVisualization(VitroRequest vitroRequest,
+			   HttpServletRequest request, 
+			   HttpServletResponse response, 
+			   Log log, 
+			   DataSource dataSource) {
 
-		super(vitroRequest, request, response, log);
-		
-	}
-
-	public void generateVisualization(DataSource dataSource) {
-
-		VitroRequest vitroRequest = super.getVitroRequest();
         String egoURIParam = vitroRequest.getParameter(
         							VisualizationFrameworkConstants.INDIVIDUAL_URI_URL_HANDLE);
 
@@ -89,7 +85,6 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
         String visMode = vitroRequest.getParameter(
         							VisualizationFrameworkConstants.VIS_MODE_URL_HANDLE);
         
-        Log log = super.getLog();
 		QueryHandler<CoAuthorshipVOContainer> 
 			coAuthorshipQueryManager =
 	        	new CoAuthorshipQueryHandler(egoURIParam,
@@ -129,7 +124,8 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 		    			 * When the csv file is required - containing the unique co-authors vs how 
 		    			 * many times they have co-authored with the ego.
 		    			 * */
-							prepareVisualizationQueryListCoauthorsDataResponse(coAuthorshipVO);
+							prepareVisualizationQueryListCoauthorsDataResponse(coAuthorshipVO, 
+																			   response);
 							return;
 			    		
 					} else {
@@ -137,7 +133,7 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 			    			 * When the graphML file is required - based on which co-authorship 
 			    			 * network visualization will be rendered.
 			    			 * */
-			    			prepareVisualizationQueryNetworkDataResponse(coAuthorshipVO);
+			    			prepareVisualizationQueryNetworkDataResponse(coAuthorshipVO, response);
 							return;
 					}
 	    		
@@ -185,20 +181,20 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 			
 			RequestDispatcher requestDispatcher = null;
 
-			HttpServletRequest request = super.getRequest();
-
 			prepareVisualizationQueryStandaloneResponse(
 					egoURIParam, 
 	    			publicationSparklineVO,
 	    			uniqueCoauthorsSparklineVO,
 	    			coAuthorshipVO,
 	    			EGO_PUB_SPARKLINE_VIS_CONTAINER_ID,
-	    			UNIQUE_COAUTHORS_SPARKLINE_VIS_CONTAINER_ID);
+	    			UNIQUE_COAUTHORS_SPARKLINE_VIS_CONTAINER_ID,
+	    			vitroRequest,
+	    			request);
 
 			requestDispatcher = request.getRequestDispatcher(Controllers.BASIC_JSP);
 
 	    	try {
-	            requestDispatcher.forward(request, super.getResponse());
+	            requestDispatcher.forward(request, response);
 	        } catch (Exception e) {
 	            log.error("EntityEditController could not forward to view.");
 	            log.error(e.getMessage());
@@ -207,7 +203,11 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 
 		} catch (MalformedQueryParametersException e) {
 			try {
-				handleMalformedParameters(e.getMessage());
+				handleMalformedParameters(e.getMessage(), 
+										  vitroRequest,
+										  request, 
+										  response, 
+										  log);
 			} catch (ServletException e1) {
 				log.error(e1.getStackTrace());
 			} catch (IOException e1) {
@@ -255,7 +255,7 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 	}
 
 	private void prepareVisualizationQueryNetworkDataResponse(
-			CoAuthorshipVOContainer coAuthorsipVO) {
+			CoAuthorshipVOContainer coAuthorsipVO, HttpServletResponse response) {
 
 		String outputFileName = "";
 		
@@ -270,7 +270,6 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 			
 		}
 		
-		HttpServletResponse response = super.getResponse();
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + outputFileName);
 		
@@ -295,7 +294,7 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 	}
 	
 	private void prepareVisualizationQueryListCoauthorsDataResponse(
-			CoAuthorshipVOContainer coAuthorshipVO) {
+			CoAuthorshipVOContainer coAuthorshipVO, HttpServletResponse response) {
 
 		String outputFileName = "";
 		Map<String, Integer> coAuthorsToCount = new TreeMap<String, Integer>();
@@ -313,7 +312,6 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 			
 		}
 			
-		HttpServletResponse response = super.getResponse();
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + outputFileName);
 		
@@ -375,11 +373,12 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 					SparklineVOContainer uniqueCoauthorsSparklineVO, 
 					CoAuthorshipVOContainer coAuthorshipVO, 
 					String egoPubSparklineVisContainer, 
-					String uniqueCoauthorsSparklineVisContainer) {
+					String uniqueCoauthorsSparklineVisContainer, 
+					VitroRequest vitroRequest, 
+					HttpServletRequest request) {
 
-        Portal portal = super.getVitroRequest().getPortal();
+        Portal portal = vitroRequest.getPortal();
         
-		HttpServletRequest request = super.getRequest();
         request.setAttribute("egoURIParam", egoURIParam);
         
         String title = "";
@@ -407,12 +406,15 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
         request.setAttribute("bodyJsp", "/templates/visualization/person_level.jsp");
 	}
 
-	private void handleMalformedParameters(String errorMessage)
+	private void handleMalformedParameters(String errorMessage, 
+			VitroRequest vitroRequest, 
+			HttpServletRequest request, 
+			HttpServletResponse response, 
+			Log log)
 			throws ServletException, IOException {
 
-		Portal portal = super.getVitroRequest().getPortal();
+		Portal portal = vitroRequest.getPortal();
 
-		HttpServletRequest request = super.getRequest();
 		request.setAttribute("error", errorMessage);
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(Controllers.BASIC_JSP);
@@ -421,9 +423,8 @@ public class PersonLevelRequestHandler extends VisualizationRequestHandler {
 		request.setAttribute("title", "Visualization Query Error - Individual Publication Count");
 
 		try {
-			requestDispatcher.forward(request, super.getResponse());
+			requestDispatcher.forward(request, response);
 		} catch (Exception e) {
-			Log log = super.getLog();
 			log.error("EntityEditController could not forward to view.");
 			log.error(e.getMessage());
 			log.error(e.getStackTrace());

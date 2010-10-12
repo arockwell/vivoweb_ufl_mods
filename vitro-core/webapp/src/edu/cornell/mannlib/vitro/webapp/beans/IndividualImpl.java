@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
+import edu.cornell.mannlib.vitro.webapp.search.beans.ProhibitedFromSearch;
 
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
@@ -222,6 +223,11 @@ public class IndividualImpl extends BaseResourceBean implements Individual, Comp
 		}
 		return false;
 	}
+    
+    public boolean isMemberOfClassProhibitedFromSearch(ProhibitedFromSearch pfs) {
+    	throw new UnsupportedOperationException(this.getClass().getName() +
+    		".isMemberOfClassProhibitedFromSearch must be overriden by a subclass");
+    }
 
 	public List<VClass> getVClasses(boolean direct) {
     	if (direct) {
@@ -502,4 +508,11 @@ public class IndividualImpl extends BaseResourceBean implements Individual, Comp
        }
    }
 
+   public String toString(){
+       if( getURI() == null ){
+           return "uninitialized, null URI";
+       }else{
+           return getURI() + " " + getName();
+       }
+   }
 }

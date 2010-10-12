@@ -117,4 +117,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </c:forEach>
 </ul>
 
-
+<jsp:include page="/templates/entity/entityListPages.jsp"/>

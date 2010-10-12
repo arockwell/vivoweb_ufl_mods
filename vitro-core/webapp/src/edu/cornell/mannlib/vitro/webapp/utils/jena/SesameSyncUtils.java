@@ -33,6 +33,8 @@ import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Resource;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.repository.Repository;
@@ -47,6 +49,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class SesameSyncUtils {
 
+	private static final Log log = LogFactory.getLog(SesameSyncUtils.class);
+	
 	public void writeModelToSesameContext
 	  (Model jenaModel, String serverURI, String repositoryId, String contextId) 
 	  throws RepositoryException, IOException, RDFParseException {
@@ -81,9 +85,11 @@ public class SesameSyncUtils {
 		    
 		    myConn.commit();
 		    
-	    } catch (Exception e) {
+	    } catch (Throwable e) {
 	    	myConn.rollback();
             e.printStackTrace();
+            log.error("Error writing to Sesame repository", e);
+            throw new RuntimeException("Error writing to Sesame repository", e);
 	    } finally {
 	    	myConn.close();
 	    } 

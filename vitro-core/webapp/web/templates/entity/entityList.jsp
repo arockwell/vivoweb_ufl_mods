@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <% /* <p>${pageTime} milliseconds</p> */ %>
 
+<jsp:include page="/templates/alpha/alphaIndex.jsp"/>
 <ul>
 	<c:forEach items='${entities}' var='ent'>
 		<li>
@@ -126,6 +127,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <c:if test="${!empty requestScope.suppText}">
 	${requestScope.suppText}
 </c:if>
+
+<jsp:include page="/templates/entity/entityListPages.jsp"/>
 
 </div> <!--end contents-->
 </div><!-- end content -->
