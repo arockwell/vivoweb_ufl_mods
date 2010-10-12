@@ -26,6 +26,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --%>
 
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Ontology"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.OntologyDao"%>
+
 <div class="staticPageBackground">
 
 <h2> Export to RDF </h2>
@@ -33,9 +40,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <form action="" method="get">
 
 <ul>
-    <li style="list-style-type:none;"><input type="radio" name="subgraph" checked="checked" value="full"/> Export entire RDF model (including application metadata)</li>
-    <li style="list-style-type:none;"><input type="radio" name="subgraph" value="tbox"/> Export ontology/ontologies (TBox)</li>
-    <li style="list-style-type:none;"><input type="radio" name="subgraph" value="abox"/> Export instance data (ABox)</li>
+    <li style="list-style-type:none;"><input type="radio" name="subgraph" checked="checked" value="full"/> Entire RDF model for the VIVO application (TBox and ABox, including application metadata)</li>
+    <li style="list-style-type:none;"><input type="radio" name="subgraph" value="tbox"/> Entire ontology (TBox) for the VIVO application</li>
+    <li style="list-style-type:none;"><input type="radio" name="subgraph" value="abox"/> All Instance data (ABox) for the VIVO application</li>
+     <%VitroRequest vreq = new VitroRequest(request);
+    OntologyDao daoObj = vreq.getFullWebappDaoFactory().getOntologyDao();
+    List ontologiesObj = daoObj.getAllOntologies();  
+    if(ontologiesObj !=null && ontologiesObj.size()>0){
+    	Iterator ontItr = ontologiesObj.iterator();
+    	while(ontItr.hasNext()){
+    		Ontology ont = (Ontology) ontItr.next();%>
+    		<li style="list-style-type:none;"><input type="radio" name="subgraph" value=<%=ont.getURI()%>/> <%=ont.getName()%> (TBox)</li>
+    	<%}}%> 
 </ul>
 
 <hr/>

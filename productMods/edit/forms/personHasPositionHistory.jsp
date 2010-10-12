@@ -152,6 +152,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <v:jsonset var="positionClassUriJson">${positionClass}</v:jsonset>
 <v:jsonset var="orgClassUriJson">${orgClass}</v:jsonset>
+<c:set var="requiredHint" value="<span class='requiredHint'> *</span>" />
+
+<%
+    String subjectName = ((Individual) request.getAttribute("subject")).getName();
+%>
+    <c:set var="subjectName" value="<%= subjectName %>" />
+
+<%-- Configure add vs. edit --%>    
+<% 
+    String objectUri = (String) request.getAttribute("objectUri");
+    if (objectUri != null) { // editing existing entry
+%>
+        <c:set var="editType" value="edit" />
+        <c:set var="formSteps" value="1" />
+        <c:set var="title" value="Edit position entry for ${subjectName}" />
+        <%-- NB This will be the button text when Javascript is disabled. --%>
+        <c:set var="submitLabel" value="Save changes" />
+<% 
+    } else { // adding new entry
+%>
+        <c:set var="editType" value="add" />
+        <c:set var="formSteps" value="2" />
+        <c:set var="title" value="Create position entry for ${subjectName}" />
+        <%-- NB This will be the button text when Javascript is disabled. --%>
+        <c:set var="submitLabel" value="Create position" />
+<%  } %>
 
 <c:set var="editjson" scope="request">
   {
@@ -163,11 +189,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     "predicate" : ["predicate", "${predicateUriJson}" ],
     "object"    : ["positionUri", "${objectUriJson}", "URI" ],
     
-    "n3required"    : [ "${n3ForStmtToPerson}", "${titleAssertion}", "${startYearAssertion}" ],
+    "n3required"    : [ "${n3ForStmtToPerson}", "${titleAssertion}" ],
     
     "n3optional"    : [ "${organizationUriAssertion}",                         
                         "${n3ForNewOrg}", "${newOrgNameAssertion}", "${newOrgTypeAssertion}",                       
-                        "${endYearAssertion}"],
+                        "${startYearAssertion}", "${endYearAssertion}" ],
                         
     "newResources"  : { "positionUri" : "${defaultNamespace}",
                         "newOrg" : "${defaultNamespace}" },
@@ -246,7 +272,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       },      
       "startYear" : {
          "newResource"      : "false",
-         "validators"       : [ "nonempty", "datatype:${gYearDatatypeUriJson}" ],
+         "validators"       : [ "datatype:${gYearDatatypeUriJson}" ],
          "optionsType"      : "UNDEFINED",
          "literalOptions"   : [ ],
          "predicateUri"     : "",
@@ -282,39 +308,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     editConfig.addValidator(new StartYearBeforeEndYear("startYear","endYear") ); 
     		
     Model model = (Model) application.getAttribute("jenaOntModel");
-    String objectUri = (String) request.getAttribute("objectUri");
+
     if (objectUri != null) { // editing existing
         editConfig.prepareForObjPropUpdate(model);
     } else { // adding new
         editConfig.prepareForNonUpdate(model);
     }
-    
-    String subjectName = ((Individual) request.getAttribute("subject")).getName();
-%> 
 
-    <c:set var="subjectName" value="<%= subjectName %>" />
-<%
-    if (objectUri != null) { // editing existing entry
-%>
-        <c:set var="editType" value="edit" />
-        <c:set var="formSteps" value="1" />
-        <c:set var="title" value="Edit position entry for ${subjectName}" />
-        <%-- NB This will be the button text when Javascript is disabled. --%>
-        <c:set var="submitLabel" value="Save changes" />
-<% 
-    } else { // adding new entry
-%>
-        <c:set var="editType" value="add" />
-        <c:set var="formSteps" value="2" />
-        <c:set var="title" value="Create position entry for ${subjectName}" />
-        <%-- NB This will be the button text when Javascript is disabled. --%>
-        <c:set var="submitLabel" value="Create position" />
-<%  } 
-    
     List<String> customJs = new ArrayList<String>(Arrays.asList("/js/utils.js",            
                                                                 "/js/customFormUtils.js",           
                                                                 "/edit/forms/js/customForm.js"
-                                                                //, "/edit/forms/js/customFormTwoStep.js"
                                                                 ));
     request.setAttribute("customJs", customJs);
     
@@ -324,7 +327,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     request.setAttribute("customCss", customCss);   
 %>
 
-<c:set var="requiredHint" value="<span class='requiredHint'> *</span>" />
 <c:set var="view" value='<%= vreq.getAttribute("view") %>' />
 
 <jsp:include page="${preForm}" />
@@ -353,7 +355,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <v:input type="text" label="Position Title ${requiredHint}" id="title" size="30" />
         <v:input type="select" label="Position Type ${requiredHint}" id="positionType" />
 
-        <p class="inline year"><v:input type="text" label="Start Year ${requiredHint} <span class='hint'>(YYYY)</span>" id="startYear" size="4" /></p>    
+        <p class="inline year"><v:input type="text" label="Start Year <span class='hint'>(YYYY)</span>" id="startYear" size="4" /></p>    
         <p class="inline year"><v:input type="text" label="End Year <span id='endYearHint' class='hint'>(YYYY)</span>" id="endYear" size="4" /></p>
     </div>
     

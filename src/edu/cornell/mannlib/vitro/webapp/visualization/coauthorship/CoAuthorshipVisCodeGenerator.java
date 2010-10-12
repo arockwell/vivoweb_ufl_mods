@@ -536,8 +536,8 @@ public class CoAuthorshipVisCodeGenerator {
 		if (yearToUniqueCoauthors.size() > 0) {
 			
 		String secondaryContextPath = "";
-		if (!contextPath.contains("/admin/visQuery")) {
-			secondaryContextPath = "/admin/visQuery";
+		if (!contextPath.contains(VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX)) {
+			secondaryContextPath = VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX;
 		}
 			
 			
@@ -574,8 +574,8 @@ public class CoAuthorshipVisCodeGenerator {
 		if (yearToUniqueCoauthors.size() > 0) {
 			
 			String secondaryContextPath = "";
-			if (!contextPath.contains("/admin/visQuery")) {
-				secondaryContextPath = "/admin/visQuery";
+			if (!contextPath.contains(VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX)) {
+				secondaryContextPath = VisualizationFrameworkConstants.VISUALIZATION_URL_PREFIX;
 			}
 			
 			String fullTimelineNetworkURL = contextPath

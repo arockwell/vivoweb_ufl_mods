@@ -59,4 +59,9 @@ public abstract class ThreeParameterAction implements RequestedAction{
     public void setUriOfSubject(String uriOfSubject) {
         this.uriOfSubject = uriOfSubject;
     }
+    
+    public String toString(){
+        return this.getClass().getName() +
+        " <" + uriOfSubject + "> <" + uriOfPredicate + "> <" + uriOfObject + ">";
+    }
 }

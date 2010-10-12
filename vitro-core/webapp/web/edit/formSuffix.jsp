@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             </div>
         <div class="push"></div>
 
-        <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
+        <jsp:include page="/templates/page/freemarkerTransition/footer.jsp" flush="true"/>
 
     </div><!-- end wrap -->
 

@@ -219,9 +219,10 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                         </c:choose>
                         <edLnk:editLinks item="${addUrlPredicate}" icons="false" />
                     </c:if>
-                    <c:if test="${!empty entity.anchor}"> 
+                    
                     <ul class="externalLinks properties">
-                        <%-- Primary link --%>                             
+                        <%-- Primary link --%>
+                        <c:if test="${!empty entity.anchor}">                          
                             <c:choose>
                                 <c:when test="${!empty entity.url}">
                                     <c:url var="entityUrl" value="${entity.url}" />
@@ -240,8 +241,8 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                                     <%--  RY For now, not providing editing links for anchor text with no url. Should fix. --%>
                                     <li class="primary"><span class="externalLink"><p:process>${entity.anchor}</p:process></span></li>
                                 </c:otherwise>
-                            </c:choose>
-                        
+                            </c:choose>                        
+                        </c:if> 
                         
                         <%-- Additional links --%>
                         <c:if test="${!empty entity.linksList }">
@@ -262,8 +263,7 @@ if (VitroRequestPrep.isSelfEditing(request) || LoginFormBean.loggedIn(request, L
                                 </li>                                          
                             </c:forEach>
                         </c:if>
-                    </ul>
-                    </c:if>                   
+                    </ul>                                       
                 </div> <!-- end dprop-vitro-links  -->
             </c:if>
 

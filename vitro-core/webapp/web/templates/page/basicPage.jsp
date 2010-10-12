@@ -47,28 +47,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             "scripts" - optional name of file containing <script> elements to be included in the page
             "bodyAttr" - optional attributes for the <body> tag, e.g. 'onload': use leading space
             "portalBean" - PortalBean object for request.
-                     
+            
           Consider sticking < % = MiscWebUtils.getReqInfo(request) % > in the html output
           for debugging info.
                  
-         bdc34 2006-02-03 created        
+         bdc34 2006-02-03 created
         **********************************************/
         /*
         String e = "";
         if (request.getAttribute("bodyJsp") == null){
-            e+="basicPage.jsp expects that request parameter 'bodyJsp' be set to the jsp to display as the page body.\n";           
-        }         
+            e+="basicPage.jsp expects that request parameter 'bodyJsp' be set to the jsp to display as the page body.\n";
+        }
         if (request.getAttribute("title") == null){
-            e+="basicPage.jsp expects that request parameter 'title' be set to the title to use for page.\n";           
-        }         
+            e+="basicPage.jsp expects that request parameter 'title' be set to the title to use for page.\n";
+        }
         if (request.getAttribute("css") == null){
-            e+="basicPage.jsp expects that request parameter 'css' be set to css to include in page.\n";            
-        }         
+            e+="basicPage.jsp expects that request parameter 'css' be set to css to include in page.\n";
+        }
         if( request.getAttribute("portalBean") == null){
-            e+="basicPage.jsp expects that request attribute 'portalBean' be set.\n";           
+            e+="basicPage.jsp expects that request attribute 'portalBean' be set.\n";
         }
         if( request.getAttribute("appBean") == null){
-            e+="basicPage.jsp expects that request attribute 'appBean' be set.\n";          
+            e+="basicPage.jsp expects that request attribute 'appBean' be set.\n";
         }
         if( e.length() > 0 ){
             throw new JspException(e);

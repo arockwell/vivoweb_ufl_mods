@@ -28,10 +28,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package edu.cornell.mannlib.vitro.webapp.dao;
 
+import java.util.List;
+
 public interface ApplicationDao {
 
 	public boolean isFlag1Active();
 	
 	public boolean isFlag2Active();
+	
+	public List<String> getExternallyLinkedNamespaces();
 	
 }
