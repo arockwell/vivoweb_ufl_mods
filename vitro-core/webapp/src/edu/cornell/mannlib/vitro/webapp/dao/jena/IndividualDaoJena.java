@@ -93,7 +93,10 @@ public class IndividualDaoJena extends JenaBaseDao implements IndividualDao {
     }
 
     private static final Log log = LogFactory.getLog(IndividualDaoJena.class.getName());
-
+//    private final String netidProp = "http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId"; //
+    private final String netidProp = "http://vivo.ufl.edu/ontology/vivo-ufl/gatorlink"; //
+    
+    
     public Collection<DataPropertyStatement> getExternalIds(String individualURI) {
         return this.getExternalIds(individualURI, null);
     }
@@ -762,7 +765,6 @@ public class IndividualDaoJena extends JenaBaseDao implements IndividualDao {
     }
 
     public String getIndividualURIFromNetId(String netIdStr) {
-        final String netidProp = "http://vivo.library.cornell.edu/ns/0.1#CornellemailnetId";
         String outUri = null;
 
         Property prop = getOntModel().getProperty(netidProp);

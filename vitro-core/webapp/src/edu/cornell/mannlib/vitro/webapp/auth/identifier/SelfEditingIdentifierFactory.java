@@ -64,29 +64,35 @@ import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
  *
  */
 public class SelfEditingIdentifierFactory implements IdentifierBundleFactory {
-    public final static String httpHeaderForNetId = "REMOTE_USER";
 
+	//public final static String httpHeaderForNetId = "REMOTE_USER";
+	public final static String httpHeaderForNetId = "glid";
+	
+    public static final String NOT_BLACKLISTED = null;   
+    private final static String BLACKLIST_SPARQL_DIR = "/admin/selfEditBlacklist";
+    //private final static String WEBAUTH_REMOTE_USER_HEADER = "REMOTE_USER";    
+    private final static String WEBAUTH_REMOTE_USER_HEADER = "glid";    
+        
     private static final Log log = LogFactory.getLog(SelfEditingIdentifierFactory.class.getName());
 
-
     public IdentifierBundle getIdentifierBundle(ServletRequest request, HttpSession session, ServletContext context) {
-       IdentifierBundle idb = getFromCUWebAuthHeader(request,session,context);       
+       IdentifierBundle idb = getFromWebAuthHeader(request,session,context);       
        if( idb != null )
            return idb;
        else
            return getFromSession(request,session);       
     }
 
-    private IdentifierBundle getFromCUWebAuthHeader(ServletRequest request, HttpSession session,ServletContext context){
-        String cuwebauthUser = ((HttpServletRequest)request).getHeader(CUWEBAUTH_REMOTE_USER_HEADER);
-        log.debug("Looking for CUWebAuth header " + CUWEBAUTH_REMOTE_USER_HEADER + " found : '" + cuwebauthUser +"'");
+    private IdentifierBundle getFromWebAuthHeader(ServletRequest request, HttpSession session,ServletContext context){
+        String webauthUser = ((HttpServletRequest)request).getHeader(WEBAUTH_REMOTE_USER_HEADER);
+        log.debug("Looking for WebAuth header " + WEBAUTH_REMOTE_USER_HEADER + " found : '" + webauthUser +"'");
         
-        if( cuwebauthUser == null || cuwebauthUser.length() == 0){
-                log.debug("No CUWebAuthUser string found");
+        if( webauthUser == null || webauthUser.length() == 0){
+                log.debug("No WebAuthUser string found");
                 return null;
         }
-        if( cuwebauthUser.length() > 100){
-            log.info("CUWebAuthUser is longer than 100 chars, this may be a malicious request");
+        if( webauthUser.length() > 100){
+            log.info("WebAuthUser is longer than 100 chars, this may be a malicious request");
             return null;
         }
         if( context == null ){
@@ -94,12 +100,12 @@ public class SelfEditingIdentifierFactory implements IdentifierBundleFactory {
             return null;
         }                                         
 
-        NetId netid = new NetId(cuwebauthUser);                        
+        NetId netid = new NetId(webauthUser);                        
         SelfEditing selfE = null;
 
         IdentifierBundle idb = new ArrayIdentifierBundle();
         idb.add(netid);
-        log.debug("added NetId object to IdentifierBundle from CUWEBAUTH header");            
+        log.debug("added NetId object to IdentifierBundle from WEBAUTH header");            
         //VitroRequest vreq = new VitroRequest((HttpServletRequest)request);
 
         WebappDaoFactory wdf = (WebappDaoFactory)context.getAttribute("webappDaoFactory");
@@ -108,21 +114,21 @@ public class SelfEditingIdentifierFactory implements IdentifierBundleFactory {
             return null;
         }
 
-        String uri = wdf.getIndividualDao().getIndividualURIFromNetId(cuwebauthUser);
+        String uri = wdf.getIndividualDao().getIndividualURIFromNetId(webauthUser);			//change
 
         if( uri != null){
-            Individual ind = wdf.getIndividualDao().getIndividualByURI(uri);
+            Individual ind = wdf.getIndividualDao().getIndividualByURI(uri);				//lookAt
             if( ind != null ){
                 String blacklisted = checkForBlacklisted(ind, context);
                 
                 selfE = new SelfEditing( ind ,blacklisted , false);                
                 idb.add(  selfE );
-                log.debug("Found an Individual for netId " + cuwebauthUser + " URI: " + ind.getURI() );
+                log.debug("Found an Individual for netId " + webauthUser + " URI: " + ind.getURI() );
             }else{
-                log.warn("found a URI for the netId " + cuwebauthUser + " but could not build Individual");
+                log.warn("found a URI for the netId " + webauthUser + " but could not build Individual");
             }
         }else{
-            log.debug("could not find an Individual with a netId of " + cuwebauthUser );
+            log.debug("could not find an Individual with a netId of " + webauthUser );
         }        
         putNetIdInSession(session, selfE, netid);            
         return idb;
@@ -337,7 +343,4 @@ public class SelfEditingIdentifierFactory implements IdentifierBundleFactory {
         else
             return null;
     }
-    public static final String NOT_BLACKLISTED = null;   
-    private final static String BLACKLIST_SPARQL_DIR = "/admin/selfEditBlacklist";
-    private final static String CUWEBAUTH_REMOTE_USER_HEADER = "REMOTE_USER";
 }
