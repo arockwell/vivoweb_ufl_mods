@@ -71,7 +71,7 @@ public class SelfEditingIdentifierFactory implements IdentifierBundleFactory {
     public static final String NOT_BLACKLISTED = null;   
     private final static String BLACKLIST_SPARQL_DIR = "/admin/selfEditBlacklist";
     //private final static String WEBAUTH_REMOTE_USER_HEADER = "REMOTE_USER";    
-    private final static String WEBAUTH_REMOTE_USER_HEADER = "glid";    
+    private final static String WEBAUTH_REMOTE_USER_HEADER = "X-Shib-glid";    
         
     private static final Log log = LogFactory.getLog(SelfEditingIdentifierFactory.class.getName());
 
