@@ -5,8 +5,13 @@
 		<ul class="otherNav">
         <li><a href="/about" title="more about this web site">About VIVO</a></li>
         <li><a href="/contact" title="feedback form">Contact Us</a></li>
-		<li><a href="http://privacy.ufl.edu/privacystatement.html">Privacy Policy</a></li>
-		<li class="last"><a href="http://www.ufl.edu/">University of Florida</a></li>
+	<li><a href="http://privacy.ufl.edu/privacystatement.html">Privacy Policy</a></li>
+	<li><a href="http://www.ufl.edu/">University of Florida</a></li>
+	<#if loginName??>
+		<li class="last">logged in as <strong>${loginName}</strong> - <a href="${urls.logout}">logout</a></li>
+	<#else>
+		<li class="last"><a href="${urls.login}">Admin</a></li>
+	</#if>
         </ul>
 		<div id="uflogo"><a href="http://www.ufl.edu/"><img src="/themes/vivo-basic/images/UF_white.png" width="196" height="35" alt="University of Florida"></a></div>
     </div>
