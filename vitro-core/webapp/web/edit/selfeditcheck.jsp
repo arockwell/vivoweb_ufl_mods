@@ -84,7 +84,20 @@ while(it.hasNext()){
 
 <h3>Do you have a REMOTE_USER header from CUWebAuth?</h3>
 
-<% String user = request.getHeader("REMOTE_USER"); 
+<% String user = request.getHeader("X-Shib-glid"); 
+Enumeration headerEnum = request.getHeaderNames();
+while(headerEnum.hasMoreElements()){
+  String headerName = (String)headerEnum.nextElement();
+  out.println("<li>" + headerName);
+  out.println("<li>" + request.getHeader(headerName));
+}
+Enumeration paramEnum = request.getParameterNames();
+while(paramEnum.hasMoreElements()){
+  String paramName = (String)paramEnum.nextElement();
+  out.println("<li>" + paramName);
+  out.println("<li>" + request.getParameterValues(paramName));
+}
+
 if( user != null && user.length() > 0){
     %> Found a remote user of <%= user %>. <%
 }else{
