@@ -8,6 +8,7 @@
 	<li><a href="http://privacy.ufl.edu/privacystatement.html">Privacy Policy</a></li>
 	<li><a href="http://www.ufl.edu/">University of Florida</a></li>
 	<#if loginName??>
+		<li><a href="${urls.login}">Admin</a></li>
 		<li class="last">logged in as <strong>${loginName}</strong> - <a href="${urls.logout}">logout</a></li>
 	<#else>
 		<li class="last"><a href="${urls.login}">Admin</a></li>
