@@ -744,7 +744,7 @@ body {
 }
 a {font-weight:bold;color: #23578F}
 a:hover {color: #FF4A00;}
-a.more {background: transparent url("../images/more.png") right bottom no-repeat; padding-right: 10px; font-size: 87%;}
+a.more {background: transparent url("../images/more.png") right bottom no-repeat; padding-right: 10px; font-size: 87%;float: right;}
 #wrap {
 	background: url("../images/bg.png") repeat-x #999999;
 }
