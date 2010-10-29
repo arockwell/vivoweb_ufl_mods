@@ -18,3 +18,6 @@
 	    </div>
 	</div>
 </div>
+
+<script language="javascript" src="/js/jquery.js"></script>
+<script language="javascript" src="/js/feedWriters.js"></script>
