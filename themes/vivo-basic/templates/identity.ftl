@@ -4,7 +4,7 @@
     <a href="http://www.uflib.ufl.edu/">George A. Smathers Libraries</a>
   </div>
   <form id="search" action="/search" method="get">
-    <input type="hidden" name="site" value="qa.vivo.ufl.edu">
+    <#--<input type="hidden" name="site" value="qa.vivo.ufl.edu">-->
     <label for="searchbox">
       <input name="querytext" id="searchbox" type="text" size="20" value="Search VIVO" alt="Search" onfocus="select();">
     </label>
