@@ -658,7 +658,7 @@ ul.properties li {
 div.datatypePropertyValue,
 ul.properties li,
 ul.datatypePropertyValue li { 
-  position: relative; 
+ position: relative; 
 }
 
 
@@ -680,22 +680,54 @@ span.editLinks a:hover { color: #000; }
 
 span.editLinks a.edit { padding-right: 4px; }
 
-.statementWrap:hover span.editLinks,
-.statementWrap:hover em.nonEditable {
+ span.editLinks, em.nonEditable {
   display: block;
   width: 3.7em;
   padding: 2px 0 4px 0;
   position: absolute;
   top: -2px;
   left: -3.7em;
-  line-height: 1.5em;
+  line-height: 0.8em;
   z-index: 10;
   text-align: left;
 }
 
+div.datatypeProperties span.editLinks{
+ display: block;
+  width: 3.7em;
+  padding: 2px 0 4px 0;
+  position: absolute;
+  top: -2px;
+  left: -4.2em;
+  line-height: 0.8em;
+  z-index: 10;
+  text-align: left;
+}
+
+div.propsWrap span.editLinks{
+ display: block;
+  width: 2.7em;
+  padding: 2px 0 4px 0;
+  position: absolute;
+  top: -2px;
+  /*left: -4.2em;*/
+  line-height: 0.8em;
+  z-index: 10;
+  text-align: left;
+}
+
+#dprop-vitro-image span.editLinks{
+  left: -2.7em;
+}
+
+#dprop-vitro-links span.editLinks{
+  left: -2.5em;
+}
 
 
-span.statementWrap:hover em.nonEditable {
+
+
+em.nonEditable {
   padding-top: 5px;
   width: 8em;
   left: -8em;

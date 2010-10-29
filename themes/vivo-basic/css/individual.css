@@ -480,11 +480,12 @@ ul.keywords li {
 }
 
 #personWrap #overview a.delete {
+    padding-left: 6px;
 /*    display: none;*/
 }
 
 #personWrap #overview a.edit {
-    padding-left: 5px;
+    padding-left: 6px;
 /*    position: absolute;*/
 /*    top: 0;*/
 /*    right: 16px;*/
