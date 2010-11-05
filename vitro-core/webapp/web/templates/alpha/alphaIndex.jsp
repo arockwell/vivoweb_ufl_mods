@@ -72,7 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <a href='<c:url value="${url}&amp;${requestScope.controllerParam}"/>'>${letter} </a>
          </c:if> 
     </c:forEach> 
-   <br> 
     <%  if( request.getAttribute("alpha") != null && ! "all".equalsIgnoreCase((String)request.getAttribute("alpha"))) {  %>         
         <a href='<c:url value=".${requestScope.servlet}?&amp;alpha=all&amp;${requestScope.controllerParam}"/>'>all </a>
         <c:if test='${not empty requestScope.count }'>
