@@ -26,6 +26,17 @@
               <img src="/themes/vivo-basic/images/login.jpg" width="186" height="43" alt="Login">
             </a>
           </p -->
+ 
+       <#if loginName??>
+           <h2>Need Help?</h2> 
+		<p>
+		<li class="last">How to enter your CV</li>
+		<li class="last"><a href="https://test.vivo.ufl.edu/?primary=1707185427&home=1">Contact us</a></li>
+		<li class="last"><a href="https://test.vivo.ufl.edu/?primary=304347269&home=1">Send us your CV</a></li>
+		</p>
+       </#if>
+
+
 <#-- </#if> -->
           <h2>Latest from VIVO</h2>
           <ul id="latestVIVOFeed">
@@ -34,4 +45,5 @@
           <p>
             <a href="http://vivoweb.org/blog" class="more">More from the VIVO blog</a>
           </p>
+
         </div> <!-- sidebar -->
