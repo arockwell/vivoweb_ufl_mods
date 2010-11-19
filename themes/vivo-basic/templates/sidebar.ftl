@@ -27,7 +27,7 @@
             </a>
           </p -->
  
-       <#if loginName??>
+       <#if shibbolethLoginName??>
            <h2>Need Help?</h2> 
 		<p>
 		<li class="last">How to enter your CV</li>

@@ -34,6 +34,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -326,6 +327,7 @@ public class FreeMarkerHttpServlet extends VitroHttpServlet {
         PortalWebUtil.populateNavigationChoices(portal, vreq, appBean, vreq.getWebappDaoFactory().getPortalDao()); 
         
         addLoginInfo(vreq, root);      
+        addShibbolethLoginInfo(vreq, root);
         
         root.put("copyright", getCopyrightInfo(portal));
     
@@ -374,6 +376,21 @@ public class FreeMarkerHttpServlet extends VitroHttpServlet {
             }           
         }       
     }   
+
+    private final void addShibbolethLoginInfo(VitroRequest vreq, Map<String, Object> root) {
+        log.info("Inside addShibbolethLoginInfo");
+
+        HttpSession session = vreq.getSession();
+        edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory.NetId netid = (edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory.NetId) session.getAttribute("NetIdIdentifierFactory.netid");
+        
+        if (netid != null) {
+            String shibbolethLoginName = netid.getValue();
+            if (shibbolethLoginName != null) {
+                log.info("Setting shibbolethLoginName");
+                root.put("shibbolethLoginName", shibbolethLoginName);
+            }
+        }
+    }
     
     private final Map<String, Object> getCopyrightInfo(Portal portal) {
 
