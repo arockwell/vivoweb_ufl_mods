@@ -105,8 +105,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </head>
 <body class="formsEdit">
 <div id="wrap" class="container">
-    <jsp:include page="/templates/page/freemarkerTransition/identity.jsp" flush="true"/>
-    <jsp:include page="/templates/page/freemarkerTransition/menu.jsp" flush="true"/>
-    <div id="contentwrap">
+    <div id="header">
+      <jsp:include page="/templates/page/freemarkerTransition/identity.jsp" flush="true"/>
+      <jsp:include page="/templates/page/freemarkerTransition/menu.jsp" flush="true"/>
+    </div>
+    <div id="contentwrap" class="withoutSidebar">
         <div id="content" class="form">
         <!-- end of formPrefix.jsp -->

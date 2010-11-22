@@ -106,21 +106,18 @@
 
 <jsp:include page="formPrefix.jsp"/>
 <div id="content" class="full">
-    <div align="center">${errorMsg}</div>
-
-    <c:url value="/" var="siteRoot"/>	
-    <div align="center">                
-      <button type="button" 
-        onclick="javascript:document.location.href='${siteRoot}'">
-        Return to main site</button>
-    </div>
+    ${errorMsg}
 </div>
 <jsp:include page="formSuffix.jsp"/>
 
 <%!
 
-    	private final String DEFAULT_ERROR_MSG ="There was an error in the system while accessing your profile, "
-        	+ "please use the contact us form to request assistance.";
+private final String DEFAULT_ERROR_MSG ="<div class=\"tab depth1\">" +
+    "<h2>Profile not found.</h2><div class=\"tabBody\"><br>" +
+        "You need a profile to log into VIVO.  <br><br>" +
+        "If you need a profile created or need other assistance, please <a href=\"https://test.vivo.ufl.edu/?primary=1707185427&amp;home=1\">contact the VIVO team</a>.</div><ul class=\"tabEntities entityListForTab\">" +
+            "</ul>" +
+        " </div>";
 	private final String NO_NETID_ERROR_MSG = "<p>No login is available from the current session; "
 		+ "Authentication may not be configured on this server.</p>"
 		+ "<p>Please use the contact form to let us know that "

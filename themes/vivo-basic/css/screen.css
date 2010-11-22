@@ -910,6 +910,10 @@ ul#primary li a {
 	min-height:360px;
 	overflow: auto;
 }
+
+.withoutSidebar#contentwrap {
+    padding: 0px 20px;
+}
 div.withSidebar#contentwrap {
 	background: #fff url("../images/bg_grey.png") right top repeat-y;
 }

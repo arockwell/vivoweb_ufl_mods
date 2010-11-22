@@ -390,6 +390,14 @@ public class FreeMarkerHttpServlet extends VitroHttpServlet {
                 root.put("shibbolethLoginName", shibbolethLoginName);
             }
         }
+
+        edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory.SelfEditing selfEditing = (edu.cornell.mannlib.vitro.webapp.auth.identifier.SelfEditingIdentifierFactory.SelfEditing) session.getAttribute("NetIdIdentifierFactory.uri");
+        if (selfEditing != null) {
+            if (selfEditing.getValue() != null || selfEditing.getValue() != "") {
+                log.info("Setting the shibbolethUri");
+                root.put("shibbolethUri", selfEditing.getValue());
+            }
+        }
     }
     
     private final Map<String, Object> getCopyrightInfo(Portal portal) {
