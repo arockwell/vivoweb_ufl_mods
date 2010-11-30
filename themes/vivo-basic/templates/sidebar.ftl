@@ -30,7 +30,7 @@
        <#if shibbolethLoginName??>
            <h2>Need Help?</h2> 
 		<p>
-		<li class="last">How to enter your CV</li>
+		<li class="last"><a href="/themes/vivo-basic/help/how_to_enter_your_cv.pdf">How to enter your CV</a></li>
 		<li class="last"><a href="https://test.vivo.ufl.edu/?primary=1707185427&home=1">Contact us</a></li>
 		<li class="last"><a href="https://test.vivo.ufl.edu/?primary=304347269&home=1">Send us your CV</a></li>
 		</p>
