@@ -27,3 +27,4 @@
 
 <script language="javascript" src="/js/jquery.js"></script>
 <script language="javascript" src="/js/feedWriters.js"></script>
+<script language="javascript" src="/js/alertOverride.js"></script>
