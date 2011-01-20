@@ -6,6 +6,7 @@
 @prefix core: <http://vivoweb.org/ontology/core#> .
 @prefix localNav: <http://vitro.mannlib.cornell.edu/ns/localnav#> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix harvester: <http://vivoweb.org/harvester/> .
 
 # All instances of a class can be excluded from the lucene 
 # index by adding a vitroDisplay:excludeClass property between 
@@ -19,5 +20,6 @@
 	vitroDisplay:excludeClass core:Authorship ;
 	vitroDisplay:excludeClass core:Position ; 
 	vitroDisplay:excludeClass core:ResearchActivity ;
-	vitroDisplay:excludeClass core:EducationalTraining ;	
+	vitroDisplay:excludeClass core:EducationalTraining ;
+        vitroDisplay:excludeClass harvester:excludeEntity ;	
 	vitroDisplay:excludeClass bibo:DocumentStatus .	
