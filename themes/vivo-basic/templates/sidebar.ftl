@@ -31,7 +31,7 @@
            <h2>Need Help?</h2> 
 		<p>
 		<li class="last"><a href="/themes/vivo-basic/help/how_to_update_your_profile.pdf">How to update your profile</a></li>
-		<li class="last"><a href="/?primary=1707185427&home=1">Contact us</a></li>
+		<li class="last"><a href="/?primary=1773136708&home=1">Contact us</a></li>
 		<li class="last"><a href="/?primary=304347269&home=1">Send us your CV</a></li>
 		</p>
        </#if>
