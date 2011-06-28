@@ -1441,7 +1441,29 @@
     <url-pattern>NONE</url-pattern>    
   </servlet-mapping>
   -->
+  <servlet>
+    <servlet-name>ExportQrCodeController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.ExportQrCodeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExportQrCodeController</servlet-name>
+    <url-pattern>/qrcode</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AboutQrCodesController</servlet-name>
+    <servlet-class>edu.cornell.mannlib.vitro.webapp.controller.AboutQrCodesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AboutQrCodesController</servlet-name>
+    <url-pattern>/qrcode/about</url-pattern>
+  </servlet-mapping>
     
+
+
+
+
+
   <!-- ============================== servlet-mappings ======================== -->
   <servlet-mapping>
     <servlet-name>fetch</servlet-name>

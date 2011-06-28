@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     <li role="listitem"><a title="View this individual in RDF format" class="icon-rdf" href="${rdfUrl}">RDF</a></li>
                 </#if>
             </ul>
+
+            <#include "individual-qrCodeFoafPerson.ftl">
         </nav>
             
         <#-- Email -->    
