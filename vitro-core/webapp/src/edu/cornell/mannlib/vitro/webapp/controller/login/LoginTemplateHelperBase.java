@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@ package edu.cornell.mannlib.vitro.webapp.controller.login;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreeMarkerHttpServlet;
+import edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerHttpServlet;
 
 /**
  * A temporary means of displaying the Login templates within the SiteAdmin
@@ -39,7 +39,7 @@ import edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreeMarkerHttpServ
  * 
  * The constructor insures that the ServletContext is set.
  */
-public class LoginTemplateHelperBase extends FreeMarkerHttpServlet {
+public class LoginTemplateHelperBase extends FreemarkerHttpServlet {
 	private final ServletContext servletContext;
 
 	LoginTemplateHelperBase(HttpServletRequest req) {

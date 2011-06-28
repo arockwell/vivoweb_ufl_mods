@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ public interface PropertyGroupDao {
 	
 	public abstract int removeUnpopulatedGroups(List<PropertyGroup> groups);
 	
-	public PropertyGroup createTempPropertyGroup(String name, int rank);
+	public PropertyGroup createDummyPropertyGroup(String name, int rank);
 	
 	public String insertNewPropertyGroup(PropertyGroup group);
 	

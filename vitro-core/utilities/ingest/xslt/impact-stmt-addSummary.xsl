@@ -26,7 +26,7 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 
 <xsl:element name="LOCAL_COLLABORATOR_LIST">
 
-<xsl:for-each select='//IMPACT_STATEMENT_INVEST[not(vfx:hasMatchingInvestigator(./FNAME,./LNAME,preceding::IMPACT_STATEMENT_INVEST))]'>
+<xsl:for-each select='//IMPACT_STATEMENT_INVEST[not(vfx:hasMatchingName(./FNAME,./MNAME,./LNAME,preceding::IMPACT_STATEMENT_INVEST))]'>
 <xsl:call-template name='Investigator'>
   <xsl:with-param name='cohort' select='.'/>
 </xsl:call-template>
@@ -65,6 +65,22 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </xsl:for-each>
 </xsl:element>
 
+<xsl:element name="CONAREA_LIST">
+<xsl:for-each select='//CONAREA[not(. = preceding::CONAREA)]'>
+<xsl:call-template name='Conarea'>
+  <xsl:with-param name='area' select='.'/>
+</xsl:call-template>
+</xsl:for-each>
+</xsl:element>
+
+<xsl:element name="USDA_LIST">
+<xsl:for-each select='//USDA_INFO[not(. = preceding::USDA_INFO)]'>
+<xsl:call-template name='Usda'>
+  <xsl:with-param name='area' select='.'/>
+</xsl:call-template>
+</xsl:for-each>
+</xsl:element>
+
 </xsl:template>
 
 <!-- ============================================================= -->
@@ -81,6 +97,8 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 <xsl:param name='cohort'/>
 <xsl:variable name='lname' select='$cohort/LNAME'/>
 <xsl:variable name='fname' select='$cohort/FNAME'/>
+<xsl:variable name='mname' select='$cohort/MNAME'/>
+<xsl:variable name='dep' select='$cohort/DEP'/>
 <xsl:element name='COLLABORATOR'>
 <xsl:attribute name='ilk' select='"invest"'/>
 <xsl:copy-of select='LNAME|FNAME|MNAME|FACULTY_NAME|DEP' copy-namespaces='no' />
@@ -91,7 +109,7 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 <xsl:if test='following::IMPACT_STATEMENT_INVEST'>
   <xsl:for-each select='following::IMPACT_STATEMENT_INVEST'>
 
-    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./LNAME) and vfx:collapse($fname) =vfx:collapse(./FNAME)'>
+    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./LNAME) and vfx:collapse($mname) = vfx:collapse(./MNAME) and vfx:collapse($fname) = vfx:collapse(./FNAME) and vfx:collapse($dep) = vfx:collapse(./DEP)'>
       <xsl:copy-of select='./IMPACT_STMT_INFO' copy-namespaces='no'/>
     </xsl:if>
 
@@ -140,12 +158,22 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </GEO_PLACE_NAME>
 <IMPACT_STMT_ID_LIST>
 <IMPACT_STMT_ID>
+<xsl:attribute name='hasTitle' select=
+	'if(../../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+	'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+	then "Yes" else "No"'/>
 <xsl:value-of select='$place/@isid'/>
 </IMPACT_STMT_ID>
 <xsl:if test='following::INVOLVED_GEO_PLACE'>
 <xsl:for-each select='following::INVOLVED_GEO_PLACE'>
 	<xsl:if test='vfx:collapse($place) = vfx:collapse(.)'>
 	<IMPACT_STMT_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(../../TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
 	<xsl:value-of select='./@isid'/>
 	</IMPACT_STMT_ID>
 	</xsl:if>
@@ -166,12 +194,22 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </FORG_NAME>
 <IMPACT_STMT_ID_LIST>
 <IMPACT_STMT_ID>
+<xsl:attribute name='hasTitle' select=
+	'if(../../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+	'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+	then "Yes" else "No"'/>
 <xsl:value-of select='$org/@isid'/>
 </IMPACT_STMT_ID>
 <xsl:if test='following::FUNDING_ORG'>
 <xsl:for-each select='following::FUNDING_ORG'>
 	<xsl:if test='vfx:collapse($org) = vfx:collapse(.)'>
 	<IMPACT_STMT_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(../../TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
 	<xsl:value-of select='./@isid'/>
 	</IMPACT_STMT_ID>
 	</xsl:if>
@@ -192,12 +230,22 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </EMPHASIS_NAME>
 <IMPACT_STMT_ID_LIST>
 <IMPACT_STMT_ID>
+<xsl:attribute name='hasTitle' select=
+	'if(../../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+	'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+	then "Yes" else "No"'/>
 <xsl:value-of select='$subj/@isid'/>
 </IMPACT_STMT_ID>
 <xsl:if test='following::EMPHASIS'>
 <xsl:for-each select='following::EMPHASIS'>
 	<xsl:if test='vfx:collapse($subj) = vfx:collapse(.)'>
 	<IMPACT_STMT_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(../../TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
 	<xsl:value-of select='./@isid'/>
 	</IMPACT_STMT_ID>
 	</xsl:if>
@@ -208,22 +256,96 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </EMPHASIS_INFO>
 </xsl:template>
 
-<xsl:include href='vivofuncs.xsl'/>
+
+<xsl:template name="Conarea">
+<xsl:param name='area'/>
+<CONAREA_INFO>
+<CONAREA_NAME>
+<xsl:value-of select='$area'/>
+</CONAREA_NAME>
+<IMPACT_STMT_ID_LIST>
+<IMPACT_STMT_ID>
+<xsl:attribute name='hasTitle' select=
+	'if(../../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+	'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+	then "Yes" else "No"'/>
+<xsl:value-of select='$area/@isid'/>
+</IMPACT_STMT_ID>
+<xsl:if test='following::CONAREA'>
+<xsl:for-each select='following::CONAREA'>
+	<xsl:if test='vfx:collapse($area) = vfx:collapse(.)'>
+	<IMPACT_STMT_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(../../TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
+	<xsl:value-of select='./@isid'/>
+	</IMPACT_STMT_ID>
+	</xsl:if>
+</xsl:for-each>
+</xsl:if>
+
+</IMPACT_STMT_ID_LIST>
+</CONAREA_INFO>
+</xsl:template>
+
+<xsl:template name="Usda">
+<xsl:param name='area'/>
+<USDA_AREA_INFO>
+<xsl:copy-of select='$area/@ilk'/>
+<USDA_AREA_NAME>
+<xsl:value-of select='$area'/>
+</USDA_AREA_NAME>
+<IMPACT_STMT_ID_LIST>
+<IMPACT_STMT_ID>
+<xsl:attribute name='hasTitle' select=
+	'if(../../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+	'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+	then "Yes" else "No"'/>
+<xsl:value-of select='$area/@isid'/>
+</IMPACT_STMT_ID>
+
+<xsl:if test='following::USDA_INFO'>
+<xsl:for-each select='following::USDA_INFO'>
+	<xsl:if test='vfx:collapse($area) = vfx:collapse(.)'>
+	<IMPACT_STMT_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(../../TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../../COLLABORATORS/IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
+	<xsl:value-of select='./@isid'/>
+	</IMPACT_STMT_ID>
+	</xsl:if>
+</xsl:for-each>
+</xsl:if>
+
+</IMPACT_STMT_ID_LIST>
+</USDA_AREA_INFO>
+</xsl:template>
+
+
+
 
 <xsl:template name='hasMatchingInvestigator'>
-<xsl:param name='fa'/>
-<xsl:param name='sa'/>
+<xsl:param name='fn'/>
+<xsl:param name='mn'/>
+<xsl:param name='ln'/>
 <xsl:param name='nlist'/>
 <xsl:param name='res' select='false()'/>
 <xsl:choose>
 <xsl:when test='$nlist and not($res)'>
-<xsl:variable name='fasa' select='concat($fa,$sa)'/>
-<xsl:variable name='listfasa' select='concat($nlist[1]/FNAME,$nlist[1]/LNAME)'/>
-<xsl:variable name='comp' select='vfx:collapse($fasa) = vfx:collapse($listfasa)'/>
+<xsl:variable name='fnmnln' select='concat($fn,"|",$mn,"|",$ln)'/>
+<xsl:variable name='listfnmnln' select='concat($nlist[1]/FNAME,"|",$nlist[1]/MNAME,"|",$nlist[1]/LNAME)'/>
+<xsl:variable name='comp' select='vfx:collapse($fnmnln) = vfx:collapse($listfnmnln)'/>
 <!-- xsl:variable name='comp' select='$fa = $nlist[1]'/ -->
 <xsl:call-template name='hasMatchingInvestigator'>
-<xsl:with-param name='fa' select='$fa'/>
-<xsl:with-param name='sa' select='$sa'/>
+<xsl:with-param name='fn' select='$fn'/>
+<xsl:with-param name='mn' select='$mn'/>
+<xsl:with-param name='ln' select='$ln'/>
 <xsl:with-param name='nlist' select='$nlist[position()>1]'/>
 <xsl:with-param name='res' select='$res or $comp'/>
 </xsl:call-template>
@@ -237,12 +359,14 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 <!-- Similarly================================================= -->
 
 <xsl:function name='vfx:hasMatchingInvestigator' as='xs:boolean'>
-<xsl:param name='fa'/>
-<xsl:param name='sa'/>
+<xsl:param name='fn'/>
+<xsl:param name='mn'/>
+<xsl:param name='ln'/>
 <xsl:param name='nlist'/>
 <xsl:call-template name='hasMatchingInvestigator'>
-<xsl:with-param name='fa' select='$fa'/>
-<xsl:with-param name='sa' select='$sa'/>
+<xsl:with-param name='fn' select='$fn'/>
+<xsl:with-param name='mn' select='$mn'/>
+<xsl:with-param name='ln' select='$ln'/>
 <xsl:with-param name='nlist' select='$nlist'/>
 </xsl:call-template>
 </xsl:function>
@@ -282,4 +406,5 @@ java -jar xslt/saxon9he.jar tmp.xml xslt/impact-stmt-addSummary.xsl  > impstml-c
 </xsl:call-template>
 </xsl:function>
 
+<xsl:include href='vivofuncs.xsl'/>
 </xsl:stylesheet>

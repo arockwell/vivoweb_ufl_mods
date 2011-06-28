@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.VClassDao" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.VClass" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
-<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
+<%@ page import="edu.cornell.mannlib.vedit.beans.LoginStatusBean" %>
 <%@page import="edu.cornell.mannlib.vitro.webapp.web.MiscWebUtils"%>
 
 <%@ page import="java.util.Collection" %>
@@ -67,8 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="org.apache.commons.logging.Log" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 
-
-<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%! 
 public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.templates.entity.entityMergedPropsList.jsp");
 %>
@@ -77,7 +75,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
         log.debug("setting showSelfEdits true");%>
         <c:set var="showSelfEdits" value="${true}"/>
 <%  }
-    if (loginHandler!=null && loginHandler.getLoginStatus()=="authenticated" && Integer.parseInt(loginHandler.getLoginRole())>=loginHandler.getNonEditor()) {
+	if (LoginStatusBean.getBean(request).isLoggedIn()) {
 	    log.debug("setting showCuratorEdits true");%>
 	    <c:set var="showCuratorEdits" value="${true}"/>
 <%  }%>
@@ -124,7 +122,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
     		    <c:if test="${showSelfEdits || showCuratorEdits}"><c:set var="classForEditControls" value=" editing"/></c:if>
                 <c:set var="uniqueOpropDivName" value="${fn:replace(objProp.localNameWithPrefix,':','-')}"/>
 				<div class="propsItem ${classForEditControls}" id="${'oprop-'}${uniqueOpropDivName}">
-					<h3 class="propertyName">${objProp.editLabel}</h3>
+					<h3 class="propertyName">${objProp.label}</h3>
 		    		<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${objProp}" icons="false" /></c:if>
 
   					<%-- Verbose property display additions for object properties, using context variable verbosePropertyListing --%>
@@ -255,7 +253,7 @@ public static Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.
 			    <c:if test="${showSelfEdits || showCuratorEdits}"><c:set var="classForEditControls" value=" editing"/></c:if>
 	            <c:set var="uniqueDpropDivName" value="${fn:replace(dataProp.localNameWithPrefix,':','-')}"/>            
 	 			<div id="${'dprop-'}${uniqueDpropDivName}" class="propsItem ${classForEditControls}" style="${dataStyle}">
-					<h3 class="propertyName">${dataProp.editLabel}</h3>
+					<h3 class="propertyName">${dataProp.label}</h3>
 					<c:if test="${showSelfEdits || showCuratorEdits}"><edLnk:editLinks item="${dataProp}" icons="false"/></c:if> 					
 			    	<%-- Verbose property display additions for data properties, using context variable verbosePropertyListing --%>
 	                <c:if test="${showCuratorEdits && verbosePropertyListing}">

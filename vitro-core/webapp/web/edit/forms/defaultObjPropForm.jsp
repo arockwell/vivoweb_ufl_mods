@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@page import="java.util.Map"%>
 <%@page import="com.hp.hpl.jena.ontology.OntModel"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.search.beans.ProhibitedFromSearch"%>
-<%@page import="edu.cornell.mannlib.vitro.webapp.web.DisplayVocabulary"%><v:jsonset var="queryForInverse" >
+<%@page import="edu.cornell.mannlib.vitro.webapp.dao.DisplayVocabulary"%>
+
+<v:jsonset var="queryForInverse" >
     PREFIX owl:  <http://www.w3.org/2002/07/owl#>
     SELECT ?inverse_property
     WHERE {
@@ -191,7 +193,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	    	<p>${predicate.publicDescription}</p>
 	    </c:if>
 	    <v:input type="select" id="objectVar" size="80" />
-	    <div style="margin-top: 1em">
+	    <div style="margin-top: .2em">
  	        <v:input type="submit" id="submit" value="<%=submitLabel%>" cancel="true"/>
 	    </div>    
     </form>
@@ -230,7 +232,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <c:if test="${ (!empty param.objectUri) && (empty param.deleteProhibited) }" >
     <form class="deleteForm" action="editRequestDispatch.jsp" method="get">       
-	 	<label for="delete"><h3>Delete this entry?</h3></label>
+	 	<label for="delete"><h3 class="delete-entry">Delete this entry?</h3></label>
         <input type="hidden" name="subjectUri"   value="${param.subjectUri}"/>
         <input type="hidden" name="predicateUri" value="${param.predicateUri}"/>
         <input type="hidden" name="objectUri"    value="${param.objectUri}"/>    

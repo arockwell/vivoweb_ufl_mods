@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,9 @@ package edu.cornell.mannlib.vitro.webapp.dao.filtering;
 
 import java.util.Collection;
 import java.util.List;
+
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 
 import edu.cornell.mannlib.vitro.webapp.beans.DataProperty;
 import edu.cornell.mannlib.vitro.webapp.beans.Individual;
@@ -213,6 +216,18 @@ class DataPropertyDaoFiltering extends BaseFiltering implements DataPropertyDao{
 	
     public List <VClass> getClassesWithRestrictionOnProperty(String propertyURI) {
     	return innerDataPropertyDao.getClassesWithRestrictionOnProperty(propertyURI);
+    }
+    
+    @Override
+    // This may need to be filtered at some point.
+    public List<DataProperty> getDataPropertyList(Individual subject) {
+        return innerDataPropertyDao.getDataPropertyList(subject);
+    }
+    
+    @Override
+    // This may need to be filtered at some point.
+    public List<DataProperty> getDataPropertyList(String subjectUri) {
+        return innerDataPropertyDao.getDataPropertyList(subjectUri);
     }
 
 }

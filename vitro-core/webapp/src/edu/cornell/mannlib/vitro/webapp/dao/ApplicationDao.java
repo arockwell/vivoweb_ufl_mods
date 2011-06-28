@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -37,5 +37,7 @@ public interface ApplicationDao {
 	public boolean isFlag2Active();
 	
 	public List<String> getExternallyLinkedNamespaces();
+	
+	public boolean isExternallyLinkedNamespace(String namespace);
 	
 }

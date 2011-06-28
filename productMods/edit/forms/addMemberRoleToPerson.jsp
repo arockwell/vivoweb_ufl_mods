@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,8 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <jsp:include page="addRoleToPersonTwoStage.jsp">    
 	<jsp:param name="roleActivityTypeLabel" value="membership" />
-	<jsp:param name="roleType" value="http://vivoweb.org/ontology/core#MemberRole" />
-	
+	<jsp:param name="roleType" value="http://vivoweb.org/ontology/core#MemberRole" />	
 	<jsp:param name="roleActivityType_optionsType" value="CHILD_VCLASSES" />
 	<jsp:param name="roleActivityType_objectClassUri" value="http://xmlns.com/foaf/0.1/Organization" /> 
 	<jsp:param name="roleActivityType_literalOptions" value="[ 'Select one' ]" />

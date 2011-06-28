@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ public interface ObjectPropertyDao extends PropertyDao {
     public void deleteObjectProperty(ObjectProperty objectProperty);
     
     public boolean skipEditForm(String predicateURI);
-                                             
+    
 
 //    List /*of ObjectProperty */ getObjectPropertiesForObjectPropertyStatements(List /*of ObjectPropertyStatement */ objectPropertyStatements);
 //
@@ -77,4 +77,10 @@ public interface ObjectPropertyDao extends PropertyDao {
 //    List /* of ObjectProperty */ getAllObjectProperties();
 
     List <ObjectProperty> getRootObjectProperties();
+    
+    public List<ObjectProperty> getObjectPropertyList(Individual subject);
+    
+    public List<ObjectProperty> getObjectPropertyList(String subjectUri); 
+    
+    public String getCustomListViewConfigFileName(ObjectProperty objectProperty);
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -49,6 +49,19 @@ public class VClassGroup extends LinkedList <VClass> implements Comparable<VClas
     private String localName    = null;
     private String publicName   = null;
     private int    displayRank  = -1;
+    private int individualCount = -1;
+    
+    public boolean isIndividualCountSet(){
+        return individualCount >= 0;
+    }
+    
+    public int getIndividualCount() {
+        return individualCount;
+    }
+
+    public void setIndividualCount(int individualCount) {
+        this.individualCount = individualCount;
+    }
 
     public int getDisplayRank() {
         return displayRank;
@@ -158,6 +171,9 @@ public class VClassGroup extends LinkedList <VClass> implements Comparable<VClas
     /**
      * Sorts VClassGroup objects by group rank, then alphanumeric.
      * @author bdc34 modified by jc55, bjl23
+     * @return a negative integer, zero, or a positive integer as the
+     *         first argument is less than, equal to, or greater than the
+     *         second. 
      */
     public int compareTo(VClassGroup o2) {
     	Collator collator = Collator.getInstance();
@@ -167,7 +183,18 @@ public class VClassGroup extends LinkedList <VClass> implements Comparable<VClas
         }
         int diff = (this.getDisplayRank() - o2.getDisplayRank());
         if (diff == 0 ) {
-            return collator.compare(this.getPublicName(),o2.getPublicName());
+            
+            //put null public name classgrups at end of list
+            if( this.getPublicName() == null ){
+                if( o2.getPublicName() == null )
+                    return 0; //or maybe collator.compare(this.getURI(),o2.getURI()) ???
+                else
+                    return 1;
+            }else if ( o2.getPublicName() == null ){
+                return -1;
+            }else{
+                return collator.compare(this.getPublicName(),o2.getPublicName());
+            }
         }
         return diff;
     }

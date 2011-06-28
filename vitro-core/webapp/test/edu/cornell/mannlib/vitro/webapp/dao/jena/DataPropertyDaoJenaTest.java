@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package edu.cornell.mannlib.vitro.webapp.dao.jena;
 
 
+import org.apache.log4j.Level;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.hp.hpl.jena.ontology.DatatypeProperty;
@@ -37,10 +39,12 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.impl.RDFDefaultErrorHandler;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
+import edu.cornell.mannlib.vitro.testing.AbstractTestClass;
 import edu.cornell.mannlib.vitro.webapp.beans.DataProperty;
 import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
 
@@ -49,8 +53,8 @@ import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
  * 
  */
 
-public class DataPropertyDaoJenaTest {
-	
+public class DataPropertyDaoJenaTest extends AbstractTestClass {
+    
 	@Test
 	// Test that the DataPropertyDaoJena::updateDataProperty method will only update the jena model for 
 	// those properties in DataProperty that have a different value from what is already in the

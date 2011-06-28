@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -140,3 +140,5 @@ caption     { background: #eee; }
 .last       { margin-right:0; padding-right:0; }
 .top        { margin-top:0; padding-top:0; }
 .bottom     { margin-bottom:0; padding-bottom:0; }
+
+.bold { font-weight: bold; }

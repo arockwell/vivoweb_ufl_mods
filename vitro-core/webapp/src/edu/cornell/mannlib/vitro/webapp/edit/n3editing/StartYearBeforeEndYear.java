@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -82,7 +82,8 @@ public class StartYearBeforeEndYear implements N3Validator {
 				errors.put(endFieldName, "End year must be after start year");
 			}
 		} catch (NumberFormatException nfe) {
-
+		    errors.put(startFieldName, "could not format star or end date");
+		    errors.put(endFieldName, "could not format star or end date");
 		}
 		return errors;
 	}

@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -46,5 +46,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <input type="hidden" name="dsid" value="${dsid}"/>
     <!--Adding use new name set to true so that it is overwritten correctly-->
 	<input type="hidden" name="useNewName" value="true"/>
-    <input type="submit" id="submit" value="submit" />
+    <input type="submit" class="submit" value="submit" />
   </form>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <script language="JavaScript">
 function confirmDelete() {
-    var msg="Are you SURE you want to delete this entity? If in doubt, CANCEL."
+    var msg="Are you SURE you want to delete this individual? If in doubt, CANCEL."
     return confirm(msg);
 }
 </script>
@@ -357,4 +357,27 @@ function fillList(id, data, selectedtext) {
 		return [curleft,curtop];
 	}
 -->
+
+    // -------------------------------------------------------------------------------
+    // Using jQuery to step in for DWR and provide original moniker selection behavior
+    // -------------------------------------------------------------------------------
+    var monikerSelection = {
+        // onChange event listener for moniker select list
+        monikerListener: function() {
+            $('#Moniker').change(function() {
+                // alert('The moniker has changed');
+                // if "[new moniker]" is selected, then enable the alt field
+                if ( $('#Moniker option:selected').text() == "[new moniker]" ) {
+                    $('#MonikerSelectAlt').removeAttr('disabled');
+                } else {
+                    $('#MonikerSelectAlt').val('');
+                    $('#MonikerSelectAlt').attr('disabled', 'disabled');
+                }
+            });
+        }
+    }
+
+    $(document).ready(function() {
+        monikerSelection.monikerListener();
+    });
 </script>

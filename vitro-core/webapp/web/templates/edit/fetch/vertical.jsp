@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,6 @@ String headerStr = (String)request.getAttribute("header");
 if ( headerStr == null || (!headerStr.equalsIgnoreCase("noheader")) ) { %>
 <%  } %>
 <jsp:useBean id="results" class="java.util.ArrayList" scope="request" />
-<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session"/>
 <%
 int rows = 0;
 

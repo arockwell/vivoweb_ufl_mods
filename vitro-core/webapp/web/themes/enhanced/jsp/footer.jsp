@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -38,16 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %><%/* this odd thing points to something in web.xml */ %>
 
-<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 <%
-    /**
-     * @version 1.00
-     * @author Jon Corson-Rikert
-     * UPDATES:
-     * 2006-01-04   bdc   removed <head> and <body> tags and moved from <table> to <div>
-     * 2005-07-07   JCR   included LoginFormBean so can substitute filterbrowse for portalbrowse for authorized users
-     */
-
     final Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.web.themes.enhanced.footer.jsp");
 
     VitroRequest vreq = new VitroRequest(request);
@@ -56,14 +47,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (portal==null) {
     	log.error("portal from vreq.getPortal() null in themes/enhanced/footer.jsp");
     }
-    HttpSession currentSession = request.getSession();
-
-    boolean authorized = false;
-    if (loginHandler.getLoginStatus().equals("authenticated")) /* test if session is still valid */
-        if (currentSession.getId().equals(loginHandler.getSessionId()))
-            if (request.getRemoteAddr().equals(
-                    loginHandler.getLoginRemoteAddr()))
-                authorized = true;
 %>
 <c:set var="currentYear" value="<%=  Calendar.getInstance().get(Calendar.YEAR) %>" />
 <c:set var='context' value="<%=vreq.getContextPath()%>" />

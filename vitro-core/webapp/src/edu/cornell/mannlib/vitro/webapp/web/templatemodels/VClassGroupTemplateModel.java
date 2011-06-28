@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,9 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package edu.cornell.mannlib.vitro.webapp.web.templatemodels;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -69,6 +69,15 @@ public class VClassGroupTemplateModel extends BaseTemplateModel {
     	return vClassGroup.getPublicName();
     }
     
+    // Protect the template against a group without a name.
+    public String getDisplayName() {
+        String displayName = getPublicName();
+        if (StringUtils.isBlank(displayName)) {
+            displayName = getLocalName().replaceFirst("vitroClassGroup", "");
+        }
+        return displayName;
+    }
+    
     public List<VClassTemplateModel> getClasses() {
         if (classes == null) {
             List<VClass> classList = vClassGroup.getVitroClassList();
@@ -80,4 +89,16 @@ public class VClassGroupTemplateModel extends BaseTemplateModel {
         
         return classes;
     }
+    
+    public int getIndividualCount(){
+        if( vClassGroup.isIndividualCountSet() )
+            return vClassGroup.getIndividualCount();
+        else
+            return 0;
+    }
+    
+    public boolean isIndividualCountSet(){
+        return vClassGroup.isIndividualCountSet();
+    }    
+    
 }

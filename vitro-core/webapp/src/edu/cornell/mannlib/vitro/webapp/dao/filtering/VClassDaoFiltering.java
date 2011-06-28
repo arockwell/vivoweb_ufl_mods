@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -247,6 +247,7 @@ public class VClassDaoFiltering extends BaseFiltering implements VClassDao{
         Filter.filter(ents,filters.getIndividualFilter(),out);
         if( out != null )
             vclass.setEntityCount(out.size());
+        System.out.println(vclass.getURI() + " count: " + vclass.getEntityCount());
         return;
     }
 

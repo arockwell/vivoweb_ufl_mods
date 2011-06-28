@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,35 +30,17 @@ package edu.cornell.mannlib.vitro.webapp.auth.policy.ifaces;
 
 import edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle;
 import edu.cornell.mannlib.vitro.webapp.auth.policy.BasicPolicyDecision;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddObjectPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddResource;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropObjectPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropResource;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.EditDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.EditObjPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.AddNewUser;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.LoadOntology;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.RebuildTextIndex;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.RemoveUser;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.ServerStatus;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.UpdateTextIndex;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.UploadFile;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ifaces.RequestedAction;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.CreateOwlClass;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.DefineDataProperty;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.DefineObjectProperty;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.RemoveOwlClass;
 
 /**
- * A policy where every type of action is authorized as INCONCLUSIVE
- * by default.
- *
+ * A policy where every type of action is authorized as INCONCLUSIVE by default.
+ * 
  * @author bdc34
- *
  */
-public class DefaultInconclusivePolicy implements PolicyIface{
+public class DefaultInconclusivePolicy implements PolicyIface {
+	protected static PolicyDecision INCONCLUSIVE_DECISION = new BasicPolicyDecision(
+			Authorization.INCONCLUSIVE,
+			"This is the default decision defined in DefaultInconclusivePolicy");
 
     public PolicyDecision isAuthorized(IdentifierBundle whoToAuth,
             RequestedAction whatToAuth) {
@@ -70,7 +52,10 @@ public class DefaultInconclusivePolicy implements PolicyIface{
                     "null was passed as whatToAuth");
         return INCONCLUSIVE_DECISION;
     }
-    protected static PolicyDecision INCONCLUSIVE_DECISION = new BasicPolicyDecision(
-            Authorization.INCONCLUSIVE,
-            "This is the default decision defined in DefaultInconclusivePolicy");
+
+	@Override
+	public String toString() {
+		return "DefaultInconclusivePolicy";
+	}
+
 }

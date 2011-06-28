@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -33,6 +33,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page errorPage="/error.jsp"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerHttpServlet" %>
 
 <%  /***********************************************
          Display a single Page  in the most basic fashion.
@@ -77,27 +79,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %>
 
 
-<c:set var="portal" value="${requestScope.portalBean}"/>
-<c:set var="themeDir"><c:out value="${portal.themeDir}" /></c:set>
-<c:set var="bodyJsp"><c:out value="${requestScope.bodyJsp}" default="/debug.jsp"/></c:set>
-        
-<jsp:include page="doctype.jsp"/>
-<head>
-  <jsp:include page="headContent.jsp"/>
-</head>
-<body ${requestScope.bodyAttr}>
-<div id="wrap" class="container">
-  <div id="header">
-    <jsp:include page="/${themeDir}jsp/identity.jsp" flush="true"/>
-    <jsp:include page="/${themeDir}jsp/menu.jsp" flush="true"/>
-  </div><!--header-->
-    <hr class="hidden" />
-    <div id="contentwrap" class="withSidebar">
+<% /* Prepare Freemarker components to allow .ftl templates to be included from jsp */
+    FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request);
+%>
 
-        <c:import url="${bodyJsp}"/>
-        ${ftl_sidebar}
-    </div> <!-- contentwrap -->
-    <jsp:include page="/${themeDir}jsp/footer.jsp" flush="true"/>
-</div> <!-- wrap -->
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        ${ftl_head}
+        
+        <c:if test="${!empty scripts}"><jsp:include page="${scripts}"/></c:if>
+    </head>
+    
+    <body ${requestScope.bodyAttr}>
+            ${ftl_identity}
+            
+            ${ftl_menu}
+            
+                <c:import url="${bodyJsp}"/>
+            
+            ${ftl_footer}
+
+    </body>
 </html>

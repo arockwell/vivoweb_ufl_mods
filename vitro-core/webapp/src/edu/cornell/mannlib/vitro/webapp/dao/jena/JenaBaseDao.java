@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -32,6 +32,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +57,8 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.AnonId;
 import com.hp.hpl.jena.rdf.model.Literal;
@@ -142,7 +145,7 @@ public class JenaBaseDao extends JenaBaseDaoCon {
     protected String getPropertyStringValue(OntResource res, Property dataprop) {
         if (dataprop != null) {
             try {
-                ClosableIterator stateIt = getOntModel().listStatements(res,dataprop,(Literal)null);
+                ClosableIterator stateIt = res.getModel().listStatements(res,dataprop,(Literal)null);
                 try {
                     if (stateIt.hasNext())
                         return ((Literal)((Statement)stateIt.next()).getObject()).getString();
@@ -498,7 +501,7 @@ public class JenaBaseDao extends JenaBaseDaoCon {
             }
         } catch (Exception e) {
             log.error("Error in updatePropertyDateTimeValue");
-            log.error(e);
+            log.error(e, e);
         }
     }
 
@@ -679,9 +682,10 @@ public class JenaBaseDao extends JenaBaseDaoCon {
             label = tryPropertyForPreferredLanguages( r, RDFS.label, ALSO_TRY_NO_LANG );
             
             // try vitro:label with preferred languages
-            if ( label == null ) {
+            // Commenting out for NIHVIVO-1962
+           /* if ( label == null ) {
                 label = tryPropertyForPreferredLanguages( r, r.getModel().getProperty(VitroVocabulary.label), ALSO_TRY_NO_LANG );
-            }                              
+            }   */                           
         } finally {
             r.getOntModel().leaveCriticalSection();
         }
@@ -970,5 +974,6 @@ public class JenaBaseDao extends JenaBaseDaoCon {
 		
 		return temp;
     }
-    
+
+
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -278,7 +278,7 @@ public class VClassJena extends VClass {
         } else {
             cls.getOntModel().enterCriticalSection(Lock.READ);
             try {
-            	setCustomEntryForm(webappDaoFactory.getJenaBaseDao().getPropertyStringValue(cls, webappDaoFactory.getJenaBaseDao().PROPERTY_CUSTOMDISPLAYVIEWANNOT));
+            	setCustomDisplayView(webappDaoFactory.getJenaBaseDao().getPropertyStringValue(cls, webappDaoFactory.getJenaBaseDao().PROPERTY_CUSTOMDISPLAYVIEWANNOT));
             	return this.customDisplayView;
             } finally {
                 cls.getOntModel().leaveCriticalSection();

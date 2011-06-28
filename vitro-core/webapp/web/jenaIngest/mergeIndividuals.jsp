@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -43,9 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jenaIngest/ingestUtils.js"></script>
 
-<p><a href="ingest">Ingest Home</a></p>
-
-<h2>Merge Individuals</h2>
+<h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Merge Individuals</h2>
 
 <p>This tool allows two individuals with different URIs to be collapsed into a 
    single URI.  Any statements using the "duplicate individual URI" will be 
@@ -65,6 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <td>Duplicate individual URI</td><td><input id="uri2" type="text" size="52" name="uri2"/></td>
 </tr>
 </table>
-<input type="submit" name="submit" value="Merge individuals" /></p>
+<input class="submit"type="submit" name="submit" value="Merge individuals" /></p>
 </form>
 

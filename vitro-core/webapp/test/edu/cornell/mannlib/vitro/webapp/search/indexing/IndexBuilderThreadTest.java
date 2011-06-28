@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -39,21 +39,25 @@ import edu.cornell.mannlib.vitro.testing.AbstractTestClass;
 public class IndexBuilderThreadTest extends AbstractTestClass {
 	
 	@Test
-	public void testStoppingTheThread(){
-		setLoggerLevel(IndexBuilderThread.class, Level.OFF);
-		IndexBuilderThread ibt = new IndexBuilderThread(null);
-		ibt.start();
+	public void testStoppingTheThread(){	 
+	    setLoggerLevel(IndexBuilder.class, Level.OFF);
+	    
+		IndexBuilder ib = new IndexBuilder();		
+		Assert.assertNotSame(Thread.State.NEW, ib.getState() );
+		Assert.assertNotSame(Thread.State.TERMINATED, ib.getState() );
+		
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
-		ibt.kill();
+		ib.stopIndexingThread();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			Assert.fail(e.getMessage());
 		}
-		Assert.assertFalse(ibt.isAlive());
+		Assert.assertFalse(ib.isAlive());
+		Assert.assertSame(Thread.State.TERMINATED, ib.getState() );
 	}
 }

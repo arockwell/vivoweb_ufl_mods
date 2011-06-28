@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,21 +28,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <%-- DO NOT MODIFY THIS FILE. IT IS NOT USED IN THEME CUSTOMIZATION. --%>
 
-<%@ page import="edu.cornell.mannlib.vitro.webapp.web.BreadCrumbsUtil" %>
-<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreeMarkerHttpServlet" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerHttpServlet" %>
 <% 
     // This is here as a safety net. We should have gotten the values in identity.jsp,
     // since it's the first jsp we hit.
     String menu = (String) request.getAttribute("ftl_menu");
     if (menu == null) {
-        FreeMarkerHttpServlet.getFreeMarkerComponentsForJsp(request);
+        FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request);
     } 
 %>
 
-<div id="navAndSearch" class="block">
-    ${ftl_menu}
-    ${ftl_search}
-</div> <!--  end navAndSearch -->
+${ftl_menu}
 
-<div id="breadcrumbs" class="small"><%=BreadCrumbsUtil.getBreadCrumbsDiv(request)%></div>
 

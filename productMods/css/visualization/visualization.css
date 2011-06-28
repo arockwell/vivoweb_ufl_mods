@@ -1,0 +1,105 @@
+/*
+Copyright (c) 2011, Cornell University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/*************************************************
+ vivo-basic theme: visualization styles
+**************************************************/
+
+span.incomplete-data-holder,
+#incomplete-data {
+    padding: 5px;
+    font-size: .8em;
+    color: #444;
+    border: dotted 1px #eee;
+    background-color: #ffb;
+}
+#incomplete-data {
+    margin-top: 1.6em;
+    font-size: 1em;
+}
+.collaboratorship-icon {
+    float: left;
+    padding-right: 5px;
+}
+.collaboratorship-link a {
+    font-size: 0.9em;
+}
+.collaboratorship-link h3 {
+    line-height: 1em !important;
+    font-size: 1em !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
+}
+.collaboratorship-link h3 a {
+    color: #2485AE;
+    font-size: .9em !important;
+    text-decoration: underline;
+}
+.collaboratorship-link-container {
+    width: 180px;
+}
+.collaboratorship-link-separator {
+    margin-top: 20px;
+    border-top: 1px dotted #A6B1B0;
+    padding-top: 20px;
+}
+.sparkline_text {
+    font-size: .8em;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.5em;
+    width: 180px;
+}
+.google-visualization-sparkline-default {
+    margin-bottom: 5px;
+}
+.google-visualization-sparkline-image {
+    border: 1px solid #cfe4ed;
+    display: block; 
+}
+.google-visualization-sparkline-selected {
+    background-color: blue;
+    border-spacing: 0;
+    color: gray;
+    font-size: small;
+    padding: 1px;
+}
+.visualization-menupage-link {
+    float: right;
+    margin: 0 2em 1em 0;
+    padding-left: 1.6em;
+}
+.temporal-graph {
+    background: url(../../images/visualization/temporal_vis_small_icon.jpg) top left no-repeat;
+}
+.infoIcon {
+    padding-right:30px;
+}

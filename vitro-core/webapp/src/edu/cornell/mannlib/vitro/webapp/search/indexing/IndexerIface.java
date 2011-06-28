@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -74,14 +74,16 @@ public interface IndexerIface {
      */
     public void removeFromIndex(Individual ind) throws IndexingException;
 
-    /**
-     * Removes all documents from the index.
-     * @throws IndexingException
-     */
-    public void clearIndex()throws IndexingException;
-
+    public void prepareForRebuild() throws IndexingException;
+    
     public void startIndexing() throws IndexingException;
     public void endIndexing();
 
     public long getModified();
+    
+    /**
+     * Ends the indexing and removes any temporary files.
+     * This may be called instead of endIndexing()
+     */
+    public void abortIndexingAndCleanUp();
 }

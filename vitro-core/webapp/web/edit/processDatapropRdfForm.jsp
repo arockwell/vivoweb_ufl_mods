@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="com.hp.hpl.jena.shared.Lock" %>
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
-<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
@@ -57,6 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.event.EditEvent"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.EditN3Utils"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
 
 <%-- 2nd prototype of processing, adapted for data property editing
 
@@ -91,16 +91,11 @@ and set a flag in the request to indicate "back button confusion"
 
     final Log log = LogFactory.getLog("edu.cornell.mannlib.vitro.webapp.jsp.edit.processDatapropRdfForm.jsp");
 %>
+
+<vitro:confirmLoginStatus allowSelfEditing="true" />
+
 <%    
     log.debug("Starting processDatapropRdfForm.jsp");
-
-    if( session == null)
-        throw new Error("need to have session");
-
-    boolean selfEditing = VitroRequestPrep.isSelfEditing(request);
-    if (!selfEditing && !LoginFormBean.loggedIn(request, LoginFormBean.NON_EDITOR)) {
-        %><c:redirect url="<%= Controllers.LOGIN %>" /><%
-    }
 
     List<String> errorMessages = new ArrayList<String>();
     

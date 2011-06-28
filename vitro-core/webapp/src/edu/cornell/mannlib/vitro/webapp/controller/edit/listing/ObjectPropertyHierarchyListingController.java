@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -85,9 +85,9 @@ public class ObjectPropertyHierarchyListingController extends BaseEditController
             e.printStackTrace();
         }
 
-        opDao = vrequest.getFullWebappDaoFactory().getObjectPropertyDao();
-        vcDao = vrequest.getFullWebappDaoFactory().getVClassDao();
-        pgDao = vrequest.getFullWebappDaoFactory().getPropertyGroupDao();
+        opDao = vrequest.getAssertionsWebappDaoFactory().getObjectPropertyDao();
+        vcDao = vrequest.getAssertionsWebappDaoFactory().getVClassDao();
+        pgDao = vrequest.getAssertionsWebappDaoFactory().getPropertyGroupDao();
 
         ArrayList results = new ArrayList();
         results.add("XX");            // column 1

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -75,7 +75,7 @@ public class MemToRDBModelSynchronizer extends StatementListener {
 			lastEditTimeMillis = System.currentTimeMillis();
 			this.editInProgress = false;
 			if (!cleanupThreadActive) {
-				(new Thread(new Cleanup(this))).start();
+				(new Thread(new Cleanup(this), "MemToRDBModelSynchronizer")).start();
 			}
 		}
 	}
@@ -89,7 +89,7 @@ public class MemToRDBModelSynchronizer extends StatementListener {
 			lastEditTimeMillis = System.currentTimeMillis();
 			this.editInProgress = false;
 			if (!cleanupThreadActive) {
-				(new Thread(new Cleanup(this))).start();
+				(new Thread(new Cleanup(this), "MemToRDBModelSynchronizer")).start();
 			}
 		}
 	}

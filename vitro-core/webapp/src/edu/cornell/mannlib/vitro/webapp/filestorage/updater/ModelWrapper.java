@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -68,4 +68,13 @@ public class ModelWrapper {
 		}
 	}
 
+	public static void add(Model model, Resource subject, Property predicate,
+			String value) {
+		model.enterCriticalSection(Lock.WRITE);
+		try {
+			model.add(subject, predicate, value);
+		} finally {
+			model.leaveCriticalSection();
+		}
+	}
 }

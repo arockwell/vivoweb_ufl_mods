@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.cornell.mannlib.vitro.utilities.testrunner.listener.Listener;
+
 /**
  * <p>
  * A harness that runs a system-level command.
@@ -54,7 +56,7 @@ import java.util.Map;
  */
 public class CommandRunner {
 
-	private int returnCode;
+	private Integer returnCode;
 	private String stdOut = "";
 	private String stdErr = "";
 	private File workingDirectory;
@@ -107,10 +109,12 @@ public class CommandRunner {
 
 			this.returnCode = process.waitFor();
 
-			outputEater.join();
+			outputEater.join(1000);
+			outputEater.stopRunning();
 			this.stdOut = outputEater.getContents();
 
-			errorEater.join();
+			errorEater.join(1000);
+			errorEater.stopRunning();
 			this.stdErr = errorEater.getContents();
 		} catch (IOException e) {
 			throw new CommandRunnerException(
@@ -122,43 +126,10 @@ public class CommandRunner {
 		listener.subProcessStop(command);
 	}
 
-	/**
-	 * Run the command and don't wait for it to complete. {@link #stdErr} and
-	 * {@link #stdOut} will not be set, but output from the process may be sent
-	 * to the listener at any time.
-	 * 
-	 * @param command
-	 *            a list containing the operating system program and its
-	 *            arguments. See
-	 *            {@link java.lang.ProcessBuilder#ProcessBuilder(List)}.
-	 */
-	public void runAsBackground(List<String> command)
-			throws CommandRunnerException {
-		listener.subProcessStartInBackground(command);
-		try {
-			ProcessBuilder builder = new ProcessBuilder(command);
-
-			if (workingDirectory != null) {
-				builder.directory(workingDirectory);
-			}
-
-			if (!environmentAdditions.isEmpty()) {
-				builder.environment().putAll(this.environmentAdditions);
-			}
-
-			Process process = builder.start();
-			StreamEater outputEater = new StreamEater(process.getInputStream(),
-					false);
-			StreamEater errorEater = new StreamEater(process.getErrorStream(),
-					true);
-
-		} catch (IOException e) {
-			throw new CommandRunnerException(
-					"Exception when handling sub-process:", e);
-		}
-	}
-
 	public int getReturnCode() {
+		if (returnCode == null) {
+			throw new IllegalStateException("Return code is not available.");
+		}
 		return returnCode;
 	}
 
@@ -178,6 +149,7 @@ public class CommandRunner {
 	private class StreamEater extends Thread {
 		private final InputStream stream;
 		private final boolean isError;
+		private volatile boolean running;
 
 		private final StringWriter contents = new StringWriter();
 
@@ -186,14 +158,19 @@ public class CommandRunner {
 		public StreamEater(InputStream stream, boolean isError) {
 			this.stream = stream;
 			this.isError = isError;
+			this.running = true;
 			this.start();
+		}
+		
+		public void stopRunning() {
+			this.running = false;
 		}
 
 		@Override
 		public void run() {
 			try {
 				int howMany = 0;
-				while (true) {
+				while (running) {
 					howMany = stream.read(buffer);
 					if (howMany > 0) {
 						String string = new String(buffer, 0, howMany);
@@ -205,7 +182,11 @@ public class CommandRunner {
 							listener.subProcessStdout(string);
 						}
 					} else if (howMany == 0) {
-						Thread.yield();
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					} else {
 						break;
 					}

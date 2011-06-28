@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,7 @@ package edu.cornell.mannlib.vitro.webapp.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -43,7 +44,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
@@ -60,7 +60,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.XSD;
 import com.ibm.icu.util.Calendar;
 
-import edu.cornell.mannlib.vedit.beans.LoginFormBean;
+import edu.cornell.mannlib.vedit.beans.LoginStatusBean;
 import edu.cornell.mannlib.vitro.webapp.ConfigurationProperties;
 import edu.cornell.mannlib.vitro.webapp.beans.DataProperty;
 import edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement;
@@ -509,9 +509,7 @@ public class FedoraDatastreamController extends VitroHttpServlet implements Cons
     	//System.out.println("Delete event name is " +deleteEventName + " - delete time is " + formattedDeleteDate);
     	
     	//Get current user
-    	HttpSession session = req.getSession(true);
-    	LoginFormBean loginBean = (LoginFormBean) session.getAttribute("loginHandler");
-        String userURI = loginBean.getUserURI();
+    	String userURI = LoginStatusBean.getBean(req).getUserURI();
         //System.out.println("Current logged in user uri is " + userURI); 
        
         //Update model
@@ -602,53 +600,52 @@ public class FedoraDatastreamController extends VitroHttpServlet implements Cons
         String path = context.getRealPath(FEDORA_PROPERTIES);
         try{            
             InputStream in = new FileInputStream(new File( path ));
-            if( in == null ){                
-                log.error("No fedora.properties file found,"+ 
-                        "it should be located at " + path);
-                status.append("<h1>Fedora configuration failed.</h1>\n");
-                status.append("<p>No fedora.properties file found,"+ 
-                        "it should be located at " + path + "</p>\n");
-                configured = false;
-            } else {                
-                props.load( in );
-                fedoraUrl = props.getProperty("fedoraUrl");
-                adminUser = props.getProperty("adminUser");
-                adminPassword = props.getProperty("adminPassword");
-                pidNamespace = props.getProperty("pidNamespace");
-                
-                if( fedoraUrl == null || adminUser == null || adminPassword == null ){
-                    if( fedoraUrl == null ){
-                        log.error("'fedoraUrl' not found in properties file");        
-                        status.append("<p>'fedoraUrl' not found in properties file.</p>\n");
-                    }
-                    if( adminUser == null ) {
-                        log.error("'adminUser' was not found in properties file, the " +
-                              "user name of the fedora admin is needed to access the " +
-                                "fedora API-M services.");                    
-                        status.append("<p>'adminUser' was not found in properties file, the " +
-                                "user name of the fedora admin is needed to access the " +
-                                  "fedora API-M services.</p>\n");
-                    }
-                    if( adminPassword == null ){
-                        log.error("'adminPassword' was not found in properties file, the " +
-                        "admin password is needed to access the fedora API-M services.");
-                        status.append("<p>'adminPassword' was not found in properties file, the " +
-                        "admin password is needed to access the fedora API-M services.</p>\n");
-                    }
-                    if( pidNamespace == null ){
-                        log.error("'pidNamespace' was not found in properties file, the " +
-                        "PID namespace indicates which namespace to use when creating " +
-                        "new fedor digital objects.");
-                        status.append("<p>'pidNamespace' was not found in properties file, the " +
-                                "PID namespace indicates which namespace to use when creating " +
-                                "new fedor digital objects.</p>\n");
-                    } 
-                    fedoraUrl = null; adminUser = null; adminPassword = null;
-                    configured = false;
-                }  else {
-                    configured = true;
+            props.load( in );
+            fedoraUrl = props.getProperty("fedoraUrl");
+            adminUser = props.getProperty("adminUser");
+            adminPassword = props.getProperty("adminPassword");
+            pidNamespace = props.getProperty("pidNamespace");
+            
+            if( fedoraUrl == null || adminUser == null || adminPassword == null ){
+                if( fedoraUrl == null ){
+                    log.error("'fedoraUrl' not found in properties file");        
+                    status.append("<p>'fedoraUrl' not found in properties file.</p>\n");
                 }
+                if( adminUser == null ) {
+                    log.error("'adminUser' was not found in properties file, the " +
+                          "user name of the fedora admin is needed to access the " +
+                            "fedora API-M services.");                    
+                    status.append("<p>'adminUser' was not found in properties file, the " +
+                            "user name of the fedora admin is needed to access the " +
+                              "fedora API-M services.</p>\n");
+                }
+                if( adminPassword == null ){
+                    log.error("'adminPassword' was not found in properties file, the " +
+                    "admin password is needed to access the fedora API-M services.");
+                    status.append("<p>'adminPassword' was not found in properties file, the " +
+                    "admin password is needed to access the fedora API-M services.</p>\n");
+                }
+                if( pidNamespace == null ){
+                    log.error("'pidNamespace' was not found in properties file, the " +
+                    "PID namespace indicates which namespace to use when creating " +
+                    "new fedor digital objects.");
+                    status.append("<p>'pidNamespace' was not found in properties file, the " +
+                            "PID namespace indicates which namespace to use when creating " +
+                            "new fedor digital objects.</p>\n");
+                } 
+                fedoraUrl = null; adminUser = null; adminPassword = null;
+                configured = false;
+            }  else {
+                configured = true;
             }
+        }catch(FileNotFoundException e) {
+            log.error("No fedora.properties file found,"+ 
+                    "it should be located at " + path);
+            status.append("<h1>Fedora configuration failed.</h1>\n");
+            status.append("<p>No fedora.properties file found,"+ 
+                    "it should be located at " + path + "</p>\n");
+            configured = false;
+            return;
         }catch(Exception ex){            
             status.append("<p>Fedora configuration failed.</p>\n");
             status.append("<p>Exception while loading" + path + "</p>\n");

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
 import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
-import edu.cornell.mannlib.vitro.webapp.filestorage.FileModelHelper;
+import edu.cornell.mannlib.vitro.webapp.filestorage.UploadedFileHelper;
 import edu.cornell.mannlib.vitro.webapp.filestorage.backend.FileStorage;
 
 /**
@@ -114,10 +114,10 @@ public class FileStorageUpdater implements FSUController {
 	private static final Log log = LogFactory.getLog(FileStorageUpdater.class);
 
 	/** How wide should a generated thumbnail image be (in pixels)? */
-	public static final int THUMBNAIL_WIDTH = 150;
+	public static final int THUMBNAIL_WIDTH = 200;
 
 	/** How high should a generated thumbnail image be (in pixels)? */
-	public static final int THUMBNAIL_HEIGHT = 150;
+	public static final int THUMBNAIL_HEIGHT = 200;
 
 	/** How is the main image referenced in the old scheme? */
 	public static final String IMAGEFILE = VitroVocabulary.vitroURI
@@ -130,7 +130,7 @@ public class FileStorageUpdater implements FSUController {
 	private final Model model;
 
 	private final FileStorage fileStorage;
-	private final FileModelHelper fileModelHelper;
+	private final UploadedFileHelper uploadedFileHelper;
 	private final ImageDirectoryWithBackup imageDirectoryWithBackup;
 	private final File upgradeDirectory;
 
@@ -141,7 +141,7 @@ public class FileStorageUpdater implements FSUController {
 			File webappImageDirectory) {
 		this.model = model;
 		this.fileStorage = fileStorage;
-		this.fileModelHelper = new FileModelHelper(wadf);
+		this.uploadedFileHelper = new UploadedFileHelper(fileStorage, wadf);
 		this.upgradeDirectory = new File(uploadDirectory, "upgrade");
 
 		this.imageDirectoryWithBackup = new ImageDirectoryWithBackup(new File(
@@ -227,7 +227,7 @@ public class FileStorageUpdater implements FSUController {
 				model.createProperty(IMAGETHUMB)).isEmpty()) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -237,7 +237,8 @@ public class FileStorageUpdater implements FSUController {
 	private void setup() {
 		try {
 			this.upgradeDirectory.mkdirs();
-			updateLog = new FSULog(this.upgradeDirectory);
+			updateLog = new FSULog(this.upgradeDirectory,
+					"FileStorageUpdater-log");
 			log.info("Updating pre-1.1 file references. Log file is "
 					+ updateLog.getFilename());
 		} catch (IOException e) {
@@ -264,8 +265,8 @@ public class FileStorageUpdater implements FSUController {
 	}
 
 	@Override
-	public FileModelHelper getFileModelHelper() {
-		return this.fileModelHelper;
+	public UploadedFileHelper getUploadedFileHelper() {
+		return this.uploadedFileHelper;
 	}
 
 	@Override

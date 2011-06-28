@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,10 +29,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package edu.cornell.mannlib.vitro.webapp.dao.jena;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,8 +42,16 @@ import org.apache.commons.logging.LogFactory;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.QuerySolutionMap;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.shared.Lock;
@@ -53,14 +63,36 @@ import edu.cornell.mannlib.vitro.webapp.beans.Property;
 import edu.cornell.mannlib.vitro.webapp.beans.VClass;
 import edu.cornell.mannlib.vitro.webapp.dao.PropertyDao;
 import edu.cornell.mannlib.vitro.webapp.dao.VClassDao;
+import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
 import edu.cornell.mannlib.vitro.webapp.dao.jena.event.EditEvent;
 
 public class PropertyDaoJena extends JenaBaseDao implements PropertyDao {
 	
 	protected static final Log log = LogFactory.getLog(PropertyDaoJena.class.getName());
-	
-    public PropertyDaoJena(WebappDaoFactoryJena wadf) {
+
+    private static final Map<String, String> NAMESPACES = new HashMap<String, String>() {{
+        put("afn", VitroVocabulary.AFN);
+        put("owl", VitroVocabulary.OWL);
+        put("rdf", VitroVocabulary.RDF);
+        put("rdfs", VitroVocabulary.RDFS);
+        put("vitro", VitroVocabulary.vitroURI);
+        put("vitroPublic", VitroVocabulary.VITRO_PUBLIC);
+    }};
+    
+    protected static String prefixes = "";
+    static {
+        for (String key : NAMESPACES.keySet()) {
+            prefixes += "PREFIX " + key + ": <" + NAMESPACES.get(key) + ">\n";
+        }
+        log.debug("Query prefixes: " + prefixes);
+    }
+    
+    protected DatasetWrapperFactory dwf;
+    
+    public PropertyDaoJena(DatasetWrapperFactory dwf, 
+                           WebappDaoFactoryJena wadf) {
         super(wadf);
+        this.dwf = dwf;
     }
     
     @Override
@@ -124,7 +156,7 @@ public class PropertyDaoJena extends JenaBaseDao implements PropertyDao {
                 } catch (Exception cce) {}
             }
 	    } catch (Exception e) {
-	    	log.error(e); 
+	    	log.error(e, e); 
     	} finally {
     		getOntModel().leaveCriticalSection();
     	}
@@ -165,7 +197,7 @@ public class PropertyDaoJena extends JenaBaseDao implements PropertyDao {
                 } catch (Exception cce) {}
             }
 	    } catch (Exception e) {
-	    	log.error(e); 
+	    	log.error(e, e); 
     	} finally {
     		getOntModel().leaveCriticalSection();
     	}
@@ -245,7 +277,7 @@ public class PropertyDaoJena extends JenaBaseDao implements PropertyDao {
                 }
             }
 	    } catch (Exception e) {
-	    	log.error(e); 
+	    	log.error(e, e); 
     	} finally {
     		getOntModel().leaveCriticalSection();
     	}
@@ -395,4 +427,36 @@ public class PropertyDaoJena extends JenaBaseDao implements PropertyDao {
         		
         return classSet;
     }
+     
+    protected Iterator<QuerySolution> getPropertyQueryResults(String subjectUri, Query query) {        
+        log.debug("SPARQL query:\n" + query.toString());
+        // Bind the subject's uri to the ?subject query term
+        QuerySolutionMap subjectBinding = new QuerySolutionMap();
+        subjectBinding.add("subject", 
+                ResourceFactory.createResource(subjectUri));
+
+        // Run the SPARQL query to get the properties
+        DatasetWrapper w = dwf.getDatasetWrapper();
+        Dataset dataset = w.getDataset();
+        dataset.getLock().enterCriticalSection(Lock.READ);
+        try {
+            QueryExecution qexec = QueryExecutionFactory.create(
+                    query, dataset, subjectBinding);
+            try {
+                ResultSet rs = qexec.execSelect();
+                // consume iterator before wrapper w is closed in finally block
+                List<QuerySolution> results = new ArrayList<QuerySolution>();
+                while (rs.hasNext()) {
+                    results.add(rs.next());
+                }
+                return results.iterator();
+            } finally {
+                qexec.close();
+            }
+        } finally {
+            dataset.getLock().leaveCriticalSection();
+            w.close();
+        }
+    }
+    
 }

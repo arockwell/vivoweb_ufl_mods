@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -165,7 +165,7 @@ public class VclassRetryController extends BaseEditController {
         try {
             Class[] args = new Class[1];
             args[0] = String.class;
-            epo.setGetMethod(vcwDao.getClass().getDeclaredMethod("getVClassByURI",args));
+            epo.setGetMethod(VClassDao.class.getDeclaredMethod("getVClassByURI",args));
         } catch (NoSuchMethodException e) {
             log.error(this.getClass().getName()+" could not find the getVClassByURI method");
         }

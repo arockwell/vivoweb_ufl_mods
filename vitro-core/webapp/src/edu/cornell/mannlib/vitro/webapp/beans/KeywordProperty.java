@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ public class KeywordProperty extends Property implements Comparable<KeywordPrope
     public KeywordProperty(String displayText,String editText,int rank, String groupUri) {
         super();
         this.setDisplayLabel(displayText);
-        this.setEditLabel(editText);
+        this.setLabel(editText);
         this.setDisplayRank(rank);
         this.setGroupURI(groupUri);
         this.setLocalName("keywords");

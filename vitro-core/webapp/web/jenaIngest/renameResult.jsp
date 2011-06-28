@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 
-<p><a href="ingest">Ingest Home</a></p>
+<h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Rename Resource</h2>
 
-<h2>Rename Resource</h2>
 <%String result = (String) request.getAttribute("result");%>
 <p><b><%=result%></b></p>

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -107,12 +107,12 @@ public class HiddenFromDisplayBelowRoleLevelFilter extends VitroFiltersImpl {
     @SuppressWarnings("serial")
     private class  RoleFilter<E extends ResourceBean> extends UnaryFunctor<E,Boolean>{
         @Override
-        public Boolean fn(E resource) {
-            log.debug("checking hidden status for \"" + resource.getURI() + "\"");
+        public Boolean fn(E resource) {            
             try{
                 if( resource == null )
                     return canViewOddItems();
                 else
+                    log.debug("checking hidden status for \"" + resource.getURI() + "\"");
                     return sameLevelOrHigher( resource.getHiddenFromDisplayBelowRoleLevel() );
             }catch(RuntimeException th){
                 log.warn("Error checking hidden status for " + resource, th);
@@ -125,9 +125,11 @@ public class HiddenFromDisplayBelowRoleLevelFilter extends VitroFiltersImpl {
     private class IndividualRoleFilter extends UnaryFunctor<Individual,Boolean>{
         @Override
         public Boolean fn(Individual ind){
+            if( ind == null ) {
+            	log.debug("checking hidden status for null Individual");
+                return canViewOddItems(); 
+            }
             log.debug("checking hidden status for Individual \"" + ind.getName() + "\"");
-            if( ind == null )
-                return canViewOddItems();
 
             try{
                 if( ! sameLevelOrHigher( ind.getHiddenFromDisplayBelowRoleLevel() ) )
@@ -162,9 +164,9 @@ public class HiddenFromDisplayBelowRoleLevelFilter extends VitroFiltersImpl {
     extends UnaryFunctor<E,Boolean>{
         @Override
         public Boolean fn(E dPropStmt) {
+        	if( dPropStmt == null ) return false; //don't know why this would happen
             log.debug("checking hidden status for data property statement \"" + dPropStmt.getDatapropURI() + "\"");
             try {
-                if( dPropStmt == null ) return false; //don't know why this would happen
                 String propUri = dPropStmt.getDatapropURI();
                 DataProperty prop = null;                
                 if( dataPropertyMap.containsKey(propUri) ){
@@ -180,7 +182,7 @@ public class HiddenFromDisplayBelowRoleLevelFilter extends VitroFiltersImpl {
                         return false;
                 }
 
-                Individual subject = wdf.getIndividualDao().getIndividualByURI( dPropStmt.getIndividualURI() );
+                Individual subject = dPropStmt.getIndividual();
                 if( subject == null ) {
                     if( ! canViewOddItems() ){  return false; }
                 }else{
@@ -214,9 +216,11 @@ public class HiddenFromDisplayBelowRoleLevelFilter extends VitroFiltersImpl {
     extends UnaryFunctor<E,Boolean>{
         @Override
         public Boolean fn(E stmt) {
-            log.debug("checking hidden status for object property statement \"" + stmt.getPropertyURI() + "\"");
-            if( stmt == null )
+            if( stmt == null ) {
+                log.debug("checking hidden status for null object property statement");
                 return false;
+            }
+            log.debug("checking hidden status for object property statement \"" + stmt.getPropertyURI() + "\"");
 
             try {
                 ObjectProperty prop = stmt.getProperty();                

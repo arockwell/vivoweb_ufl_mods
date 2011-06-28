@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 %>
 
-<p><a href="ingest">Ingest Home</a></p>
-
-<h2>Assign Permanent URIs To Resources</h2>
+<h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Assign Permanent URIs To Resources</h2>
 
 <p>This tool will rename the resources in the selected model to with new
 randomly-generated URIs following the pattern used in the main application.  
@@ -84,5 +82,5 @@ Or <%String defaultNamespace = (String)request.getAttribute("defaultNamespace");
 <p>Use default namespace <%=defaultNamespace%>  <input type="checkbox" name="defaultNamespace" value ="<%=defaultNamespace%>"/>
 </p>
 
-<p><input type="submit" name="submit" value="Generate URIs" /></p>
+<p><input class="submit" type="submit" name="submit" value="Generate URIs" /></p>
 </form>

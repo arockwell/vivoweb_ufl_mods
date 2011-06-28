@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -26,10 +26,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 package edu.cornell.mannlib.vitro.webapp.controller;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,6 +65,7 @@ import edu.cornell.mannlib.vitro.webapp.search.lucene.LuceneIndexFactory;
 import edu.cornell.mannlib.vitro.webapp.search.lucene.LuceneIndexer;
 import edu.cornell.mannlib.vitro.webapp.utils.FlagMathUtils;
 import edu.cornell.mannlib.vitro.webapp.web.TabWebUtil;
+import freemarker.template.TemplateModel;
 
 /**
  * Produces the entity lists for tabs.
@@ -206,6 +207,7 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
                  log.debug("TabEntitiesController: doing none for tabtypeid: "
                          + tab.getTabtypeId() +" and link mode: " + tab.getEntityLinkMethod());
              }
+
              
         } catch (Throwable e) {            
             req.setAttribute("javax.servlet.jsp.jspException",e);
@@ -271,10 +273,10 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
                 }else if( sortField.equalsIgnoreCase("sunset") ){
                     sort =     new Sort(Entity2LuceneDoc.term.SUNSET);
                 }else{
-                    sort =  new Sort(Entity2LuceneDoc.term.NAMEUNANALYZED);
+                    sort =  new Sort(Entity2LuceneDoc.term.NAMELOWERCASE);
                 }
             } else {
-                sort =     new Sort(Entity2LuceneDoc.term.NAMEUNANALYZED);
+                sort =     new Sort(Entity2LuceneDoc.term.NAMELOWERCASE);
             }
             
             if( depth > 1 && "rand()".equalsIgnoreCase(sortField) ){
@@ -396,7 +398,6 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
             rd.include(request, response);        
     }
 
-
     private int getPage(VitroRequest request) {
         String p = request.getParameter("page") ;
         if( p == null )
@@ -451,24 +452,7 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
                            }
                            typeQuery.add(tabQueries,BooleanClause.Occur.MUST);
                        }
-                   }
-                   
-                   String flag2Set = tab.getFlag2Set();
-                   if( tab.getFlag2Set() != null && ! tab.getFlag2Set().isEmpty()){                                              
-                       if( flag2Set != null && ! "".equals(flag2Set)){
-                           BooleanQuery flag2Query = new BooleanQuery();
-                           for( String flag2Value : flag2Set.split(",")){
-                               if( flag2Value != null ){
-                                   String value = flag2Value.replace(",", "");
-                                   if(!value.isEmpty()){
-                                       flag2Query.add(new TermQuery(new Term(Entity2LuceneDoc.term.FLAG2,value)),
-                                               BooleanClause.Occur.SHOULD);
-                                   }                                      
-                               }                
-                           }
-                           typeQuery.add(flag2Query, BooleanClause.Occur.MUST);
-                       }                       
-                   }
+                   }                                      
             }
            
             //make query for manually linked individuals
@@ -507,7 +491,7 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
            Query alphaQuery = null;
            if( alpha != null && !"".equals(alpha) && alpha.length() == 1){      
                alphaQuery =    
-                   new PrefixQuery(new Term(Entity2LuceneDoc.term.NAMEUNANALYZED, alpha.toLowerCase()));
+                   new PrefixQuery(new Term(Entity2LuceneDoc.term.NAMELOWERCASE, alpha.toLowerCase()));
                query.add(alphaQuery,BooleanClause.Occur.MUST);
            }           
            
@@ -520,20 +504,20 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
        }        
     }    
 
-	private int getSizeForGalleryTab(Tab tab){
+    private int getSizeForGalleryTab(Tab tab){
         int rows = tab.getGalleryRows() != 0 ? tab.getGalleryRows() : 8;
         int col = tab.getGalleryCols() != 0 ? tab.getGalleryCols() : 8;
         return rows  * col;        
-	}
-	
-	private int getSizeForNonGalleryTab(Tab tab, boolean showPaged ){  
-	    if( showPaged )
-	        if( tab.getGalleryCols() == 0 || tab.getGalleryRows() == 0 )
-	            return 8;
-	        else 
-	            return getSizeForGalleryTab(tab);	        
-	    else
-	        return NON_PAGED_LIMIT;	    
+    }
+    
+    private int getSizeForNonGalleryTab(Tab tab, boolean showPaged ){  
+        if( showPaged )
+            if( tab.getGalleryCols() == 0 || tab.getGalleryRows() == 0 )
+                return 8;
+            else 
+                return getSizeForGalleryTab(tab);           
+        else
+            return NON_PAGED_LIMIT;     
     }
 
     private int getTabDepth(VitroRequest request){
@@ -564,7 +548,7 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
             for(int page = 1; page < requiredPages && page <= MAX_PAGES ; page++ ){
                 records.add( new PageRecord( "page=" + page, Integer.toString(page), Integer.toString(page), selectedPage == page ) );            
             }
-            records.add( new PageRecord( "page="+ MAX_PAGES+1, Integer.toString(MAX_PAGES+1), "more...", false));
+            records.add( new PageRecord( "page="+ (MAX_PAGES+1), Integer.toString(MAX_PAGES+1), "more...", false));
         }else if( requiredPages > MAX_PAGES && selectedPage+1 > MAX_PAGES && selectedPage < requiredPages - MAX_PAGES){
             //the selected pages is in the middle of the list of page
             int startPage = selectedPage - MAX_PAGES / 2;
@@ -589,7 +573,7 @@ public void doGet( HttpServletRequest req, HttpServletResponse response )
         return records;
     }
     
-    public static class PageRecord {
+    public static class PageRecord  {
         public PageRecord(String param, String index, String text, boolean selected) {            
             this.param = param;
             this.index = index;

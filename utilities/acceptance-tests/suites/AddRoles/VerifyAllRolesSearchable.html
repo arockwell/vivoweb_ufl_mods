@@ -31,12 +31,17 @@
 </thead><tbody>
 <tr>
 	<td>comment</td>
-	<td class="comment">Verify all 8 roles are searchable</td>
+	<td class="comment">Verify all roles are searchable</td>
 	<td></td>
 </tr>
 <tr>
 	<td>deleteAllVisibleCookies</td>
 	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>setTimeout</td>
+	<td>100000</td>
 	<td></td>
 </tr>
 <tr>
@@ -56,257 +61,467 @@
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for RESEARCHER--will find 2 research focus roles</td>
+	<td class="comment">Verify search results for VIVO</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>researcher</td>
+	<td>querytext</td>
+	<td>VIVO</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>researcher - VIVO Search Results</td>
+	<td>VIVO - VIVO Search Results</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Cancer Treatment Drug Interactions</td>
+	<td>link=activities</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Testing new cancer treatment drugs with other drugs to determine interactions. start year and month 2001-01 end year and month 2002-01 role Lead Researcher research activity by Jane Faculty ...</td>
+	<td>VIVO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>NIH VIVO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>NIH VIVO Too</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>VIVO Cornell Grant</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>VIVO Cornell Grant Too</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Relationship Between Stress and Children</td>
+	<td>link=VIVO</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>... Testing to determine if having children makes your life more stressful. start year and month 2003-03 end year and month 2007-03 role Consulting Researcher research activity by Jane Faculty ...</td>
+	<td>verifyElementPresent</td>
+	<td>link=NIH VIVO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=NIH VIVO Too</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=VIVO Cornell Grant</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=VIVO Cornell Grant Too</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for PROFESSOR--will find 1 teaching focus role</td>
+	<td class="comment">Verify search results for APE</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>professor</td>
+	<td>querytext</td>
+	<td>ape</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>professor - VIVO Search Results</td>
+	<td>ape - VIVO Search Results</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Drug Interactions</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>... Teaching how drugs interact with one another. start year and month 2001-02 end year and month 2012-02 role Associate Professor teaching activity by Jane Faculty ...</td>
+	<td>link=courses</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Jane Faculty</td>
+	<td>link=activities</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=events</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=research</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Assistant Professor</td>
+	<td>Habitats for Apes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Ape World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>History of Apes in Africa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Introduction to the Ape World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Prototype New Ape Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Ape Health Program</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Habitats for Apes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Ape World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=History of Apes in Africa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Introduction to the Ape World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Prototype New Ape Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Ape Health Program</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for LECTURER--will find 1 teaching focus role</td>
+	<td class="comment">Verify search results for PRIMATE</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>lecturer</td>
+	<td>querytext</td>
+	<td>primate</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>lecturer - VIVO Search Results</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Public lectures on reducing stress</td>
+	<td>link=events</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Introduction to Drugs</td>
+	<td>link=organizations</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Intoduces first year pre-med students to drugs. start year and month 2003-04 end year and month 2007-04 role Lecturer teaching activity by Jane Faculty ...</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Jane Faculty</td>
+	<td>Working with Primates</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Assistant Professor</td>
+	<td>Researching Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Primates of the World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Show Me the Primates!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Librarians for the Better Treatment of Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Working with Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Researching Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Primates of the World</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Show Me the Primates!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Librarians for the Better Treatment of Primates</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">For some reason verifying of the last line in the search results bombs out</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Search for FOUNDER--will find 1 outreach focus role</td>
+	<td class="comment">Verify search results for LIBRARIAN</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>founder</td>
+	<td>querytext</td>
+	<td>librarian</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>founder - VIVO Search Results</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Free Cancer Screening Clinic</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=organizations</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Founder of clinic to conduct free cancer screenings. start year and month 2001-12 end year and month 2012-12 role Founder outreach activity by Jane Faculty ...</td>
+	<td>Librarian, Lily | Associate Librarian</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Librarians for the Better Treatment of Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Reference Division</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Librarian, Lily</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Librarians for the Better Treatment of Primates</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Reference Division</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for SPEAKER--will find 1 outreach focus role</td>
+	<td class="comment">Verify search results for ANIMAL</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>speaker</td>
+	<td>querytext</td>
+	<td>animal</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>speaker - VIVO Search Results</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Public lectures on reducing stress</td>
+	<td>link=events</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Providing helpful ideas and answer questions about reducing stress. start year and month 2005-05 end year and month 2006-06 role Speaker outreach activity by Jane Faculty ...</td>
+	<td>Animal Librarianship</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Animal Librarianship</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for PRESIDENT--will find 1 professional service role</td>
+	<td class="comment">Verify search results for CARROLL</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>president</td>
+	<td>querytext</td>
+	<td>carroll</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>president - VIVO Search Results</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=AMA</td>
+	<td>link=organizations</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Won election. start year and month 2008-08 end year and month 2009-09 role President professional activity by Jane Faculty</td>
+	<td>Carroll College</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Carroll College</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Search for DOCTOR--will find 1 professional service role</td>
+	<td class="comment">Verify search results for LIBRARY</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>doctor</td>
+	<td>querytext</td>
+	<td>library</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>doctor - VIVO Search Results</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Private practice</td>
+	<td>link=organizations</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>... Practice focuses on reducing stress while taking cancer drugs. start year and month 1990-06 role Doctor professional activity by Jane Faculty ...</td>
+	<td>Amercian Library Association</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>MLIS Master of Library and Information Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>B.L.S. Bachelor of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>D.L.S. Doctor of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>M.L.S. Master of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Amercian Library Association</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=MLIS Master of Library and Information Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=B.L.S. Bachelor of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=D.L.S. Doctor of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=M.L.S. Master of Library Science</td>
+	<td></td>
+</tr>
+<tr>
+	<td>comment</td>
+	<td class="comment">Verify search results for FACULTY</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>querytext</td>
+	<td>faculty</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Faculty, Jane | Assistant Professor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -316,7 +531,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=VIVO</td>
+	<td>link=Home</td>
 	<td></td>
 </tr>
 <tr>
@@ -324,7 +539,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

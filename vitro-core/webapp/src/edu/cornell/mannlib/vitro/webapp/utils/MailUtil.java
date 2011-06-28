@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,34 +28,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package edu.cornell.mannlib.vitro.webapp.utils;
 import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.Properties;
 import java.util.List;
+import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.ResourceFactory;
 
 import edu.cornell.mannlib.vitro.webapp.ConfigurationProperties;
-import edu.cornell.mannlib.vitro.webapp.dao.VitroVocabulary;
-import fedora.client.FedoraClient;
 
 public class MailUtil {
+	private static final Log log = LogFactory.getLog(MailUtil.class);
+	
 	 	private String smtpHost = null;
         public MailUtil(){
         	smtpHost = getSmtpHostFromProperties();
@@ -70,8 +60,7 @@ public class MailUtil {
             	
             	int recipientCount = (deliverToArray == null) ? 0 : deliverToArray.size();
                 if (recipientCount == 0) {
-                    //log.error("recipientCount is 0 when DeliveryType specified as \""+formType+"\"");
-                    throw new Error(
+                    log.error(
                             "To establish the Contact Us mail capability the system administrators must  "
                             + "specify at least one email address in the current portal.");
                 }
@@ -100,7 +89,7 @@ public class MailUtil {
 	            msg.setSentDate( new Date() );
 	            Transport.send( msg ); // try to send the message via smtp - catch error exceptions
             } catch(Exception ex) {
-            	System.out.println("Exception sending message :"  + ex.getMessage());
+            	log.error("Exception sending message :"  + ex.getMessage(), ex);
             }
         }
         
@@ -114,10 +103,9 @@ public class MailUtil {
     	private String getSmtpHostFromProperties() {
     		String host = ConfigurationProperties.getProperty("Vitro.smtpHost");
     		if (host != null && !host.equals("")) {
-    			//System.out.println("Found Vitro.smtpHost value is " + host);
-    			//LOG.info("Found Vitro.smtpHost value of " + host);
+    			log.debug("Found Vitro.smtpHost value of " + host);
     		} else {
-    			System.out.println("No Vitro.smtpHost specified");
+    			log.error("No Vitro.smtpHost specified");
     		}
     		return (host != null && host.length() > 0) ? host : null;
     	}

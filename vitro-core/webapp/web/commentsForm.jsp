@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -90,8 +90,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 		<textarea name="s34gfd88p9x1" rows="10" cols="90"></textarea>
 		<div>
-  		<input type="submit" value="Send Mail" class="yellowbutton"/>
-  		<input type="reset" value="Clear Form" class="plainbutton"/>
+  		<input type="submit" class="submit" value="Send Mail" />
+  		<input type="reset" class="delete" value="Clear Form" />
 		</div
 
 		<p style="font-weight: bold; margin-top: 1em">Thank you!</p>

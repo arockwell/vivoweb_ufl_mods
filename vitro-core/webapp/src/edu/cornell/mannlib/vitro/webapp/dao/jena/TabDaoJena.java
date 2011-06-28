@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -47,8 +47,10 @@ import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.shared.Lock;
 import com.hp.hpl.jena.util.iterator.ClosableIterator;
@@ -357,7 +359,7 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
             Individual portalInd = getOntModel().getIndividual(DEFAULT_NAMESPACE+"portal"+portalId);
             if (portalInd == null)
                 return -1;
-            Resource rootTabResource = (Resource) portalInd.getProperty(getOntModel().getObjectProperty(VitroVocabulary.PORTAL_ROOTTAB)).getObject();
+            Resource rootTabResource = (Resource) portalInd.getProperty(PORTAL_ROOTTAB).getObject();
             if (rootTabResource == null)
                 return -1;
             String id = rootTabResource.getLocalName().substring(3);
@@ -372,7 +374,7 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
         try {
             Individual primaryTabInd = getOntModel().getIndividual(DEFAULT_NAMESPACE+"tab"+primaryTabId);
             if (primaryTabInd != null) {
-                ObjectProperty subTabOf = getOntModel().getObjectProperty(VitroVocabulary.TAB_SUBTABOF);
+                ObjectProperty subTabOf = TAB_SUBTABOF;
                 if (subTabOf != null) {
                     List secondaryTabs = new ArrayList();
                     Iterator stmtIt = getOntModel().listStatements(null, subTabOf, primaryTabInd);
@@ -503,7 +505,7 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
             Integer i = null;
             Individual narrowerTab = getOntModel().getIndividual(DEFAULT_NAMESPACE+"tab"+tabId);
             if (narrowerTab != null) {
-                ObjectProperty subTabOf = getOntModel().getObjectProperty(VitroVocabulary.TAB_SUBTABOF);
+                ObjectProperty subTabOf = TAB_SUBTABOF;
                 if (subTabOf != null) {
                     Iterator stmtIt = narrowerTab.listProperties(subTabOf);
                     if (stmtIt.hasNext()) {
@@ -595,19 +597,19 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
             try {
                 tabInd.setLabel(tab.getTitle(), (String) getDefaultLanguage());
             } catch (Exception e) {log.error("error setting label for "+tabInd.getURI());}
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.DESCRIPTION), tab.getDescription(), ontModel);
-            addPropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_STATUSID), tab.getStatusId(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_BODY), tab.getBody(), ontModel);
-            addPropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.DISPLAY_RANK), tab.getDisplayRank(), ontModel);
-            addPropertyIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_DAYLIMIT), tab.getDayLimit(), ontModel);
-            addPropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_GALLERYROWS), tab.getGalleryRows(), ontModel);
-            addPropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_GALLERYCOLS), tab.getGalleryCols(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_MORETAG), tab.getMoreTag(), ontModel);
-            addPropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_IMAGEWIDTH), tab.getImageWidth(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_ENTITYSORTFIELD), tab.getEntitySortField(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_ENTITYSORTDIRECTION), tab.getEntitySortDirection(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_FLAG2MODE), tab.getFlag2Mode(), ontModel);
-            addPropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_FLAG2SET), tab.getFlag2Set(), ontModel);
+            addPropertyStringValue(tabInd, DESCRIPTION, tab.getDescription(), ontModel);
+            addPropertyNonNegativeIntValue(tabInd, TAB_STATUSID, tab.getStatusId(), ontModel);
+            addPropertyStringValue(tabInd, TAB_BODY, tab.getBody(), ontModel);
+            addPropertyNonNegativeIntValue(tabInd, DISPLAY_RANK, tab.getDisplayRank(), ontModel);
+            addPropertyIntValue(tabInd, TAB_DAYLIMIT, tab.getDayLimit(), ontModel);
+            addPropertyNonNegativeIntValue(tabInd, TAB_GALLERYROWS, tab.getGalleryRows(), ontModel);
+            addPropertyNonNegativeIntValue(tabInd, TAB_GALLERYCOLS, tab.getGalleryCols(), ontModel);
+            addPropertyStringValue(tabInd, TAB_MORETAG, tab.getMoreTag(), ontModel);
+            addPropertyNonNegativeIntValue(tabInd, TAB_IMAGEWIDTH, tab.getImageWidth(), ontModel);
+            addPropertyStringValue(tabInd, TAB_ENTITYSORTFIELD, tab.getEntitySortField(), ontModel);
+            addPropertyStringValue(tabInd, TAB_ENTITYSORTDIRECTION, tab.getEntitySortDirection(), ontModel);
+            addPropertyStringValue(tabInd, TAB_FLAG2MODE, tab.getFlag2Mode(), ontModel);
+            addPropertyStringValue(tabInd, TAB_FLAG2SET, tab.getFlag2Set(), ontModel);
             try {
                 Object o = entityLinkMethods.get(tab.getEntityLinkMethod());
                 if (o instanceof List) {
@@ -648,19 +650,19 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
                     try {
                         tabInd.setLabel(tab.getTitle(), (String) getDefaultLanguage());
                     } catch (Exception e) {log.error("Error updating title for tab "+tab.getTabId());}
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.DESCRIPTION), tab.getDescription(), ontModel);
-                    updatePropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_STATUSID), tab.getStatusId(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_BODY), tab.getBody(), ontModel);
-                    updatePropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.DISPLAY_RANK), tab.getDisplayRank(), ontModel);
-                    updatePropertyIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_DAYLIMIT), tab.getDayLimit(), ontModel);
-                    updatePropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_GALLERYROWS), tab.getGalleryRows(), ontModel);
-                    updatePropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_GALLERYCOLS), tab.getGalleryCols(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_MORETAG), tab.getMoreTag(), ontModel);
-                    updatePropertyNonNegativeIntValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_IMAGEWIDTH), tab.getImageWidth(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_ENTITYSORTFIELD), tab.getEntitySortField(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_ENTITYSORTDIRECTION), tab.getEntitySortDirection(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_FLAG2MODE), tab.getFlag2Mode(), ontModel);
-                    updatePropertyStringValue(tabInd, ontModel.getDatatypeProperty(VitroVocabulary.TAB_FLAG2SET), tab.getFlag2Set(), ontModel);
+                    updatePropertyStringValue(tabInd, DESCRIPTION, tab.getDescription(), ontModel);
+                    updatePropertyNonNegativeIntValue(tabInd, TAB_STATUSID, tab.getStatusId(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_BODY, tab.getBody(), ontModel);
+                    updatePropertyNonNegativeIntValue(tabInd, DISPLAY_RANK, tab.getDisplayRank(), ontModel);
+                    updatePropertyIntValue(tabInd, TAB_DAYLIMIT, tab.getDayLimit(), ontModel);
+                    updatePropertyNonNegativeIntValue(tabInd, TAB_GALLERYROWS, tab.getGalleryRows(), ontModel);
+                    updatePropertyNonNegativeIntValue(tabInd, TAB_GALLERYCOLS, tab.getGalleryCols(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_MORETAG, tab.getMoreTag(), ontModel);
+                    updatePropertyNonNegativeIntValue(tabInd, TAB_IMAGEWIDTH, tab.getImageWidth(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_ENTITYSORTFIELD, tab.getEntitySortField(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_ENTITYSORTDIRECTION, tab.getEntitySortDirection(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_FLAG2MODE, tab.getFlag2Mode(), ontModel);
+                    updatePropertyStringValue(tabInd, TAB_FLAG2SET, tab.getFlag2Set(), ontModel);
                     Iterator types = tabInd.listRDFTypes(false);
                     List typesToRemove = new ArrayList();
                     while (types.hasNext()) {
@@ -888,11 +890,7 @@ public class TabDaoJena extends JenaBaseDao implements TabDao {
      * look first for heading tabs
      */
     private void getChildTabs(Tab tab, int auth_level, ApplicationBean appBean){
-        ObjectProperty subTabOf = getOntModel().getObjectProperty(VitroVocabulary.TAB_SUBTABOF);
-        if (subTabOf == null) {
-            log.error("cannot find property "+ VitroVocabulary.TAB_SUBTABOF);
-            return;
-        }
+        Property subTabOf = ResourceFactory.createProperty(VitroVocabulary.TAB_SUBTABOF);
         Individual parentTabInd = getOntModel().getIndividual(DEFAULT_NAMESPACE+"tab"+tab.getTabId());
         if (parentTabInd == null)
             return;

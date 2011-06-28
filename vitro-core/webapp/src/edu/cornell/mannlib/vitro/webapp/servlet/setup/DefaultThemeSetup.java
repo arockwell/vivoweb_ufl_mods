@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -42,6 +42,10 @@ public class DefaultThemeSetup implements ServletContextListener {
 	// Set default theme based on themes present on the file system
 	public void contextInitialized(ServletContextEvent event) {
 
+	    if (AbortStartup.isStartupAborted(event.getServletContext())) {
+            return;
+        }
+	    
     	// Find the themes directory in the file system
 		ServletContext sc = event.getServletContext();		
     	boolean doSort = true;

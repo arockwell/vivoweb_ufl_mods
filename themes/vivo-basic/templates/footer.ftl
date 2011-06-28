@@ -1,20 +1,56 @@
-<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+<#--
+Copyright (c) 2011, Cornell University
+All rights reserved.
 
-<div id="footer">
-  <div class="footerLinks">
-		<ul class="otherNav">
-        <li><a href="/about" title="more about this web site">About VIVO</a></li>
-        <li><a href="/contact" title="feedback form">Contact Us</a></li>
-		<li><a href="http://privacy.ufl.edu/privacystatement.html">Privacy Policy</a></li>
-		<li class="last"><a href="http://www.ufl.edu/">University of Florida</a></li>
-        </ul>
-		<div id="uflogo"><a href="http://www.ufl.edu/"><img src="/themes/vivo-basic/images/UF_white.png" width="196" height="35" alt="University of Florida"></a></div>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<#import "lib-list.ftl" as l>
+
+        </div> <!-- content -->
+    </div> <!-- contentwrap -->
+
+    <div id="footer">
+        <#if urls.bannerImage??>
+            <img class="footerLogo" src="${urls.bannerImage}" alt="${siteTagline!}" />
+        </#if>
+    
+        <div class="footerLinks">
+            <ul class="otherNav">  
+                <@l.firstLastList> 
+                    <#include "subMenuLinks.ftl">
+                </@l.firstLastList>
+            </ul>
+        </div>
+  
+        <#include "copyright.ftl">
+
+        All Rights Reserved. <a href="${urls.termsOfUse}">Terms of Use</a>
+
+        <#include "version.ftl">
     </div>
-    <div class="copyright">
-		    &copy;2010&nbsp;
-			VIVO Project</div>
-	    <div class="copyright">
-		    All Rights Reserved. <a href="/termsOfUse?home=1">Terms of Use</a>
-	    </div>
-	</div>
-</div>
+
+</div> <!-- wrap --> 
+
+<#include "scripts.ftl">

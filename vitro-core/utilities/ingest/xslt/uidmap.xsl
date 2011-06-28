@@ -2,8 +2,8 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-	xmlns="http://vivoweb.org/activity-insight"
+	xmlns:mapid="http://vivoweb.org/ontology/activity-insight"
+	xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data"
 	xmlns:dmu="http://www.digitalmeasures.com/schema/user-metadata"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -23,7 +23,8 @@
 <!-- ================================================= -->
 <xsl:template match='/Users'>
 
-<xsl:element name='aiic:aiidmap' namespace='http://vivoweb.org/activity-insight'>
+<xsl:element name='mapid:aiidmap' 
+namespace='http://vivoweb.org/ontology/activity-insight'>
 <xsl:apply-templates select='User'/>
 </xsl:element>
 
@@ -31,11 +32,14 @@
 </xsl:template>
 
 <xsl:template match='User'>
-<xsl:element name='aiic:mapterm' namespace='http://vivoweb.org/activity-insight'>
-<xsl:element name='aiic:netid' namespace='http://vivoweb.org/activity-insight'>
+<xsl:element name='mapid:mapterm' 
+namespace='http://vivoweb.org/ontology/activity-insight'>
+<xsl:element name='mapid:netid' 
+namespace='http://vivoweb.org/ontology/activity-insight'>
 <xsl:value-of select='@username'/>
 </xsl:element>
-<xsl:element name='aiic:aiid' namespace='http://vivoweb.org/activity-insight'>
+<xsl:element name='mapid:aiid' 
+namespace='http://vivoweb.org/ontology/activity-insight'>
 <xsl:value-of select='@dmu:userId'/>
 </xsl:element>
 <xsl:apply-templates select='FirstName|MiddleName|LastName|Email'/>
@@ -43,7 +47,8 @@
 </xsl:template>
 
 <xsl:template match='*'>
-<xsl:element name='{concat("aiic:",local-name())}' namespace='http://vivoweb.org/activity-insight' >
+<xsl:element name='{concat("mapid:",local-name())}' 
+namespace='http://vivoweb.org/ontology/activity-insight' >
 <xsl:value-of select='.'/>
 </xsl:element>
 

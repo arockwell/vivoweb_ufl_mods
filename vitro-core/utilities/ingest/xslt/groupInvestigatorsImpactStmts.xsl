@@ -2,8 +2,8 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiis="http://vivoweb.org/activity-insight"
-        xmlns="http://vivoweb.org/activity-insight"
+	xmlns:aiis="http://vivoweb.org/ontology/activity-insight"
+        xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data">
 
 <xsl:output method='xml' indent='yes'/>
@@ -25,7 +25,7 @@
  <xsl:attribute name='counter'>
 	<xsl:number level='multiple'/> </xsl:attribute>
 
-<xsl:copy-of select='aiis:INVESTIGATOR_NAME|aiis:LastName|aiis:FirstName|aiis:MiddleName|aiis:AiUserId|aiis:NetId'/>
+<xsl:copy-of select='aiis:INVESTIGATOR_NAME|aiis:LastName|aiis:FirstName|aiis:MiddleName|aiis:AiUserId|aiis:NetId|aiis:Department'/>
 
 <xsl:variable name='aalist' 
     select='aiis:IMPACT_STMT_LIST/aiis:IMPACT_STMT_INFO[@ref_netid = ../../aiis:NetId]'/>

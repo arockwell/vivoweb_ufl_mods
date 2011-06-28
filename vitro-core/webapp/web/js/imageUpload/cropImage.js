@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			onSelect: showPreview,
 			setSelect:   [ 0, 0, 115, 115 ],
 			minSize: [ 115, 115 ],
-			boxWidth: 400,
+			boxWidth: 650,
 			aspectRatio: 1
 			
 		});

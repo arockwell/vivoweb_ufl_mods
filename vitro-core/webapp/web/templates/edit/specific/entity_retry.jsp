@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</td>
 		
 		<td id="newMonikerTd" valign="top">If [new moniker] is selected, enter here:<br/>
-                <input id="MonikerSelectAlt" name="Moniker" value="<form:value name="Moniker"/>"/>
+                <input id="MonikerSelectAlt" name="Moniker" value="<form:value name="Moniker"/>" disabled="disabled" />
                 <i>otherwise leave this field blank</i>
         </td>
     </tr>

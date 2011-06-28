@@ -35,13 +35,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>deleteAllVisibleCookies</td>
-	<td></td>
+	<td>setTimeout</td>
+	<td>100000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>setTimeout</td>
-	<td>100000</td>
+	<td>deleteAllVisibleCookies</td>
+	<td></td>
 	<td></td>
 </tr>
 <tr>
@@ -56,17 +56,17 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
-	<td>carroll college</td>
+	<td>querytext</td>
+	<td>carroll</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>carroll college - VIVO Search Results</td>
+	<td>carroll - VIVO Search Results</td>
 	<td></td>
 </tr>
 <tr>
@@ -75,13 +75,18 @@
 	<td></td>
 </tr>
 <tr>
+	<td>verifyElementPresent</td>
+	<td>link=Carroll University</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
-	<td>search</td>
+	<td>querytext</td>
 	<td>wisconsin</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
@@ -95,28 +100,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>search</td>
-	<td>illinois</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>illinois - VIVO Search Results</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=University of Illinois</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/vivo/</td>
+	<td>link=Home</td>
 	<td></td>
 </tr>
 <tr>
@@ -124,7 +109,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

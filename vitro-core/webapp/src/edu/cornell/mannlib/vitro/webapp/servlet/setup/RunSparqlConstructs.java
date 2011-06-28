@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -68,6 +68,10 @@ public class RunSparqlConstructs implements ServletContextListener {
 	
 	public void contextInitialized(ServletContextEvent sce) {
 		
+	    if (AbortStartup.isStartupAborted(sce.getServletContext())) {
+            return;
+        }
+	    
 		try {
 		
 			WebappDaoFactory wadf = (WebappDaoFactory) sce.getServletContext().getAttribute("webappDaoFactory");

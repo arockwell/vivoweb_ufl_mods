@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -27,9 +27,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /* styles for uploading a picture */
+
 #photoUploadContainer{
 	margin-left: 0px;
-	width:500px;
 	height:280px;
 	background:#fff;
 	padding:15px;
@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	
 }
 
+
+
 #photoUploadForm form label{
 	display:block;
 	padding-bottom:10px;
@@ -82,19 +84,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #photoCroppingContainer{
 	margin-left: 0px;
-	width:750px;
 	height:450px;
 	background:#fff;
+	padding:15px 0 15px 15px;
+	margin-right:0;
 
-	padding:15px;
-	
-	
 }
 
 #photoCroppingPreview{
 	width:180px;
 	float:left;
-
 }
 
 
@@ -104,20 +103,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 #photoCropping{
-	width:500px;
-	float:right;
+	width:400px;
+	float:left;
 	padding-top:30px;
 	padding-left:15px;
-
-	
+	margin-left:0;
+	margin-right:0;
 }
+
 
 
 /* styles for deleting a picture */
 
 #photoDeletingContainer{
 	margin-left: 0px;
-	width:500px;
+	width:720px;
 	height:330px;
 	background:#fff;
 	border:1px solid grey;
@@ -125,47 +125,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	
 }
 /* styles for error alerts */
-#errorAlert{
+#error-alert{
 	color:#900;
 	padding:0px;
 	margin-bottom:5px;
-	
 	height:30px;
 	
 }
 
 
-#errorAlert img{
+#error-alert img{
 	float:left;
 	margin:0;
 	padding:0;
-	vertical-align:middle;
-	
-	
+	vertical-align:middle;	
 }
 
-#errorAlert  p{
+#error-alert  p{
 padding-left:35px;
 font-size:0.9em;
 line-height:30px;
-	
 }
-
-a{
-color:#FF7700; 
-}
-
 a.cancelUpload:link,  a.cancelUpload:visited {
 color:#FF7700; 
 }
 
 a.cancelUpload:hover {
-color:#FFF;
-background-color:#FF7700;
+	color:#FFF;
+	background-color:#FF7700;
 }
 
 a.cancelUpload:active {
-color:#FF7700;
+	color:#FF7700;
+}
+.or{
+	display:inline;
+	vertical-align:middle;
 }
 
 

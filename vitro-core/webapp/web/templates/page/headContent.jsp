@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -53,11 +53,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%-- This should be a non-theme-specific stylesheet --%>
 <link rel="stylesheet" type="text/css" href="<%=themeDir%>css/edit.css"/>
 
-<script language="javascript" src="/js/jquery.js"></script>
-<script language="javascript" src="/js/feedWriters.js"></script>
-
 <title><c:out value="${requestScope.title}"/></title>
 
 <c:if test="${!empty scripts}"><jsp:include page="${scripts}"/></c:if>
+
 <!-- end headContent.jsp -->
-  
+     

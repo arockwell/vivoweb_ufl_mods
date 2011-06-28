@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -33,6 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page errorPage="/error.jsp"%>
+
 <%
 /***********************************************
  Display Paged Search Results
@@ -179,7 +180,7 @@ if( request.getAttribute("types") != null ){
  String basePageUrl =  
      request.getContextPath() + "/search?querytext="
          +URLEncoder.encode(request.getParameter("querytext"),"UTF-8") +
-         request.getAttribute("refinment");
+         request.getAttribute("refinement");
  
  out.println("<div class='searchpages'>");
  out.println("Pages:");

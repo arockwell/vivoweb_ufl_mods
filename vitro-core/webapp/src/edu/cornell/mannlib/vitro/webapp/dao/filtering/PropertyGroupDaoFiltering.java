@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -107,8 +107,8 @@ public class PropertyGroupDaoFiltering implements PropertyGroupDao {
 		return groups;
 	}
 	
-	public PropertyGroup createTempPropertyGroup(String name, int rank) {
-	    return innerDao.createTempPropertyGroup(name, rank);
+	public PropertyGroup createDummyPropertyGroup(String name, int rank) {
+	    return innerDao.createDummyPropertyGroup(name, rank);
 	}
 	
 	public String insertNewPropertyGroup(PropertyGroup group) {

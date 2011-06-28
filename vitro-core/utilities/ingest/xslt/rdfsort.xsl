@@ -7,9 +7,9 @@
         xmlns:bibo="http://purl.org/ontology/bibo/"
         xmlns:foaf="http://xmlns.com/foaf/0.1/"
         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-	xmlns:ai="http://vivoweb.org/activity-insight#"
-        xmlns="http://vivoweb.org/activity-insight#"
+	xmlns:aiic="http://vivoweb.org/ontology/activity-insight"
+	xmlns:ai="http://vivoweb.org/ontology/activity-insight#"
+        xmlns="http://vivoweb.org/ontology/activity-insight#"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data"
 	exclude-result-prefixes='xs'>
 
@@ -30,7 +30,7 @@
 <rdf:RDF>
 <xsl:for-each select='rdf:Description'>
 <xsl:sort select='./@rdf:about'/>
-<xsl:copy-of select='.'/><xsl:value-of select='$NL'/>
+<xsl:copy-of select='.' copy-namespaces='no'/><xsl:value-of select='$NL'/>
 </xsl:for-each>
 </rdf:RDF>
 </xsl:template>

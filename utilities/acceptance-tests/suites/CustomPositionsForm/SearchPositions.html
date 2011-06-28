@@ -35,6 +35,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>setTimeout</td>
+	<td>100000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>deleteAllVisibleCookies</td>
 	<td></td>
 	<td></td>
@@ -56,12 +61,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
+	<td>querytext</td>
 	<td>lecturer</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
@@ -70,23 +75,33 @@
 	<td></td>
 </tr>
 <tr>
+	<td>verifyTextPresent</td>
+	<td>Search results for 'lecturer'</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=organizations</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyElementPresent</td>
 	<td>link=Carroll College</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>... people Lecturer ...</td>
-	<td></td>
-</tr>
-<tr>
 	<td>verifyElementPresent</td>
-	<td>link=Jane Faculty</td>
+	<td>link=Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Jane Faculty | Assistant Professor</td>
+	<td>Faculty, Jane | Assistant Professor</td>
 	<td></td>
 </tr>
 <tr>
@@ -96,22 +111,42 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
+	<td>querytext</td>
 	<td>professor</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>10000</td>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
 	<td>professor - VIVO Search Results</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Search results for 'professor'</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=organizations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Faculty, Jane</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Faculty, Jane | Assistant Professor</td>
 	<td></td>
 </tr>
 <tr>
@@ -121,7 +156,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>link=Jane Faculty</td>
+	<td>link=Cornell University</td>
 	<td></td>
 </tr>
 <tr>
@@ -131,17 +166,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
+	<td>querytext</td>
 	<td>carroll</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>10000</td>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
@@ -150,6 +180,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>verifyTextPresent</td>
+	<td>Search results for 'carroll'</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=organizations</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyElementPresent</td>
 	<td>link=Carroll College</td>
 	<td></td>
@@ -161,112 +201,27 @@
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Link to Carroll College to verify Jane Faculty is no longer listed</td>
+	<td class="comment">Link to Carroll College to verify Jane Faculty is listed</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>search</td>
-	<td>carroll college</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>10000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>carroll college - VIVO Search Results</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Carroll College</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>link=Carroll College</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>10000</td>
+	<td>assertTitle</td>
+	<td>Carroll College</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Carroll College</td>
+	<td>verifyElementNotPresent</td>
+	<td>link=Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextNotPresent</td>
-	<td>Jane Faculty</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Link to Carroll University to verify Jane Faculty is listed</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>search</td>
-	<td>carroll university</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>10000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>carroll university - VIVO Search Results</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Carroll University</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=Carroll University</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Carroll University</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>link=Jane Faculty</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Jane Faculty Professor, 1986 -</td>
+	<td>Faculty, Jane, Lecturer 1977 - 1981</td>
 	<td></td>
 </tr>
 <tr>
@@ -276,22 +231,27 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>search</td>
+	<td>querytext</td>
 	<td>university</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>50000</td>
+	<td>//input[@value='Search']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
 	<td>university - VIVO Search Results</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Search results for 'university'</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=organizations</td>
 	<td></td>
 </tr>
 <tr>
@@ -306,17 +266,42 @@
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Make sure Jane Faculty is no longer associated with Cornell</td>
+	<td class="comment">Make sure Jane Faculty is associated with Carroll and Cornell</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
+	<td>link=Carroll University</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Carroll University</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>link=Faculty, Jane</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>Faculty, Jane, Lecturer 1977 - 1981</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>querytext</td>
+	<td>university</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Search']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>link=Cornell University</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>50000</td>
 	<td></td>
 </tr>
 <tr>
@@ -325,13 +310,28 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyElementNotPresent</td>
-	<td>link=Jane Faculty</td>
+	<td>verifyTextPresent</td>
+	<td>Affiliation</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>50000</td>
+	<td>verifyTextPresent</td>
+	<td>people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>faculty position</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Faculty, Jane</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Faculty, Jane, Professor 1986 -</td>
 	<td></td>
 </tr>
 <tr>
@@ -340,8 +340,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>open</td>
-	<td>/vivo/</td>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
 	<td></td>
 </tr>
 <tr>
@@ -349,7 +349,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

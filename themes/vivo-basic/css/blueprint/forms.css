@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -84,3 +84,13 @@ input.button { margin: 1em 0; }
 .error a    { color: #8a1f11; }
 .notice a   { color: #514721; }
 .success a  { color: #264409; }
+
+
+/* Comment Form */
+form#contact_form .buttons {
+    margin-top: 1em;
+}
+
+form#contact_form .buttons input {
+    margin-right: .75em;
+}

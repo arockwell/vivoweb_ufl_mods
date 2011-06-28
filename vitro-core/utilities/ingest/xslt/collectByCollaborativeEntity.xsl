@@ -2,9 +2,9 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiis="http://vivoweb.org/activity-insight"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-	xmlns="http://vivoweb.org/activity-insight"
+	xmlns:aiis="http://vivoweb.org/ontology/activity-insight"
+	xmlns:mapid="http://vivoweb.org/ontology/activity-insight"
+	xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data"
 	xmlns:xs='http://www.w3.org/2001/XMLSchema'
 	xmlns:vfx='http://vivoweb.org/ext/functions'	
@@ -21,7 +21,7 @@
 </xsl:variable>
 
 <xsl:variable name='aiid_netid' 
-  select="document($aiid2netid)//aiic:mapterm"/>
+  select="document($aiid2netid)//mapid:mapterm"/>
 
 <!-- ================================================= -->
 
@@ -34,7 +34,7 @@
 
 <!-- begin wrapper element -->
 <xsl:element name="aiis:COLLAB_ENTITY_LIST" 
-	namespace="http://vivoweb.org/activity-insight">
+	namespace="http://vivoweb.org/ontology/activity-insight">
 
 <!-- =============== -->
 <!-- 
@@ -88,9 +88,16 @@
           <xsl:sort select='IMPACT_STMT_ID'/>
 
           <xsl:element name='aiis:IMPACT_STMT_INFO'>
-            <xsl:attribute name='ref_netid'><xsl:value-of select='$ref_netid'/></xsl:attribute>
+            <xsl:attribute name='ref_netid'>
+		<xsl:value-of select='$ref_netid'/></xsl:attribute>
             
-            <xsl:attribute name='collabRank'><xsl:value-of select='COLLABORATION_POSITION'/></xsl:attribute>
+            <xsl:attribute name='collabRank'>
+		<xsl:value-of select='COLLABORATION_POSITION'/></xsl:attribute>
+	    <xsl:attribute name='hasTitle' 
+		select='./IMPACT_STMT_ID/@hasTitle'/>
+            <xsl:attribute name='hasGoodAuthor' 
+		select='./IMPACT_STMT_ID/@hasGoodAuthor'/>
+
              <xsl:text>AI-</xsl:text>
              <xsl:value-of select='IMPACT_STMT_ID'/>
           </xsl:element>
@@ -111,15 +118,15 @@
 </xsl:template>
 
 <!-- ============================================= -->
-<!-- this template returns a netid for given AI user id
+<!-- this template returns a netid element for given AI user id
 -->
 <xsl:template name='idmap'>
 <xsl:param name='aiid'/>
 <xsl:element name='aiis:NetId'>
 <xsl:if test='$aiid'>
 <xsl:for-each select='$aiid_netid'>
-<xsl:if test='$aiid = aiic:aiid'>
-<xsl:value-of select='aiic:netid'/>
+<xsl:if test='$aiid = mapid:aiid'>
+<xsl:value-of select='mapid:netid'/>
 </xsl:if>
 </xsl:for-each>
 </xsl:if>

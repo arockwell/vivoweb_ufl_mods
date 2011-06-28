@@ -2,8 +2,9 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-	xmlns="http://vivoweb.org/activity-insight"
+	xmlns:aiic="http://vivoweb.org/ontology/activity-insight"
+	xmlns:mapid="http://vivoweb.org/ontology/activity-insight"
+	xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data"
 	xmlns:xs='http://www.w3.org/2001/XMLSchema'
 	xmlns:vfx='http://vivoweb.org/ext/functions'	
@@ -19,63 +20,22 @@
 </xsl:text>
 </xsl:variable>
 
-<!--xsl:variable name='aiid_netid' 
-  select="document('../aiid-netid.xml')//aiic:mapterm"/ -->
-
-<!-- 
-The variable aiid_netid contains 
-a mapping of Activity Insight User Id -> netid (i.e. aka username)
-It is used to look up details from an AI .xml when all we have is 
-the AI user id.
-
-Sample Xml File identified by the required param aiid2netid:
-
-<?xml version="1.0" encoding="UTF-8"?>
-<aiic:aiidmap xmlns:aiic="http://vivoweb.org/activity-insight">
-   <aiic:mapterm>
-      <aiic:netid>aa299</aiic:netid>
-      <aiic:aiid>643172</aiic:aiid>
-   </aiic:mapterm>
-   <aiic:mapterm>
-      <aiic:netid>aa337</aiic:netid>
-      <aiic:aiid>349666</aiic:aiid>
-   </aiic:mapterm>
-.
-.
-.
-
--->
 
 <xsl:variable name='aiid_netid' 
-  select="document($aiid2netid)//aiic:mapterm"/>
+  select="document($aiid2netid)//mapid:mapterm"/>
 
 <!-- ================================================= -->
 
  
 <xsl:template match='/'>
 
-<!-- the required param listxml identifies an xml file that
-contains a list of the partially processed AI xmls.
 
-<?xml version='1.0'?>
-<collection>
-        <doc href='./AIXMLS/AIICJA_20100610120510/AIICJA_aa299.xml'/>
-        <doc href='./AIXMLS/AIICJA_20100610120510/AIICJA_aa337.xml'/>
-        <doc href='./AIXMLS/AIICJA_20100610120510/AIICJA_aa34.xml'/>
-        <doc href='./AIXMLS/AIICJA_20100610120510/AIICJA_aad4.xml'/>
-.
-.
-.
-</collection>
-
-
--->
 <xsl:variable name='docs' as='node()*'
 	select='collection($listxml)'/>
 
 <!-- begin wrapper element -->
 <xsl:element name="aiic:AUTHOR_LIST" 
-	namespace="http://vivoweb.org/activity-insight">
+	namespace="http://vivoweb.org/ontology/activity-insight">
 
 <!-- =============== -->
 <!-- 
@@ -83,8 +43,12 @@ contains a list of the partially processed AI xmls.
  by uppercased constructed name
 -->
 <xsl:for-each-group select='$docs/dm:Data/ai:AUTHORSHIP/ai:AUTHOR' 
-	group-by='vfx:collapse(concat(ai:LNAME, ", ", ai:FNAME))'>
-<xsl:sort select='vfx:collapse(concat(ai:LNAME, ", ", ai:FNAME))'/>
+	group-by='vfx:collapse(concat(ai:LNAME, "|", 
+				      ai:FNAME, "|", 
+ 				      ai:MNAME))'>
+<xsl:sort select='vfx:collapse(concat(ai:LNAME, "|", 
+				      ai:FNAME, "|", 
+				      ai:MNAME))'/>
 
 <xsl:variable name='cur_netid' select='../../dm:Record/dm:username'/>
 <xsl:variable name='cur_aiid' select='../../dm:Record/dm:userId'/>
@@ -104,7 +68,9 @@ contains a list of the partially processed AI xmls.
      <xsl:attribute name='cu_coauthors'>
        <xsl:value-of select='count(current-group())'/></xsl:attribute>
   
-     <xsl:value-of select='vfx:trim(concat(ai:LNAME, ", ", ai:FNAME))'/>
+     <xsl:value-of select='vfx:trim(concat(ai:LNAME, ", ", 
+					   ai:FNAME, " ", 
+                                           ai:MNAME))'/>
     
    </xsl:element>
 
@@ -138,7 +104,8 @@ contains a list of the partially processed AI xmls.
       <xsl:for-each select='current-group()'>
       <xsl:variable name='ref_netid' select="../../dm:Record/dm:username"/>
 
-          <xsl:for-each select='ai:ARTICLE_LIST_WITH_AUTHORSHIP_ORDERING/ai:ARTICLE_AUTHORSHIP_ORDER'>
+          <xsl:for-each select=
+		'ai:ARTICLE_LIST_WITH_AUTHORSHIP_ORDERING/ai:ARTICLE_AUTHORSHIP_ORDER'>
           <xsl:sort select='ai:ARTICLE_ID'/>
 
           <xsl:element name='aiic:ARTICLE_INFO'>
@@ -147,6 +114,9 @@ contains a list of the partially processed AI xmls.
              <xsl:value-of select='../../ai:FACULTY_NAME'/></xsl:attribute>
             <xsl:attribute name='authorRank'><xsl:value-of select='ai:AUTHORSHIP_POSITION'/></xsl:attribute>
             <xsl:attribute name='public'><xsl:value-of select='ai:PUBLIC'/></xsl:attribute>
+	    <xsl:attribute name='hasTitle' select='ai:ARTICLE_ID/@hasTitle'/>
+	    <xsl:attribute name='hasGoodAuthor' 
+		select='ai:ARTICLE_ID/@hasGoodAuthor'/>
              <xsl:text>AI-</xsl:text>
              <xsl:value-of select='ai:ARTICLE_ID'/>
           </xsl:element>
@@ -167,15 +137,16 @@ contains a list of the partially processed AI xmls.
 </xsl:template>
 
 <!-- ============================================= -->
-<!-- this template returns a netid for given AI user id
+<!-- this template returns a netid element for given AI user id
 -->
 <xsl:template name='idmap'>
 <xsl:param name='aiid'/>
+<!--              Note aiic below -->
 <xsl:element name='aiic:NetId'>
 <xsl:if test='$aiid'>
 <xsl:for-each select='$aiid_netid'>
-<xsl:if test='$aiid = aiic:aiid'>
-<xsl:value-of select='aiic:netid'/>
+<xsl:if test='$aiid = mapid:aiid'>
+<xsl:value-of select='mapid:netid'/>
 </xsl:if>
 </xsl:for-each>
 </xsl:if>

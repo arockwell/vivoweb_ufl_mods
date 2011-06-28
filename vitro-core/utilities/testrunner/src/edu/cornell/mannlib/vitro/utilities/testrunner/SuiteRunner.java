@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,6 +31,8 @@ package edu.cornell.mannlib.vitro.utilities.testrunner;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.cornell.mannlib.vitro.utilities.testrunner.listener.Listener;
 
 /**
  * Run a Selenium TestSuite in a sub-process.

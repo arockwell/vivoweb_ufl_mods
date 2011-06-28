@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,14 +29,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package edu.cornell.mannlib.vitro.webapp.auth.policy.ifaces;
 
 import edu.cornell.mannlib.vitro.webapp.auth.identifier.IdentifierBundle;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddObjectPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.AddResource;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropObjectPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.DropResource;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.EditDataPropStmt;
-import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.EditObjPropStmt;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.AddNewUser;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.LoadOntology;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.admin.RebuildTextIndex;
@@ -48,6 +40,14 @@ import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.CreateOwlC
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.DefineDataProperty;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.DefineObjectProperty;
 import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.ontology.RemoveOwlClass;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.AddDataPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.AddObjectPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.DropDataPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.DropObjectPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.EditDataPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.propstmt.EditObjPropStmt;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.resource.AddResource;
+import edu.cornell.mannlib.vitro.webapp.auth.requestedAction.resource.DropResource;
 
 /**
  * This is a interface to write a policy that uses the Visitor pattern.

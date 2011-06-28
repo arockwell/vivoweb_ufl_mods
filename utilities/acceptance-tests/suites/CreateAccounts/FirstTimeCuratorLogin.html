@@ -30,8 +30,18 @@
 <tr><td rowspan="1" colspan="3" class="testName">FirstTimeCuratorLogin</td></tr>
 </thead><tbody>
 <tr>
+	<td>setTimeout</td>
+	<td>100000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>deleteAllVisibleCookies</td>
 	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>comment</td>
+	<td class="comment">Check first time login process</td>
 	<td></td>
 </tr>
 <tr>
@@ -56,7 +66,7 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>Log in to VIVO</td>
 	<td></td>
 </tr>
 <tr>
@@ -81,7 +91,7 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>Log in to VIVO</td>
 	<td></td>
 </tr>
 <tr>
@@ -111,7 +121,7 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>Log in to VIVO</td>
 	<td></td>
 </tr>
 <tr>
@@ -121,12 +131,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Create Your New Password</td>
+	<td>New Password</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Please enter a password with more than 5 characters</td>
+	<td>Confirm Password</td>
 	<td></td>
 </tr>
 <tr>
@@ -137,21 +147,21 @@
 <tr>
 	<td>type</td>
 	<td>newPassword</td>
-	<td>junk</td>
+	<td>junky</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>confirmPassword</td>
-	<td>junk</td>
+	<td>junky</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>passwordChangeForm</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertAlert</td>
-	<td>Please enter a password between 5 and 99 characters long</td>
+	<td>verifyTextPresent</td>
+	<td>Please enter a password between 6 and 12 characters in length.</td>
 	<td></td>
 </tr>
 <tr>
@@ -176,12 +186,12 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>Log in to VIVO</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Please choose a different password from the temporary one provided initially.</td>
+	<td>Your new password cannot match the current one.</td>
 	<td></td>
 </tr>
 <tr>
@@ -200,13 +210,13 @@
 	<td>newPasword</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>passwordChangeForm</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertAlert</td>
-	<td>Passwords do not match</td>
+	<td>verifyTextPresent</td>
+	<td>The passwords entered do not match.</td>
 	<td></td>
 </tr>
 <tr>
@@ -230,23 +240,28 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
-	<td></td>
-</tr>
-<tr>
 	<td>comment</td>
 	<td class="comment">Verify that account is logged in</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Logged in as Connie Curator (Log out)</td>
+	<td>Connie Curator</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Log out</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
 	<td class="comment">Log out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
 	<td></td>
 </tr>
 <tr>
@@ -259,7 +274,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

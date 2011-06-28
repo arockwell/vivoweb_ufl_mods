@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -132,6 +132,8 @@ public interface WebappDaoFactory {
     public ObjectPropertyStatementDao getObjectPropertyStatementDao();
 
 
+    public DisplayModelDao getDisplayModelDao();
+    
     /* ======================== DAOs for other objects ======================== */
 
     public ApplicationDao getApplicationDao();
@@ -157,5 +159,11 @@ public interface WebappDaoFactory {
     
     public NamespaceDao getNamespaceDao();
     
-    public PropertyInstanceDao getPropertyInstanceDao();    
+    public PropertyInstanceDao getPropertyInstanceDao();
+
+    public PageDao getPageDao();    
+    
+    public MenuDao getMenuDao();    
+    
+    public void close();
 }

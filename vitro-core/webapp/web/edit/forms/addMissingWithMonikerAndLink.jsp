@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -236,11 +236,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     String submitButtonLabel=""; // don't put local variables into the request
     /* title is used by pre and post form fragments */
+    //set title to Edit to maintain functionality from 1.1.1 and avoid updates to Selenium tests
+    request.setAttribute("title", "Edit");
     if (objectUri != null) {
-    	request.setAttribute("title", "Edit \""+propDomainPublic+"\" entry for " + subject.getName());
+    	request.setAttribute("formTitle", "Edit \""+propDomainPublic+"\" entry for " + subject.getName());
         submitButtonLabel = "Save changes";
     } else {
-        request.setAttribute("title","Create \""+propDomainPublic+"\" entry for " + subject.getName());
+        request.setAttribute("formTitle","Create \""+propDomainPublic+"\" entry for " + subject.getName());
         submitButtonLabel = "Create \""+propDomainPublic+"\" entry";
     }
 
@@ -284,7 +286,7 @@ $(document).ready(function() {
 })
 </script>
 
-<h2>${title}</h2>
+<h2>${formTitle}</h2>
 <form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
     <v:input type="text" label="name (required)" id="name" size="30"/>
     <hr/>

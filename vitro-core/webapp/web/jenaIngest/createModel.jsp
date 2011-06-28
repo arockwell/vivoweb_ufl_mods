@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -26,10 +26,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --%>
 
-    <h2>Create New Model</h2>
+    <h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Create New Model</h2>
 
     <form style="margin-bottom:2ex;" action="ingest" method="post">
         <input type="hidden" name="action" value="createModel"/>
 	Model name: <input type="text" size="32" name="modelName"/>
-        <input type="submit" name="submit" value="Create Model"/>
+        <input class="submit" type="submit" name="submit" value="Create Model"/>
+        <input type="hidden" name="modelType" value="${modelType}"/>
     </form>

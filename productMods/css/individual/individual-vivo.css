@@ -1,0 +1,84 @@
+/*
+Copyright (c) 2011, Cornell University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* <------ INDIVIDUAL CORE:OVERVIEW */
+#overview {
+    clear: left;
+}
+.overview-value {
+    display: inline;
+}
+div.overview-value :last-child {
+    margin-bottom: .2em;
+}
+.individual-overview {
+    font-size: 1em;
+    padding-bottom: 0;
+    line-height: 1.3em;
+    padding-right: 10px;
+    padding-top: 10px;
+    width: 100%;
+}
+/* <------ INDIVIDUAL TEMPORAL GRAPH */
+#temporal-graph {
+    float: right;
+    padding: 0 3px 20px 0;
+    background-color: #fff;
+}
+#temporal-graph h3 {
+    margin: 0;
+    padding: 0;
+}
+#temporal-graph h3 img {
+    padding-right: 10px;
+    vertical-align: text-top;
+}
+/* <------ POSITIONS */
+ul#individual-personInPosition {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+ul#individual-personInPosition li {
+    line-height: 1em;
+}
+ul#individual-personInPosition li:last-child {
+    padding-bottom: 15px;
+}
+/* <------ RESEARCH AREA */
+ul#individual-hasResearchArea {
+    padding-bottom: 24px;
+}
+ul#individual-hasResearchArea li {
+    float: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-right: 1px solid #5e6363;
+}
+ul#individual-hasResearchArea li:first-child {
+    padding-left: 0;
+}

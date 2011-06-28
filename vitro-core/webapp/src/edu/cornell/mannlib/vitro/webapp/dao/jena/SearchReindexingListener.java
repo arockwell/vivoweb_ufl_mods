@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,9 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package edu.cornell.mannlib.vitro.webapp.dao.jena;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,18 +56,34 @@ public class SearchReindexingListener implements ModelChangedListener {
 		this.indexBuilder = indexBuilder;		
 	}	
 
-	private synchronized void addChange(Statement stmt){
+	private synchronized void addChange(Statement stmt){	    
 		if( stmt == null ) return;
+		if( log.isDebugEnabled() ){
+		    String sub="unknown";
+		    String pred = "unknown";
+		    String obj ="unknown";
+		    
+		    if( stmt.getSubject().isURIResource() ){           
+	            sub =  stmt.getSubject().getURI();
+	        }	                
+		    if( stmt.getPredicate() != null ){
+		        pred = stmt.getPredicate().getURI();
+		    }
+	        if( stmt.getObject().isURIResource() ){          
+	            obj =  ((Resource) (stmt.getPredicate().as(Resource.class))).getURI();
+	        }else{
+	            obj = stmt.getObject().toString();
+	        }
+	        log.debug("changed statement: sub='" + sub + "' pred='" + pred +"' obj='" + obj + "'");
+        }
+		
 		if( stmt.getSubject().isURIResource() ){			
-			//changedUris.add( stmt.getSubject().getURI());
 			indexBuilder.addToChangedUris(stmt.getSubject().getURI());
 			log.debug("subject: " + stmt.getSubject().getURI());
 		}
 				
 		if( stmt.getObject().isURIResource() ){
-			//changedUris.add( ((Resource) stmt.getObject().as(Resource.class)).getURI() );
 			indexBuilder.addToChangedUris(((Resource) stmt.getObject()).getURI());			
-			log.debug("object: " + ((Resource) stmt.getObject().as(Resource.class)).getURI());
 		}	
 	}
 

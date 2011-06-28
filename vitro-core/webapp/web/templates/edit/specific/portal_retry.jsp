@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <font color="red"><form:error name="ShortHand"/></font>
     </td>
 </tr> -->
-    
 <tr class="editformcell">
     <td valign="bottom" colspan="2">
         <b>Contact Email Address</b> <i>contact form submissions will be sent to this address</i><br />
@@ -96,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </td>
     <td valign="top" colspan="1">
         <b>Theme</b><br />
-        <select name="ThemeDir">
+        <select id="ThemeDir" name="ThemeDir">
             <form:option name="ThemeDir" />
         </select>
         <font color="red"><form:error name="ThemeDir"/></font>
@@ -175,7 +174,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <font color="red"><form:error name="LogotypeHeight"/></font>
     </td>
 </tr>  
-
+<script  type="text/javascript" >
+$(function() {
+        $("#ThemeDir option").each(function(i){
+                if ($(this).text() == "vivo-basic")
+                        $(this).text("vivo-basic (deprecated)");
+        });
+});
+</script>
 <% /*
 
 <tr class="editformcell">

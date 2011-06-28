@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,7 +28,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package edu.cornell.mannlib.vedit.validator;
 
+/**
+ * Output from a {@link Validator}. Holds the value that was tested, whether it
+ * was valid or not, and an optional message.
+ */
 public class ValidationObject {
+	/**
+	 * Create an instance that indicates successful validation.
+	 */
+	public static ValidationObject success(Object validatedObject) {
+		ValidationObject vo = new ValidationObject();
+		vo.setValid(true);
+		vo.setMessage("");
+		vo.setValidatedObject(validatedObject);
+		return vo;
+	}
+
+	/**
+	 * Create an instance that indicates failed validation.
+	 */
+	public static ValidationObject failure(Object validatedObject,
+			String message) {
+		ValidationObject vo = new ValidationObject();
+		vo.setValid(false);
+		vo.setMessage(message);
+		vo.setValidatedObject(validatedObject);
+		return vo;
+	}
 
     private boolean valid = false;
     private String message;

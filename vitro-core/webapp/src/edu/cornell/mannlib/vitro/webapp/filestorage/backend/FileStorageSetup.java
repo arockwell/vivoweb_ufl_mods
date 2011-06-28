@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -123,9 +123,9 @@ public class FileStorageSetup implements ServletContextListener {
 		String defaultSuffix = "/individual/";
 
 		if (!defaultNamespace.endsWith(defaultSuffix)) {
-			throw new IllegalArgumentException(
-					"Default namespace does not match the expected form: '"
-							+ defaultNamespace + "'");
+			log.warn("Default namespace does not match the expected form "
+					+ "(does not end with '" + defaultSuffix + "'): '"
+					+ defaultNamespace + "'");
 		}
 
 		return Collections.singleton(defaultNamespace);

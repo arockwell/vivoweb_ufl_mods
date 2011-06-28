@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -47,12 +47,15 @@ import com.hp.hpl.jena.ontology.OntModel;
 
 import edu.cornell.mannlib.vitro.webapp.ConfigurationProperties;
 import edu.cornell.mannlib.vitro.webapp.beans.BaseResourceBean.RoleLevel;
+import edu.cornell.mannlib.vitro.webapp.dao.DisplayVocabulary;
 import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
 import edu.cornell.mannlib.vitro.webapp.dao.filtering.WebappDaoFactoryFiltering;
 import edu.cornell.mannlib.vitro.webapp.dao.filtering.filters.VitroFilterUtils;
 import edu.cornell.mannlib.vitro.webapp.dao.filtering.filters.VitroFilters;
+import edu.cornell.mannlib.vitro.webapp.dao.jena.ModelContext;
 import edu.cornell.mannlib.vitro.webapp.dao.jena.SearchReindexingListener;
-import edu.cornell.mannlib.vitro.webapp.search.beans.Searcher;
+import edu.cornell.mannlib.vitro.webapp.search.beans.IndividualProhibitedFromSearch;
+import edu.cornell.mannlib.vitro.webapp.search.beans.ProhibitedFromSearch;
 import edu.cornell.mannlib.vitro.webapp.search.indexing.IndexBuilder;
 
 /**
@@ -101,15 +104,21 @@ public class LuceneSetupCJK implements javax.servlet.ServletContextListener {
             objectPropertyBlacklist.add("http://www.w3.org/2002/07/owl#differentFrom");
             context.setAttribute(LuceneSetup.SEARCH_OBJECTPROPERTY_BLACKLIST, objectPropertyBlacklist);
             
-            //here we want to put the LuceneIndex object into the application scope
-            LuceneIndexer indexer = new LuceneIndexer(indexDir, null, getAnalyzer());            
-            context.setAttribute(LuceneSetup.ANALYZER, getAnalyzer());
-            context.setAttribute(LuceneSetup.INDEX_DIR, indexDir);
-            indexer.addObj2Doc(new Entity2LuceneDoc());
-
             //This is where to get a LucenIndex from.  The indexer will
-            //need to reference this to notify it of updates to the index           
-            LuceneIndexFactory lif = LuceneIndexFactory.getLuceneIndexFactoryFromContext(context);
+            //need to reference this to notify it of updates to the index
+            LuceneIndexFactory lif = LuceneIndexFactory.setup(context, indexDir);            
+            String liveIndexDir = lif.getLiveIndexDir(context);
+            
+            //here we want to put the LuceneIndex object into the application scope
+            LuceneIndexer indexer = new LuceneIndexer(indexDir, liveIndexDir, null, getAnalyzer());            
+            context.setAttribute(LuceneSetup.ANALYZER, getAnalyzer());
+            
+            OntModel displayOntModel = (OntModel) sce.getServletContext().getAttribute("displayOntModel");
+            Entity2LuceneDoc translator = new Entity2LuceneDoc( 
+                    new ProhibitedFromSearch(DisplayVocabulary.PRIMARY_LUCENE_INDEX_URI, displayOntModel),
+                    new IndividualProhibitedFromSearch(context) );                                  
+            indexer.addObj2Doc(translator);     
+                                              
             indexer.setLuceneIndexFactory(lif);
             
             //This is where the builder gets the list of places to try to 
@@ -134,8 +143,7 @@ public class LuceneSetupCJK implements javax.servlet.ServletContextListener {
             OntModel baseOntModel = (OntModel)sce.getServletContext().getAttribute("baseOntModel");
             OntModel jenaOntModel = (OntModel)sce.getServletContext().getAttribute("jenaOntModel");
             SearchReindexingListener srl = new SearchReindexingListener( builder );
-            baseOntModel.getBaseModel().register(srl);
-        	jenaOntModel.getBaseModel().register(srl);
+            ModelContext.registerListenerForChanges(sce.getServletContext(), srl);
         	
             }catch(Exception ex){
                 log.error("Could not setup lucene full text search." , ex);
@@ -151,7 +159,7 @@ public class LuceneSetupCJK implements javax.servlet.ServletContextListener {
         	
             log.info("**** Running "+this.getClass().getName()+".contextDestroyed()");
             IndexBuilder builder = (IndexBuilder)sce.getServletContext().getAttribute(IndexBuilder.class.getName());
-        	builder.killIndexingThread();
+        	builder.stopIndexingThread();
         }
 
         /**

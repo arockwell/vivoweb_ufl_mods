@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -26,33 +26,52 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --%>
 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.web.*" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page errorPage="/error.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep" %>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Portal"%>
+<%@ page import="edu.cornell.mannlib.vitro.webapp.controller.freemarker.FreemarkerHttpServlet" %>
 
-<c:set var='themeDir'><c:out value='${portalBean.themeDir}' /></c:set>
-                </div> <!-- #content.form -->
+<% /* Prepare Freemarker components to allow .ftl templates to be included from jsp */
+    FreemarkerHttpServlet.getFreemarkerComponentsForJsp(request);
+%>
 
-            </div>
-        <div class="push"></div>
+<%
+  VitroRequest vreq = new VitroRequest(request);  
+  Portal portal = vreq.getPortal();
+  
+  String contextRoot = vreq.getContextPath();
+  
+  String themeDir = portal != null ? portal.getThemeDir() : Portal.DEFAULT_THEME_DIR_FROM_CONTEXT;
+  themeDir = contextRoot + '/' + themeDir;
+%>
 
-        <jsp:include page="/templates/page/freemarkerTransition/footer.jsp" flush="true"/>
 
-    </div><!-- end wrap -->
+<c:set var="portal" value="${requestScope.portalBean}"/>
+<c:set var="themeDir"><c:out value="${themeDir}" /></c:set>
+<c:set var="bodyJsp"><c:out value="${requestScope.bodyJsp}" default="/debug.jsp"/></c:set>
+<c:set var="title"><c:out value="${requestScope.title}" /></c:set>
 
-    <script type="text/javascript" src="<c:url value="/js/extensions/String.js"/>"></script></script>
-    <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/js/jquery_plugins/jquery.bgiframe.pack.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/js/jquery_plugins/thickbox/thickbox-compressed.js"/>"></script>
-    <!-- <script type="text/javascript" src="<c:url value="/js/jquery_plugins/ui.datepicker.js"/>"></script> -->
     
-<%  String useAutoComplete = (useAutoComplete=request.getParameter("useAutoComplete")) != null && !(useAutoComplete.equals("")) ? useAutoComplete : "false";
-    if (useAutoComplete.equalsIgnoreCase("true")) { %>
-        <script type="text/javascript" src="<c:url value="/js/jquery_plugins/jquery-autocomplete/jquery.autocomplete.pack.js"/>"></script> 
-<%  } %>
+        ${ftl_footer}
+    
+        <script type="text/javascript" src="<c:url value="/js/extensions/String.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/jquery_plugins/jquery.bgiframe.pack.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/jquery_plugins/thickbox/thickbox-compressed.js"/>"></script>
+        <!-- <script type="text/javascript" src="<c:url value="/js/jquery_plugins/ui.datepicker.js"/>"></script> -->
+    
+    <%  String useAutoComplete = (useAutoComplete=request.getParameter("useAutoComplete")) != null && !(useAutoComplete.equals("")) ? useAutoComplete : "false";
+        if (useAutoComplete.equalsIgnoreCase("true")) { %>
+            <script type="text/javascript" src="<c:url value="/js/jquery_plugins/jquery-autocomplete/jquery.autocomplete.pack.js"/>"></script> 
+    <%  } %>
         
-    <c:forEach var="jsFile" items="${customJs}">
-        <script type="text/javascript" src="<c:url value="${jsFile}"/>"></script>
-    </c:forEach>  
-    
-</body>
+        <c:forEach var="jsFile" items="${customJs}">
+            <script type="text/javascript" src="<c:url value="${jsFile}"/>"></script>
+        </c:forEach>
+
+    </body>
 </html>

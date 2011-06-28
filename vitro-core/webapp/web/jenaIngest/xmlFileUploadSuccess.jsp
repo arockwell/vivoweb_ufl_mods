@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <p>Uploaded XML files and converted to RDF.</p>
 <p>Loaded <%= request.getAttribute("statementCount") %> statements to the model <%= request.getAttribute("targetModel") %>.</p>
 
-<p><a href="ingest">Ingest Home</a></p>
+<h2><a class="ingestMenu" href="ingest">Ingest Menu</a></h2>
        
     

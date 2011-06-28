@@ -53,20 +53,25 @@ exclude-result-prefixes='vfx xs'
 
 <!--xsl:apply-templates select='FUNDING_FEDRCH| FUNDING_FEDRCHOTHER| FUNDING_FEDEXT |FUNDING_FEDEXTOTHER|FUNDING_ACAD|FUNDING_ACADOTHER|FUNDING_USDA|FUNDING_OTHERFED|FUNDING_STATE|FUNDING_PRIVATE|FUNDING_PRIVATEOTHER'/-->
 
-<xsl:apply-templates select='DTY_START|START_START| START_END|DTY_END| END_START| END_END '/>
+<xsl:apply-templates select='DTY_START|START_START| START_END|DTY_END| END_START| END_END|USER_REFERENCE_CREATOR'/>
 
 <xsl:apply-templates select='TITLE'/>
 
 <xsl:element name='CONAREAS'>
 <xsl:apply-templates select='CONAREA'/>
 </xsl:element>
+
 <xsl:apply-templates select='RCHTYPE'/>
 
 <xsl:element name='EMPHASIZES'>
 <xsl:apply-templates select='PRIORITY_AREA |PRIORITY_AREAOTHER'/>
 </xsl:element>
 
-<xsl:apply-templates select='OTHER_COUNTRIES | USDA_AREA | USDA_AREAOTHER'/>
+<xsl:element name='USDA_AREAS'>
+<xsl:apply-templates select='USDA_AREA | USDA_AREAOTHER'/>
+</xsl:element>
+
+<xsl:apply-templates select='OTHER_COUNTRIES'/>
 
 <xsl:element name='INVOLVED_GEO_PLACES'>
 <xsl:apply-templates select='INVOLVED_STATE| INVOLVED_COUNTY| INVOLVED_COUNTRY'/>
@@ -88,6 +93,19 @@ exclude-result-prefixes='vfx xs'
 
 <xsl:element name='{name()}' namespace='{namespace-uri()}'>
 <xsl:copy-of select='*|@*'/>
+
+<xsl:if test='name() = "IMPACT_STATEMENT_INVEST"'>
+<xsl:element name='IS_CREATOR' namespace='{namespace-uri()}'>
+<xsl:choose>
+<xsl:when test='FACULTY_NAME = $aiuid'>
+<xsl:value-of select='../USER_REFERENCE_CREATOR'/>
+</xsl:when>
+<xsl:otherwise>
+</xsl:otherwise>
+</xsl:choose>
+</xsl:element>
+</xsl:if>
+
 <xsl:element name='IMPACT_STMT_INFO' namespace='{namespace-uri()}'>
 
 <xsl:element name='COLLABORATION_POSITION' namespace='{namespace-uri()}'>
@@ -95,14 +113,14 @@ exclude-result-prefixes='vfx xs'
 </xsl:element>
 
 <xsl:element name='IMPACT_STMT_ID' namespace='{namespace-uri()}'>
+<xsl:attribute name='hasTitle' select=
+		'if(../TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:IS-hasOneGoodName(../IMPACT_STATEMENT_INVEST)) 
+			then "Yes" else "No"'/>
 <xsl:value-of select='../@id'/>
 </xsl:element>
 
-<xsl:element name='PUBLIC' namespace='{namespace-uri()}'>
-<xsl:if test='FACULTY_NAME = $aiuid'>
-<xsl:value-of select='../PUBLIC_VIEW'/>
-</xsl:if>
-</xsl:element>
 
 </xsl:element>
 </xsl:element>
@@ -139,8 +157,20 @@ exclude-result-prefixes='vfx xs'
 
 <xsl:template match="PRIORITY_AREA | PRIORITY_AREAOTHER">
 <xsl:variable name='kind' select='local-name()'/>
-<xsl:if test='. != ""'>
+<xsl:if test='. != "" and . != "Other"'>
 <xsl:element name='EMPHASIS'>
+<xsl:attribute name='ilk' select='$kind'/>
+<xsl:attribute name='isid' select='../@id'/>
+<xsl:value-of select= '.'/>
+</xsl:element>
+<!-- xsl:copy-of select='.'/ -->
+</xsl:if>
+</xsl:template>
+
+<xsl:template match="USDA_AREA | USDA_AREAOTHER">
+<xsl:variable name='kind' select='local-name()'/>
+<xsl:if test='. != "" and . != "Other"'>
+<xsl:element name='USDA_INFO'>
 <xsl:attribute name='ilk' select='$kind'/>
 <xsl:attribute name='isid' select='../@id'/>
 <xsl:value-of select= '.'/>
@@ -199,5 +229,5 @@ exclude-result-prefixes='vfx xs'
 </xsl:when>
 </xsl:choose>
 -->
-
+<xsl:include href='vivofuncs.xsl'/>
 </xsl:stylesheet>

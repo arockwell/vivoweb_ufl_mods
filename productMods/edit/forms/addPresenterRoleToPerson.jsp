@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -34,5 +34,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<jsp:param name="numDateFields" value="1" />
 	<jsp:param name="roleActivityType_optionsType" value="HARDCODED_LITERALS" />
 	<jsp:param name="roleActivityType_objectClassUri" value="" /> 
-	<jsp:param name="roleActivityType_literalOptions" value='["", "Select one"], ["http://vivoweb.org/ontology/core#Presentation", "Presentation" ], [ "http://vivoweb.org/ontology/core#InvitedTalk","Invited Talk"] ' />
+	<jsp:param name="roleActivityType_literalOptions" 
+	           value='["", "Select one"], 
+	                  ["http://vivoweb.org/ontology/core#Presentation", "Presentation" ], 
+	                  [ "http://vivoweb.org/ontology/core#InvitedTalk","Invited Talk"] ' />
 </jsp:include>

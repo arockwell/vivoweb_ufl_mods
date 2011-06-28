@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -107,6 +107,7 @@ public class ReasonerConfiguration {
         Set<ObjectPropertyStatementPattern> defaultInferenceReceivingPatternAllowSet = new HashSet<ObjectPropertyStatementPattern>();
         defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,RDF.type,null));
         defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,RDFS.subClassOf,null));
+        defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,RDFS.subPropertyOf,null));
         defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,OWL.equivalentClass,null));
         defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,OWL.disjointWith,null));
         defaultInferenceReceivingPatternAllowSet.add(ObjectPropertyStatementPatternFactory.getPattern(null,OWL.inverseOf,null));

@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 %>
 
-    <h2>Generate TBox from Assertions Data</h2>
+    <h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Generate TBox from Assertions Data</h2>
 
     <form action="ingest" method="get">
         <input type="hidden" name="action" value="generateTBox"/>
@@ -65,8 +65,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <h3>Select Destination Model for Generated TBox</h3>
 
     <select name="destinationModelName">
+           <option value="vitro:baseOntModel"/>webapp assertions</option>   
            <option value="vitro:jenaOntModel"/>webapp model</option>
-           <option value="vitro:baseOntModel"/>webapp assertions</option>
+           
 <%
     for (Iterator it = maker.listModels(); it.hasNext(); ) {
 	String modelName = (String) it.next();
@@ -76,4 +77,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %>   
     </select>
 
-    <input type="submit" value="Generate TBox"/>
+    <input class="submit" type="submit" value="Generate TBox"/>

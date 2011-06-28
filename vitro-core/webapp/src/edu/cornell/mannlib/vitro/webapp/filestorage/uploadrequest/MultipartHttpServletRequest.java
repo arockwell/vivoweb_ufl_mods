@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -163,7 +163,7 @@ class MultipartHttpServletRequest extends FileUploadServletRequest {
 	 */
 	private ServletFileUpload createUploadHandler(int maxFileSize, File tempDir) {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-		factory.setSizeThreshold(maxFileSize);
+		factory.setSizeThreshold(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD);
 		factory.setRepository(tempDir);
 
 		ServletFileUpload upload = new ServletFileUpload(factory);

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -36,29 +36,34 @@ import org.apache.commons.logging.LogFactory;
 
 import edu.cornell.mannlib.vitro.webapp.beans.Portal;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
+import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.ResponseValues;
+import edu.cornell.mannlib.vitro.webapp.controller.freemarker.responsevalues.TemplateResponseValues;
 import edu.cornell.mannlib.vitro.webapp.utils.StringUtils;
 import freemarker.template.Configuration;
 
-public class TermsOfUseController extends FreeMarkerHttpServlet {
+public class TermsOfUseController extends FreemarkerHttpServlet {
     
     private static final long serialVersionUID = 1L;
-    private static final Log log = LogFactory.getLog(TermsOfUseController.class.getName());
-    
-    protected String getTitle(String siteName) {
-        return siteName + " Terms of Use";
-    }
-    
-    protected String getBody(VitroRequest vreq, Map<String, Object> body, Configuration config) {
+    private static final Log log = LogFactory.getLog(TermsOfUseController.class);
+    private static final String TEMPLATE_DEFAULT = "termsOfUse.ftl";
 
+    @Override
+    protected ResponseValues processRequest(VitroRequest vreq) {
         Portal portal = vreq.getPortal();
         
+        Map<String, Object> body = new HashMap<String, Object>();
+        
         String rootBreadCrumbAnchor = portal.getRootBreadCrumbAnchor();
-        String websiteName = StringUtils.isEmpty(rootBreadCrumbAnchor) ? portal.getAppName() : rootBreadCrumbAnchor;
- 
+        String websiteName = StringUtils.isEmpty(rootBreadCrumbAnchor) ? portal.getAppName() : rootBreadCrumbAnchor; 
         body.put("websiteName", websiteName);
+        
         body.put("copyrightAnchor", portal.getCopyrightAnchor());
         
-        String bodyTemplate = "termsOfUse.ftl";             
-        return mergeBodyToTemplate(bodyTemplate, body, config);
+        return new TemplateResponseValues(TEMPLATE_DEFAULT, body);
+    }
+    
+    @Override
+    protected String getTitle(String siteName, VitroRequest vreq) {
+        return siteName + " Terms of Use";
     }
 }

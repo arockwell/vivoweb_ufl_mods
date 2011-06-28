@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
-import edu.cornell.mannlib.vedit.beans.LoginFormBean;
+import edu.cornell.mannlib.vedit.beans.LoginStatusBean;
 import edu.cornell.mannlib.vitro.webapp.auth.policy.RoleBasedPolicy;
 import edu.cornell.mannlib.vitro.webapp.auth.policy.RoleBasedPolicy.AuthRole;
 
@@ -43,15 +43,12 @@ public class CuratorEditingIdentifierFactory implements IdentifierBundleFactory{
         IdentifierBundle ib = new ArrayIdentifierBundle();
         ib.add( RoleBasedPolicy.AuthRole.ANYBODY);
         
-        if( session != null ){
-            LoginFormBean f = (LoginFormBean) session.getAttribute( "loginHandler" );
-            try{
-                if( f != null && Integer.parseInt( f.getLoginRole() ) >=  LoginFormBean.CURATOR){
-                    ib.add(new CuratorEditingId(f.getLoginRole(),f.getUserURI()));
-                    ib.add(AuthRole.CURATOR);
-                }
-            }catch(NumberFormatException th){}            
-        }
+		LoginStatusBean loginBean = LoginStatusBean.getBean(session);
+		if (loginBean.isLoggedInAtLeast(LoginStatusBean.CURATOR)) {
+			String loginRole = String.valueOf(loginBean.getSecurityLevel());
+			ib.add(new CuratorEditingId(loginRole, loginBean.getUserURI()));
+			ib.add(AuthRole.CURATOR);
+		}
 
         return ib;        
     }
@@ -69,6 +66,6 @@ public class CuratorEditingIdentifierFactory implements IdentifierBundleFactory{
         
         public String getUri(){ return uri; }
         
-        public String toString(){ return uri; }
+        public String toString(){ return "CuratorEditingId: " + uri; }
     }
 }

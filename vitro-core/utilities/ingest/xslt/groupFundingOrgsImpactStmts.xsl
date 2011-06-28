@@ -2,8 +2,8 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiis="http://vivoweb.org/activity-insight"
-        xmlns="http://vivoweb.org/activity-insight"
+	xmlns:aiis="http://vivoweb.org/ontology/activity-insight"
+        xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data">
 
 <xsl:output method='xml' indent='yes'/>
@@ -22,6 +22,8 @@
 
 <xsl:template match='aiis:IMPACT_STMTS_BY_FUNDING_ORG'>
 <xsl:element name='aiis:IMPACT_STMTS_BY_FUNDING_ORG'>
+<xsl:attribute name='ilk'>
+       <xsl:value-of select='@ilk'/></xsl:attribute>
  <xsl:attribute name='counter'>
 	<xsl:number level='multiple'/> </xsl:attribute>
 

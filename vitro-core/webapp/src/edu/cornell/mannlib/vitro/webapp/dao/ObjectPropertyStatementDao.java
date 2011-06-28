@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package edu.cornell.mannlib.vitro.webapp.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import edu.cornell.mannlib.vitro.webapp.beans.Individual;
 import edu.cornell.mannlib.vitro.webapp.beans.ObjectProperty;
@@ -54,5 +56,8 @@ public interface ObjectPropertyStatementDao {
     Individual fillExistingObjectPropertyStatements( Individual entity );
 
     int insertNewObjectPropertyStatement(ObjectPropertyStatement objPropertyStmt );
-
+    
+    public List<Map<String, String>> getObjectPropertyStatementsForIndividualByProperty(String subjectUri, String propertyUri, String objectKey, String query);
+    
+    public List<Map<String, String>> getObjectPropertyStatementsForIndividualByProperty(String subjectUri, String propertyUri, String objectKey, String query, Set<String> constructQueries);
 }

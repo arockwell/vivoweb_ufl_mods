@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -107,6 +107,8 @@ public class WorkflowOntology {
     public static final ObjectProperty sparqlQuery = m_model.createObjectProperty( "http://vitro.mannlib.cornell.edu/ns/vitro/rdfIngestWorkflow#sparqlQuery" );
     
     public static final ObjectProperty previousStep = m_model.createObjectProperty( "http://vitro.mannlib.cornell.edu/ns/vitro/rdfIngestWorkflow#previousStep" );
+    
+    public static final ObjectProperty addedInAction = m_model.createObjectProperty( "http://vitro.mannlib.cornell.edu/ns/vitro/rdfIngestWorkflow#addedInAction" );
     
     public static final ObjectProperty subtractedInAction = m_model.createObjectProperty( "http://vitro.mannlib.cornell.edu/ns/vitro/rdfIngestWorkflow#subtractedInAction" );
     

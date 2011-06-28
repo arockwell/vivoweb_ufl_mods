@@ -2,9 +2,9 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiis="http://vivoweb.org/activity-insight"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-	xmlns="http://vivoweb.org/activity-insight"
+	xmlns:aiis="http://vivoweb.org/ontology/activity-insight"
+	xmlns:mapid="http://vivoweb.org/ontology/activity-insight"
+	xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data"
 	xmlns:xs='http://www.w3.org/2001/XMLSchema'
 	xmlns:vfx='http://vivoweb.org/ext/functions'	
@@ -21,7 +21,7 @@
 </xsl:variable>
 
 <xsl:variable name='aiid_netid' 
-  select="document($aiid2netid)//aiic:mapterm"/>
+  select="document($aiid2netid)//mapid:mapterm"/>
 
 <!-- ================================================= -->
 
@@ -34,7 +34,7 @@
 
 <!-- begin wrapper element -->
 <xsl:element name="aiis:INVESTIGATOR_LIST" 
-	namespace="http://vivoweb.org/activity-insight">
+	namespace="http://vivoweb.org/ontology/activity-insight">
 
 <!-- =============== -->
 <!-- 
@@ -42,8 +42,8 @@
  by uppercased constructed name
 -->
 <xsl:for-each-group select='$docs/Data/LOCAL_COLLABORATOR_LIST/COLLABORATOR[@ilk="invest"]' 
-	group-by='vfx:collapse(concat(LNAME, ", ", FNAME))'>
-<xsl:sort select='vfx:collapse(concat(LNAME, ", ", FNAME))'/>
+	group-by='vfx:collapse(concat(LNAME, "|", FNAME, "|", MNAME))'>
+<xsl:sort select='vfx:collapse(concat(LNAME, "|", FNAME, "|", MNAME))'/>
 
 <xsl:variable name='cur_netid' select='../../Record/username'/>
 <xsl:variable name='cur_aiid' select='../../Record/userId'/>
@@ -63,7 +63,7 @@
      <xsl:attribute name='cu_collabs'>
        <xsl:value-of select='count(current-group())'/></xsl:attribute>
   
-     <xsl:value-of select='vfx:trim(concat(LNAME, ", ", FNAME))'/>
+     <xsl:value-of select='vfx:trim(concat(LNAME, ", ", FNAME, " ", MNAME))'/>
     
    </xsl:element>
 
@@ -83,7 +83,10 @@
     <xsl:value-of select='$invest/FACULTY_NAME'/>
    </xsl:element>
 
-   
+   <xsl:element name='aiis:Department'>
+    <xsl:value-of select='$invest/DEP'/>
+   </xsl:element>
+
    <xsl:call-template name='idmap'>
    <xsl:with-param name='aiid' select='$invest/FACULTY_NAME'/>
    </xsl:call-template>
@@ -101,10 +104,18 @@
           <xsl:sort select='IMPACT_STMT_ID'/>
 
           <xsl:element name='aiis:IMPACT_STMT_INFO'>
-            <xsl:attribute name='ref_netid'><xsl:value-of select='$ref_netid'/></xsl:attribute>
+            <xsl:attribute name='ref_netid'>
+		<xsl:value-of select='$ref_netid'/>
+	    </xsl:attribute>
             <xsl:attribute name='ai_userid'>
              <xsl:value-of select='../../FACULTY_NAME'/></xsl:attribute>
-            <xsl:attribute name='collabRank'><xsl:value-of select='COLLABORATION_POSITION'/></xsl:attribute>
+            <xsl:attribute name='collabRank'>
+		<xsl:value-of select='COLLABORATION_POSITION'/>
+	    </xsl:attribute>
+	    <xsl:attribute name='hasTitle' 
+		select='./IMPACT_STMT_ID/@hasTitle'/>
+            <xsl:attribute name='hasGoodAuthor' 
+		select='./IMPACT_STMT_ID/@hasGoodAuthor'/>
              <xsl:text>AI-</xsl:text>
              <xsl:value-of select='IMPACT_STMT_ID'/>
           </xsl:element>
@@ -125,15 +136,16 @@
 </xsl:template>
 
 <!-- ============================================= -->
-<!-- this template returns a netid for given AI user id
+<!-- this template returns a netid element for given AI user id
 -->
 <xsl:template name='idmap'>
 <xsl:param name='aiid'/>
+<!--           note aiis below -->
 <xsl:element name='aiis:NetId'>
 <xsl:if test='$aiid'>
 <xsl:for-each select='$aiid_netid'>
-<xsl:if test='$aiid = aiic:aiid'>
-<xsl:value-of select='aiic:netid'/>
+<xsl:if test='$aiid = mapid:aiid'>
+<xsl:value-of select='mapid:netid'/>
 </xsl:if>
 </xsl:for-each>
 </xsl:if>

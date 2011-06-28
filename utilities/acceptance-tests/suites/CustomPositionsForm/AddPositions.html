@@ -35,6 +35,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>setTimeout</td>
+	<td>100000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>deleteAllVisibleCookies</td>
 	<td></td>
 	<td></td>
@@ -60,33 +65,28 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertTitle</td>
+	<td>Log in to VIVO</td>
+	<td></td>
+</tr>
+<tr>
 	<td>comment</td>
 	<td class="comment">Must log in as site admin</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>username</td>
+	<td>loginName</td>
 	<td>testAdmin</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>password</td>
+	<td>loginPassword</td>
 	<td>Password</td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>loginSubmitMode</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>loginForm</td>
 	<td></td>
 </tr>
 <tr>
@@ -97,11 +97,6 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Index</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Index to VIVO Contents</td>
 	<td></td>
 </tr>
 <tr>
@@ -116,12 +111,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Jane Faculty</td>
+	<td>link=Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -131,7 +126,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='oprop-core-personInPosition']/a</td>
+	<td>//section[@id='individual-info']/header/h2/a/img</td>
 	<td></td>
 </tr>
 <tr>
@@ -141,7 +136,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>If your organization is not listed, please add a new organization.</td>
+	<td>Create position entry for Faculty, Jane</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Organization Type</td>
 	<td></td>
 </tr>
 <tr>
@@ -150,33 +150,18 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>link=Cancel</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='oprop-core-personInPosition']/a</td>
+	<td>//section[@id='individual-info']/header/h2/a/img</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
 	<td>Edit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Elect to add a new organization</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=add a new organization</td>
 	<td></td>
 </tr>
 <tr>
@@ -185,44 +170,14 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>newOrgName</td>
-	<td>Carroll College</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Edit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Must select a type for the new organization.</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>This field must not be empty.</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Add only organization name and type, which results in error</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>newOrgName</td>
-	<td>Carroll College</td>
-</tr>
-<tr>
 	<td>select</td>
-	<td>newOrgType</td>
+	<td>typeSelector</td>
 	<td>label=College</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>relatedIndLabel</td>
+	<td>Carroll College</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -246,62 +201,7 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>newOrgName</td>
-	<td>Carroll College</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>newOrgType</td>
-	<td>label=College</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>title</td>
-	<td>Lecturer</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>This field must not be empty.</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Edit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Enter all required fields except start year</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>newOrgName</td>
-	<td>Carroll College</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>newOrgType</td>
-	<td>label=College</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>positionType</td>
-	<td>label=Faculty Administrative Position</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>title</td>
+	<td>positionTitle</td>
 	<td>Lecturer</td>
 </tr>
 <tr>
@@ -310,33 +210,38 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Edit</td>
-	<td></td>
-</tr>
-<tr>
 	<td>verifyTextPresent</td>
 	<td>This field must not be empty.</td>
 	<td></td>
 </tr>
 <tr>
-	<td>comment</td>
-	<td class="comment">Enter in all fields, with invalid start year</td>
+	<td>assertTitle</td>
+	<td>Edit</td>
 	<td></td>
+</tr>
+<tr>
+	<td>comment</td>
+	<td class="comment">Enter in all fields except for end year</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>positionType</td>
+	<td>label=Faculty Administrative Position</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>startYear</td>
-	<td>9999</td>
+	<td>startField.year</td>
+	<td>1971</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>submit</td>
+	<td>type</td>
+	<td>endField.year</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>50000</td>
+	<td>clickAndWait</td>
+	<td>submit</td>
 	<td></td>
 </tr>
 <tr>
@@ -346,12 +251,12 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Carroll College Lecturer, 9999 -</td>
+	<td>Carroll College, Lecturer 1971 -</td>
 	<td></td>
 </tr>
 <tr>
@@ -361,7 +266,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='oprop-core-personInPosition']/a</td>
+	<td>//section[@id='individual-info']/header/h2/a/img</td>
 	<td></td>
 </tr>
 <tr>
@@ -371,12 +276,17 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>organizationUri</td>
-	<td>label=Carroll College</td>
+	<td>typeSelector</td>
+	<td>label=University</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>title</td>
+	<td>relatedIndLabel</td>
+	<td>Carroll University</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>positionTitle</td>
 	<td>Assistant Professor</td>
 </tr>
 <tr>
@@ -386,27 +296,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>startYear</td>
+	<td>startField.year</td>
 	<td>1981</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>endYear</td>
+	<td>endField.year</td>
 	<td>1985</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>submit</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -416,12 +321,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Carroll College Lecturer, 9999 -</td>
+	<td>Carroll College, Lecturer 1971 -</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Carroll College Assistant Professor, 1981 - 1985</td>
+	<td>Carroll University, Assistant Professor 1981 - 1985</td>
 	<td></td>
 </tr>
 <tr>
@@ -431,7 +336,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@id='oprop-core-personInPosition']/a</td>
+	<td>//section[@id='individual-info']/header/h2/a/img</td>
 	<td></td>
 </tr>
 <tr>
@@ -440,23 +345,18 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>link=add a new organization</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>newOrgName</td>
-	<td>Cornell University</td>
-</tr>
-<tr>
 	<td>select</td>
-	<td>newOrgType</td>
+	<td>typeSelector</td>
 	<td>label=University</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>title</td>
+	<td>relatedIndLabel</td>
+	<td>Cornell University</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>positionTitle</td>
 	<td>Assistant Professor</td>
 </tr>
 <tr>
@@ -466,27 +366,22 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>startYear</td>
+	<td>startField.year</td>
 	<td>1986</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>endYear</td>
+	<td>endField.year</td>
 	<td>2010</td>
 </tr>
 <tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>submit</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>50000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -496,22 +391,27 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Carroll College Lecturer, 9999 -</td>
+	<td>Carroll College, Lecturer 1971 -</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Cornell University Assistant Professor, 1986 - 2010</td>
+	<td>Carroll University, Assistant Professor 1981 - 1985</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Carroll College Assistant Professor, 1981 - 1985</td>
+	<td>Carroll University, Assistant Professor 1981 - 1985</td>
 	<td></td>
 </tr>
 <tr>
 	<td>comment</td>
 	<td class="comment">Log out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
 	<td></td>
 </tr>
 <tr>
@@ -524,7 +424,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

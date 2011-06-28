@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -42,10 +42,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
 %>
-
-    <p><a href="ingest">Ingest Home</a></p>
-
-    <h2>Smush Resources</h2>
+  
+    <h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Smush Resources</h2>
 
     <form action="ingest" method="get"i>
         <input type="hidden" name="action" value="smushSingleModel"/>
@@ -79,4 +77,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %>   
     </select>
 
-    <input type="submit" value="Smush Resources"/>
+    <input id="submit" type="submit" value="Smush Resources"/>

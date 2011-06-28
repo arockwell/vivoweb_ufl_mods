@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -94,7 +94,7 @@ public class UserMailController extends VitroHttpServlet{
             request.setAttribute("portalId",Integer.valueOf(portalBean.getPortalId()));
 
             request.setAttribute("title", portalBean.getAppName()+" Mail Users Form");
-            request.setAttribute("bodyJsp", "/emailUsers.jsp");// <<< this is where the body gets set
+            request.setAttribute("bodyJsp", "/templates/parts/emailUsers.jsp");// <<< this is where the body gets set
             request.setAttribute("portalBean",portalBean);
 
             RequestDispatcher rd =

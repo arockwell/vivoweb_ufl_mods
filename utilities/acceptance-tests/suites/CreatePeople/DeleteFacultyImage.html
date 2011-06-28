@@ -35,6 +35,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>setTimeout</td>
+	<td>1000000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>comment</td>
 	<td class="comment">Delete the uploaded picture for Jane Faculty in the backend</td>
 	<td></td>
@@ -61,7 +66,7 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
+	<td>Log in to VIVO</td>
 	<td></td>
 </tr>
 <tr>
@@ -85,11 +90,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>VIVO Site Administration</td>
-	<td></td>
-</tr>
-<tr>
 	<td>comment</td>
 	<td class="comment">Navigate to Jane Faculty</td>
 	<td></td>
@@ -100,11 +100,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Index to VIVO Contents</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
 	<td>link=Faculty Member</td>
 	<td></td>
@@ -116,7 +111,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Jane Faculty</td>
+	<td>link=Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -126,7 +121,7 @@
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>Faculty, Jane</td>
 	<td></td>
 </tr>
 <tr>
@@ -136,107 +131,42 @@
 </tr>
 <tr>
 	<td>comment</td>
-	<td class="comment">Select to edit Jane Faculty in the backend</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='content']/div[1]/h3</td>
+	<td class="comment">Select to delete the picture</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=edit this individual</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Individual Control Panel</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Jane Faculty</td>
-	<td></td>
-</tr>
-<tr>
-	<td>comment</td>
-	<td class="comment">Select to upload an image to be able to delete the picture</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//input[@value='Upload Image']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Replace image for Jane Faculty</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Photo Upload</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>Current Photo</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyElementPresent</td>
-	<td>//div[@id='photoUploadDefaultImageContainer']/img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Delete photo</td>
+	<td>//img[@alt='delete']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertConfirmation</td>
-	<td>Are you sure you want to delete your photo?</td>
+	<td>Are you sure you want to delete this photo?</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Individual Control Panel</td>
+	<td>refreshAndWait</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>comment</td>
-	<td class="comment">Verify image has been deleted</td>
+	<td>refreshAndWait</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Index</td>
+	<td>refreshAndWait</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertTitle</td>
-	<td>Index to VIVO Contents</td>
+	<td>refreshAndWait</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Faculty Member</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Faculty Member</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Jane Faculty</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Jane Faculty</td>
+	<td>refreshAndWait</td>
+	<td>10000</td>
 	<td></td>
 </tr>
 <tr>
@@ -251,6 +181,11 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>link=Log out</td>
 	<td></td>
 </tr>
@@ -259,7 +194,6 @@
 	<td>VIVO</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

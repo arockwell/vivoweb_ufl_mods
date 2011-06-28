@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -27,15 +27,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
 
-<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
-
+<vitro:confirmLoginStatus level="CURATOR" />
 
 <%
-    if(session == null || !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-        %><c:redirect url="/siteAdmin"></c:redirect><%
-    }
-  
     if (request.getParameter("execute") != null) {
     	OntModel ontModel = (OntModel) getServletContext().getAttribute(JenaBaseDao.ASSERTIONS_ONT_MODEL_ATTRIBUTE_NAME);
     	int results = doRemoval(ontModel);

@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -37,14 +37,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     value='["", "Select one"],
            [ "http://vivoweb.org/ontology/core#Association", "Association" ],
            [ "http://vivoweb.org/ontology/core#Center", "Center" ],
-           [ "http://vivoweb.org/ontology/core#Clinical Organization", "Clinical Organization" ],
+           [ "http://vivoweb.org/ontology/core#ClinicalOrganization", "Clinical Organization" ],
            [ "http://vivoweb.org/ontology/core#College", "College" ],
            [ "http://vivoweb.org/ontology/core#Committee", "Committee" ],                     
            [ "http://vivoweb.org/ontology/core#Consortium", "Consortium" ],
            [ "http://vivoweb.org/ontology/core#Department", "Department" ],
            [ "http://vivoweb.org/ontology/core#Division", "Division" ], 
            [ "http://purl.org/NET/c4dm/event.owl#Event", "Event" ], 
-           [ "http://vivoweb.org/ontology/core#Extension Unit", "Extension Unit" ],
+           [ "http://vivoweb.org/ontology/core#ExtensionUnit", "Extension Unit" ],
            [ "http://vivoweb.org/ontology/core#Foundation", "Foundation" ],
            [ "http://vivoweb.org/ontology/core#FundingOrganization", "Funding Organization" ],
            [ "http://vivoweb.org/ontology/core#GovernmentAgency", "Government Agency" ],
@@ -59,9 +59,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
            [ "http://vivoweb.org/ontology/core#Project", "Project" ],
            [ "http://vivoweb.org/ontology/core#Publisher", "Publisher" ],
            [ "http://vivoweb.org/ontology/core#ResearchOrganization", "Research Organization" ],
-           [ "http://vivoweb.org/ontology/core#Team", "Team" ],
            [ "http://vivoweb.org/ontology/core#School", "School" ],
            [ "http://vivoweb.org/ontology/core#Service","Service"],
-           [ "http://vivoweb.org/ontology/core#Student Organization", "Student Organization" ],
+           [ "http://vivoweb.org/ontology/core#Team", "Team" ],
+           [ "http://vivoweb.org/ontology/core#StudentOrganization", "Student Organization" ],
            [ "http://vivoweb.org/ontology/core#University", "University" ]' />  
 </jsp:include>

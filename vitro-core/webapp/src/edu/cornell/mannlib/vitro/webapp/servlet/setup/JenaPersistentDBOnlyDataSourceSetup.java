@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -107,7 +107,7 @@ public class JenaPersistentDBOnlyDataSourceSetup extends JenaDataSourceSetupBase
         	OntModel infDbModel = ModelFactory.createOntologyModel(MEM_ONT_MODEL_SPEC,infDbPlainModel);
         	sce.getServletContext().setAttribute("inferenceOntModel",infDbModel);
         } catch (Throwable e) {
-        	log.error(e);
+        	log.error(e, e);
         }
            
         sce.getServletContext().setAttribute("jenaOntModel", memModel);

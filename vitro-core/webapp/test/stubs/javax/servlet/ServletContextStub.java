@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package stubs.javax.servlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -53,6 +54,18 @@ public class ServletContextStub implements ServletContext {
 	// ----------------------------------------------------------------------
 
 	private final Map<String, Object> attributes = new HashMap<String, Object>();
+	private final Map<String, String> mockResources = new HashMap<String, String>();
+
+	public void setMockResource(String path, String contents) {
+		if (path == null) {
+			throw new NullPointerException("path may not be null.");
+		}
+		if (contents == null) {
+			mockResources.remove(path);
+		} else {
+			mockResources.put(path, contents);
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// Stub methods
@@ -82,6 +95,15 @@ public class ServletContextStub implements ServletContext {
 		}
 	}
 
+	@Override
+	public InputStream getResourceAsStream(String path) {
+		if (mockResources.containsKey(path)) {
+			return new ByteArrayInputStream(mockResources.get(path).getBytes());
+		} else {
+			return null;
+		}
+	}
+
 	// ----------------------------------------------------------------------
 	// Un-implemented methods
 	// ----------------------------------------------------------------------
@@ -105,7 +127,7 @@ public class ServletContextStub implements ServletContext {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Enumeration getInitParameterNames() {
 		throw new RuntimeException(
 				"ServletContextStub.getInitParameterNames() not implemented.");
@@ -154,13 +176,7 @@ public class ServletContextStub implements ServletContext {
 	}
 
 	@Override
-	public InputStream getResourceAsStream(String arg0) {
-		throw new RuntimeException(
-				"ServletContextStub.getResourceAsStream() not implemented.");
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Set getResourcePaths(String arg0) {
 		throw new RuntimeException(
 				"ServletContextStub.getResourcePaths() not implemented.");
@@ -185,14 +201,14 @@ public class ServletContextStub implements ServletContext {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Enumeration getServletNames() {
 		throw new RuntimeException(
 				"ServletContextStub.getServletNames() not implemented.");
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Enumeration getServlets() {
 		throw new RuntimeException(
 				"ServletContextStub.getServlets() not implemented.");

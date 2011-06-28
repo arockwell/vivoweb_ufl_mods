@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,8 @@ package edu.cornell.mannlib.vitro.webapp.dao;
 
 import java.util.Collection;
 import java.util.List;
+
+import com.hp.hpl.jena.rdf.model.Literal;
 
 import edu.cornell.mannlib.vitro.webapp.beans.DataProperty;
 import edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement;
@@ -63,6 +65,10 @@ public interface DataPropertyStatementDao {
     void deleteDataPropertyStatementsForIndividualByDataProperty(Individual individual, DataProperty dataProperty);
 
     int insertNewDataPropertyStatement(DataPropertyStatement dataPropertyStatement );
+
+    List<Literal> getDataPropertyValuesForIndividualByProperty(Individual subject, DataProperty property);
+    
+    List<Literal> getDataPropertyValuesForIndividualByProperty(String subjectUri, String propertyUri);
 
 }
 

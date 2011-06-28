@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,13 +28,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package edu.cornell.mannlib.vitro.webapp.dao.filtering;
 
-import edu.cornell.mannlib.vitro.webapp.beans.*;
-import edu.cornell.mannlib.vitro.webapp.dao.DataPropertyStatementDao;
-import edu.cornell.mannlib.vitro.webapp.dao.filtering.filters.VitroFilters;
-import net.sf.jga.fn.UnaryFunctor;
-
 import java.util.Collection;
 import java.util.List;
+
+import com.hp.hpl.jena.rdf.model.Literal;
+
+import edu.cornell.mannlib.vitro.webapp.beans.DataProperty;
+import edu.cornell.mannlib.vitro.webapp.beans.DataPropertyStatement;
+import edu.cornell.mannlib.vitro.webapp.beans.Individual;
+import edu.cornell.mannlib.vitro.webapp.dao.DataPropertyStatementDao;
+import edu.cornell.mannlib.vitro.webapp.dao.filtering.filters.VitroFilters;
 
 class DataPropertyStatementDaoFiltering extends BaseFiltering implements DataPropertyStatementDao{
     final DataPropertyStatementDao innerDataPropertyStatementDao;    
@@ -115,6 +118,17 @@ class DataPropertyStatementDaoFiltering extends BaseFiltering implements DataPro
             DataPropertyStatement dataPropertyStatement) {
         return innerDataPropertyStatementDao.insertNewDataPropertyStatement(dataPropertyStatement);
     }
+    
+    @Override
+    // RY What about filtering?
+    public List<Literal> getDataPropertyValuesForIndividualByProperty(Individual subject, DataProperty property) {
+        return innerDataPropertyStatementDao.getDataPropertyValuesForIndividualByProperty(subject, property);
+    }
 
-
+    @Override
+    // RY What about filtering?
+    public List<Literal> getDataPropertyValuesForIndividualByProperty(String subjectUri, String propertyUri) {
+        return innerDataPropertyStatementDao.getDataPropertyValuesForIndividualByProperty(subjectUri, propertyUri);
+    }
+    
 }

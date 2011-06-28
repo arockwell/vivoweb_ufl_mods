@@ -2,8 +2,8 @@
 <xsl:stylesheet version='2.0'
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ai="http://www.digitalmeasures.com/schema/data"
-	xmlns:aiic="http://vivoweb.org/activity-insight"
-xmlns="http://vivoweb.org/activity-insight"
+	xmlns:mapid="http://vivoweb.org/ontology/activity-insight"
+	xmlns="http://vivoweb.org/ontology/activity-insight"
 	xmlns:dm="http://www.digitalmeasures.com/schema/data">
 
 <xsl:param name='listxml' required='yes'/>
@@ -19,14 +19,15 @@ xmlns="http://vivoweb.org/activity-insight"
 
 <xsl:variable name='docs' as='node()*'
 	select='collection($listxml)'/>
-<xsl:element name="aiic:aiidmap" namespace="http://vivoweb.org/activity-insight">
+<xsl:element name="mapid:aiidmap" 
+namespace="http://vivoweb.org/ontology/activity-insight">
 <xsl:for-each select='$docs/dm:Data/dm:Record'>
 <xsl:sort select='upper-case(@username)'/>
-<xsl:element name="aiic:mapterm">
-<xsl:element name="aiic:netid">
+<xsl:element name="mapid:mapterm">
+<xsl:element name="mapid:netid">
 <xsl:value-of select='@username'/>
 </xsl:element>
-<xsl:element name="aiic:aiid">
+<xsl:element name="mapid:aiid">
 <xsl:value-of select='@userId'/>
 </xsl:element>
 

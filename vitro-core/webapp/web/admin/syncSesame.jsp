@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,10 +35,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@page import="edu.cornell.mannlib.vitro.webapp.dao.jena.JenaBaseDao"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Properties"%>
-<%@page import="edu.cornell.mannlib.vedit.beans.LoginFormBean"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.Controllers" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
+
+<vitro:confirmLoginStatus level="DBA" />
 
 
 <%!
@@ -58,13 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %>
 
 <%
-
-	if(session == null || !LoginFormBean.loggedIn(request, LoginFormBean.DBA)) {
-	    %>
-        <c:redirect url="<%= Controllers.LOGIN %>" />
-        <%
-	}
-
     long startTime = System.currentTimeMillis();
 
     Properties sesameProperties = new Properties();

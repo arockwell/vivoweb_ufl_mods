@@ -1,0 +1,152 @@
+/*
+Copyright (c) 2011, Cornell University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Cornell University nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* Styles used for class group browse (browse-classgroups.ftl) */
+
+#browse {
+    clear: both;
+    width: 920px;
+    margin: 0 auto;
+    border: 1px solid #dfe6e6;
+    background: #f7f9f9;
+    overflow: hidden;
+    padding-bottom: 30px;
+}
+#browse h4 {
+    width: 13%;
+    height: 30px;
+    margin-bottom: 27px;
+    padding-left: 15px;
+    font-weight: normal;
+    line-height: 38px;
+    color: #fff;
+    background: #5e6363;
+    font-size: 20px;
+}
+/* BROWSE CLASS GROUPS ------>  */
+ul#browse-classgroups {
+    float: left;
+    width: 200px;
+    border: 1px solid #dde4e3;
+    border-right: none;
+    background: #f1f2ee;
+    margin-left: 34px;
+    padding: 0 20px 23px 20px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+ul#browse-classgroups li {
+    display: block;
+    border-bottom: 1px solid #dde4e3;
+    font-size: 18px;
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+}
+ul#browse-classgroups li:last-child {
+    border-bottom: none
+}
+ul#browse-classgroups a {
+    display: block;
+    padding-left: 15px;
+    width: 200px;
+    height: 35px;
+    color: #5e6363;
+    text-decoration: none;
+}
+ul#browse-classgroups .count-classes {
+    font-size: 14px
+}
+/* BROWSE CLASSES IN CLASS GROUP ------>  */
+#browse-classes {
+    float: left;
+    position: relative;
+    width: 610px;
+    border: 1px solid #dde6e5;
+    background: #fff;
+    min-height: 230px;
+}
+a.browse-superclass {
+    position: absolute;
+    right: 0.5em;
+    font-size: 0.9em;
+}
+ul#classes-in-classgroup {
+    float: left;
+    width: 90%;
+    padding: 0 10px 15px 22px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+ul#classes-in-classgroup.vis {
+    width: 55%;
+    border-right: 1px solid #DDE5E4;
+}
+ul#classes-in-classgroup li {
+    display: block;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #dde4e3;
+    font-size: 14px;
+}
+ul#classes-in-classgroup li:last-child {
+    border-bottom: none
+}
+ul#classes-in-classgroup a {
+    display: block;
+    color: #5e6363;
+    text-decoration: none;
+    padding: .5em 0 .5em 0.938em;
+    line-height: 1.5em;
+}
+ul#classes-in-classgroup .count-individuals {
+    font-size: 12px;
+}
+/* VISUALIZATION  ------>  */
+#visual-graph {
+    float: left;
+    width: 235px;
+}
+#visual-graph h5 {
+    padding: 20px 0 12px 12px;
+    width: auto;
+    font-size: 18px;
+    font-weight: normal;
+}
+#pieViz {
+    width: 308px;
+    height: 308px;
+}
+svg text {
+    font-family: inherit !important;
+    font-size: 12px !important;
+    color: #5E6363 !important;
+}
+svg rect {
+    cursor: pointer;
+}

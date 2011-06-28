@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -181,7 +181,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                       <select id="VClassURI" name="VClassURI" class="form-item span-23">
                           <form:option name="VClassId"/>
                       </select>
-                      <input type="submit" class="add-action-button" value="Add Individual of This Type"/>
+                      <input type="submit" id="submit" value="Add Individual of This Type"/>
                       <input type="hidden" name="home" value="<%=portal.getPortalId()%>" />
                       <input type="hidden" name="controller" value="Entity"/>
                   </form>

@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="com.hp.hpl.jena.shared.Lock" %>
 <%@ page import="com.thoughtworks.xstream.XStream" %>
 <%@ page import="com.thoughtworks.xstream.io.xml.DomDriver" %>
-<%@ page import="edu.cornell.mannlib.vedit.beans.LoginFormBean" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.beans.Individual" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.VitroRequest" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
@@ -51,6 +50,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@page import="edu.cornell.mannlib.vitro.webapp.edit.n3editing.RdfLiteralHash"%>
 <%@page import="edu.cornell.mannlib.vitro.webapp.beans.DataProperty"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
 
 <%--
 Current stop gap solution for back button problems
@@ -66,15 +66,11 @@ and set a flag in the request to indicate "back button confusion"
 %>
 <%
     log.debug("Starting datapropertyBackButtonProblems.jsp");
-
-    if( session == null)
-        throw new Error("need to have session");
 %>
-<%
-    if (!VitroRequestPrep.isSelfEditing(request) && !LoginFormBean.loggedIn(request, LoginFormBean.CURATOR)) {
-        %><c:redirect url="<%= Controllers.LOGIN %>" /><%
-    }
 
+<vitro:confirmLoginStatus level="CURATOR" allowSelfEditing="true" />
+
+<%
     List<String> errorMessages = new ArrayList<String>();
     Object sessionOntModel = request.getSession().getAttribute("jenaOntModel");
     OntModel jenaOntModel = (sessionOntModel != null && sessionOntModel instanceof OntModel) ? (OntModel)sessionOntModel:

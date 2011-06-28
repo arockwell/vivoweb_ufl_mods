@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -26,27 +26,25 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/* Styles for autocomplete and autocomplete selections using jQuery UI. This is separated out so that forms
+that don't load customFormWithAutocomplete.css still have access to these styles. */
+
 .acSelection {
     display: none;
+    margin-top: 2em;
 }
-
 .acSelectionInfo {
     background-color: #d9d9d9;
     padding: .5em 1em;
 }
-
-
-/* jQuery UI autocomplete */
 ul.ui-autocomplete {
     font-size: .95em;
 }
-
 li.ui-menu-item a.ui-corner-all {
     text-align: left;
     padding-left: .25em;
 }
-
 .acSelectorWithHelpText{
-	font-style: italic;
-	color: #555;	
+    font-style: italic;
+    color: #555;	
 }

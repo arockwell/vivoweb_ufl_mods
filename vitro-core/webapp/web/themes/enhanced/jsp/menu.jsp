@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -36,11 +36,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.TabWebUtil" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory" %>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.web.PortalWebUtil" %>
-<%@page import="java.util.List"%>
+<%@ page import="edu.cornell.mannlib.vedit.beans.LoginStatusBean" %>
+<%@ page import="java.util.List"%>
+
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<jsp:useBean id="loginHandler" class="edu.cornell.mannlib.vedit.beans.LoginFormBean" scope="session" />
 
 <%
     /***********************************************
@@ -83,22 +83,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      
    // application variables not stored in application bean
      final String DEFAULT_SEARCH_METHOD = "fulltext";
-     final int FILTER_SECURITY_LEVEL = 4;
      final int VIVO_SEARCHBOX_SIZE = 20;
      
      ApplicationBean appBean = vreq.getAppBean();
      PortalWebUtil.populateSearchOptions(portal, appBean, vreq.getWebappDaoFactory().getPortalDao());
      PortalWebUtil.populateNavigationChoices(portal, request, appBean, vreq.getWebappDaoFactory().getPortalDao());
      
-     HttpSession currentSession = request.getSession();
-     String currentSessionIdStr = currentSession.getId();
-     int securityLevel = -1;
-     String loginName = null;
-     if (loginHandler.testSessionLevel(request) > -1) {
-         securityLevel = Integer.parseInt(loginHandler.getLoginRole());
-         loginName = loginHandler.getLoginName();
-     }
-
+     LoginStatusBean loginBean = LoginStatusBean.getBean(request);
+     boolean isEditor = loginBean.isLoggedInAtLeast(LoginStatusBean.EDITOR);
+     String loginName = loginBean.getUsername();
 %>
 
 <c:url var="themePath" value="/${themeDir}" />
@@ -144,7 +137,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <div id="searchBlock">
     <form id="searchForm" action="${searchURL}" >                	
       <label for="search">Search </label>
-      <%  if (securityLevel>=FILTER_SECURITY_LEVEL && appBean.isFlag1Active()) { %>
+      <%  if (isEditor && appBean.isFlag1Active()) { %>
       <select id="search-form-modifier" name="flag1" class="form-item" >
         <option value="nofiltering" selected="selected">entire database (<%=loginName%>)</option>
       	<option value="${currentPortal}"><%=portal.getShortHand()%></option>

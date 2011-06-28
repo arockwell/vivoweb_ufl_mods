@@ -11,7 +11,10 @@ exclude-result-prefixes='vfx xs'
  version="2.0">   
 
 <xsl:output method="xml" indent="yes"/> 
-
+<xsl:variable name='NL'>
+<xsl:text>
+</xsl:text>
+</xsl:variable>
 <!-- ============================================================= -->
 <xsl:template match='*'>
 
@@ -19,7 +22,7 @@ exclude-result-prefixes='vfx xs'
 
 <xsl:element name="ai:AUTHORSHIP">
 <!--xsl:for-each select='//dm:INTELLCONT_JOURNAL_AUTH[not(./dm:LNAME=preceding::dm:INTELLCONT_JOURNAL_AUTH/dm:LNAME) or not(./dm:FNAME=preceding::dm:INTELLCONT_JOURNAL_AUTH/dm:FNAME)]'-->
-<xsl:for-each select='//dm:INTELLCONT_JOURNAL_AUTH[not(vfx:hasMatchingName(./dm:FNAME,./dm:LNAME,preceding::dm:INTELLCONT_JOURNAL_AUTH))]'>
+<xsl:for-each select='//dm:INTELLCONT_JOURNAL_AUTH[not(vfx:hasMatchingName(./dm:FNAME,./dm:MNAME,./dm:LNAME,preceding::dm:INTELLCONT_JOURNAL_AUTH))]'>
 <xsl:call-template name='AuthorShipCalc'>
   <xsl:with-param name='auth' select='.'/>
 </xsl:call-template>
@@ -37,7 +40,7 @@ exclude-result-prefixes='vfx xs'
 
 <xsl:element name="ai:INTELLCONT_AUTHORSHIP">
 <!-- xsl:for-each select='//dm:INTELLCONT_AUTH[not(./dm:LNAME=preceding::dm:INTELLCONT_AUTH/dm:LNAME) or not(./dm:FNAME=preceding::dm:INTELLCONT_AUTH/dm:FNAME)]' -->
-<xsl:for-each select='//dm:INTELLCONT_AUTH[not(vfx:hasMatchingName(./dm:FNAME,./dm:LNAME,preceding::dm:INTELLCONT_AUTH))]'>
+<xsl:for-each select='//dm:INTELLCONT_AUTH[not(vfx:hasMatchingName(./dm:FNAME,./dm:MNAME,./dm:LNAME,preceding::dm:INTELLCONT_AUTH))]'>
 <xsl:call-template name='IntellcontAuthorShipCalc'>
   <xsl:with-param name='auth' select='.'/>
 </xsl:call-template>
@@ -60,6 +63,7 @@ exclude-result-prefixes='vfx xs'
 <xsl:param name='auth'/>
 <xsl:variable name='lname' select='$auth/dm:LNAME'/>
 <xsl:variable name='fname' select='$auth/dm:FNAME'/>
+<xsl:variable name='mname' select='$auth/dm:MNAME'/>
 <xsl:element name='ai:AUTHOR'>
 
 <xsl:copy-of select='dm:LNAME|dm:FNAME|dm:MNAME|dm:FACULTY_NAME' copy-namespaces='no' />
@@ -70,7 +74,7 @@ exclude-result-prefixes='vfx xs'
 <xsl:if test='following::dm:INTELLCONT_JOURNAL_AUTH'>
   <xsl:for-each select='following::dm:INTELLCONT_JOURNAL_AUTH'>
 
-    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./dm:LNAME) and vfx:collapse($fname) =vfx:collapse(./dm:FNAME)'>
+    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./dm:LNAME) and vfx:collapse($mname) = vfx:collapse(./dm:MNAME) and vfx:collapse($fname) = vfx:collapse(./dm:FNAME)'>
       <xsl:copy-of select='./dm:ARTICLE_AUTHORSHIP_ORDER' copy-namespaces='no'/>
     </xsl:if>
 
@@ -95,6 +99,13 @@ exclude-result-prefixes='vfx xs'
 <xsl:value-of select='$jname'/>
 </ai:INTELLCONT_JOURNAL_NAME>
 <ai:INTELLCONT_JOURNAL_ID>
+<xsl:attribute name='hasTitle' select=
+		'if(./dm:TITLE = "") then "No" else "Yes"'/>
+<xsl:attribute name='public' select=
+		'if(./dm:PUBLIC_VIEW = "Yes") then "Yes" else "No"'/>
+<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:hasOneGoodName(./dm:AuthorList/dm:INTELLCONT_JOURNAL_AUTH))
+		 then "Yes" else "No"'/>
 <xsl:value-of select='$id'/>
 </ai:INTELLCONT_JOURNAL_ID>
 
@@ -106,6 +117,14 @@ exclude-result-prefixes='vfx xs'
     <xsl:if test=' vfx:collapse($jname) = vfx:collapse(./dm:JOURNAL_NAME)'>
 
       	<ai:INTELLCONT_JOURNAL_ID>
+	<xsl:attribute name='hasTitle' select=
+		'if(./dm:TITLE = "") then "No" else "Yes"'/>
+	<xsl:attribute name='public' select=
+		'if(./dm:PUBLIC_VIEW = "No") then "No" else "Yes"'/>
+	
+	<xsl:attribute name='hasGoodAuthor' select=
+		'if(vfx:hasOneGoodName(./dm:AuthorList/dm:INTELLCONT_JOURNAL_AUTH))
+		 then "Yes" else "No"'/>
 	<xsl:value-of select='./@id'/>
 	</ai:INTELLCONT_JOURNAL_ID>
 
@@ -123,6 +142,7 @@ exclude-result-prefixes='vfx xs'
 <xsl:param name='auth'/>
 <xsl:variable name='lname' select='$auth/dm:LNAME'/>
 <xsl:variable name='fname' select='$auth/dm:FNAME'/>
+<xsl:variable name='mname' select='$auth/dm:MNAME'/>
 <xsl:element name='ai:AUTHOR'>
 
 <xsl:copy-of select='dm:LNAME|dm:FNAME|dm:MNAME|dm:FACULTY_NAME' copy-namespaces='no' />
@@ -133,7 +153,7 @@ exclude-result-prefixes='vfx xs'
 <xsl:if test='following::dm:INTELLCONT_AUTH'>
   <xsl:for-each select='following::dm:INTELLCONT_AUTH'>
 
-    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./dm:LNAME) and vfx:collapse($fname) =vfx:collapse(./dm:FNAME)'>
+    <xsl:if test='vfx:collapse($lname) = vfx:collapse(./dm:LNAME) and vfx:collapse($mname) = vfx:collapse(./dm:MNAME) and vfx:collapse($fname) = vfx:collapse(./dm:FNAME)'>
       <xsl:copy-of select='./dm:INTELLCONT_AUTHORSHIP_ORDER' copy-namespaces='no'/>
     </xsl:if>
 
@@ -145,40 +165,10 @@ exclude-result-prefixes='vfx xs'
 </xsl:element>
 </xsl:template>
 
+
+
+
 <xsl:include href='vivofuncs.xsl'/>
 
-<xsl:template name='hasMatchingName'>
-<xsl:param name='fn'/>
-<xsl:param name='ln'/>
-<xsl:param name='nlist'/>
-<xsl:param name='res' select='false()'/>
-<xsl:choose>
-<xsl:when test='$nlist and not($res)'>
-<xsl:variable name='fnln' select='concat($fn,$ln)'/>
-<xsl:variable name='listfnln' select='concat($nlist[1]/dm:FNAME,$nlist[1]/dm:LNAME)'/>
-<xsl:variable name='comp' select='vfx:collapse($fnln) = vfx:collapse($listfnln)'/>
-<!-- xsl:variable name='comp' select='$fn = $nlist[1]'/ -->
-<xsl:call-template name='hasMatchingName'>
-<xsl:with-param name='fn' select='$fn'/>
-<xsl:with-param name='ln' select='$ln'/>
-<xsl:with-param name='nlist' select='$nlist[position()>1]'/>
-<xsl:with-param name='res' select='$res or $comp'/>
-</xsl:call-template>
-</xsl:when>
-<xsl:otherwise>
-<xsl:value-of select='$res'/>
-</xsl:otherwise>
-</xsl:choose>
-</xsl:template>
 
-<xsl:function name='vfx:hasMatchingName' as='xs:boolean'>
-<xsl:param name='fn'/>
-<xsl:param name='ln'/>
-<xsl:param name='nlist'/>
-<xsl:call-template name='hasMatchingName'>
-<xsl:with-param name='fn' select='$fn'/>
-<xsl:with-param name='ln' select='$ln'/>
-<xsl:with-param name='nlist' select='$nlist'/>
-</xsl:call-template>
-</xsl:function>
 </xsl:stylesheet>

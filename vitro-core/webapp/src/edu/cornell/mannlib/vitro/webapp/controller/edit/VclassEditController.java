@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -45,9 +45,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.cornell.mannlib.vedit.beans.EditProcessObject;
 import edu.cornell.mannlib.vedit.beans.FormObject;
-import edu.cornell.mannlib.vedit.beans.LoginFormBean;
 import edu.cornell.mannlib.vedit.controller.BaseEditController;
-import edu.cornell.mannlib.vitro.webapp.auth.policy.JenaNetidPolicy.ContextSetup;
 import edu.cornell.mannlib.vitro.webapp.beans.Portal;
 import edu.cornell.mannlib.vitro.webapp.beans.VClass;
 import edu.cornell.mannlib.vitro.webapp.beans.VClassGroup;
@@ -61,13 +59,13 @@ import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
 public class VclassEditController extends BaseEditController {
 	
 	private static final Log log = LogFactory.getLog(VclassEditController.class.getName());
-	private static final int NUM_COLS = 13;
+	private static final int NUM_COLS = 12;
 
     public void doPost (HttpServletRequest req, HttpServletResponse response) {
     	
     	VitroRequest request = new VitroRequest(req);
 
-        if (!checkLoginStatus(request,response,(String)request.getAttribute("fetchURI")))
+        if (!checkLoginStatus(request,response))
             return;
 
         try {
@@ -100,11 +98,10 @@ public class VclassEditController extends BaseEditController {
         results.add("group");                // 6
         results.add("display level");        // 7
         results.add("update level");         // 8
-        results.add("custom entry form");    // 10
-        results.add("custom display view");  // 11
-        results.add("custom short view");    // 12
-        results.add("custom search view");   // 13
-        results.add("URI");                  // 14
+        results.add("custom entry form");    // 9
+        results.add("custom display view");  // 10
+        results.add("custom search view");   // 11
+        results.add("URI");                  // 12
         
         String name = vcl.getLocalNameWithPrefix();
         String shortDef = (vcl.getShortDef()==null) ? "" : vcl.getShortDef();
@@ -156,9 +153,8 @@ public class VclassEditController extends BaseEditController {
         results.add(ProhibitedFromUpdate);   // 8
         results.add(customEntryForm);        // 9
         results.add(customDisplayView);      // 10
-        results.add(customShortView);        // 11
-        results.add(customSearchView);       // 12
-        results.add(uri);                    // 13
+        results.add(customSearchView);       // 11
+        results.add(uri);                    // 12
         request.setAttribute("results", results);
         request.setAttribute("columncount", NUM_COLS);
         request.setAttribute("suppressquery", "true");

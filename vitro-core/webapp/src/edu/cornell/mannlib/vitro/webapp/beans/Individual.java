@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -72,12 +72,18 @@ public interface Individual extends ResourceBean, VitroTimeWindowedResource, Com
     List<ObjectProperty> getObjectPropertyList();
     void setPropertyList(List<ObjectProperty> propertyList);
 
+    List<ObjectProperty> getPopulatedObjectPropertyList();
+    void setPopulatedObjectPropertyList(List<ObjectProperty> propertyList);
+    
     Map<String,ObjectProperty> getObjectPropertyMap();
     void setObjectPropertyMap(Map<String,ObjectProperty> propertyMap);
     
     List<DataProperty> getDataPropertyList();
     void setDatatypePropertyList(List<DataProperty> datatypePropertyList);
 
+    List<DataProperty> getPopulatedDataPropertyList();
+    void setPopulatedDataPropertyList(List<DataProperty> dataPropertyList);
+    
     Map<String,DataProperty> getDataPropertyMap();
     void setDataPropertyMap(Map<String,DataProperty> propertyMap);
     
@@ -135,6 +141,7 @@ public interface Individual extends ResourceBean, VitroTimeWindowedResource, Com
     
     String getImageUrl();
     String getThumbUrl();
+    boolean hasThumb();
 
     String getUrl();
     void setUrl(String url);

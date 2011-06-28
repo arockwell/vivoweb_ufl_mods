@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -42,8 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
 %>
-
-    <h2>Split Property Value Strings into Multiple Property Values</h2>
+    <h2><a class="ingestMenu" href="ingest">Ingest Menu</a> > Split Property Value Strings into Multiple Property Values</h2>
 
     <form action="ingest" method="get">
         <input type="hidden" name="action" value="splitPropertyValues"/>
@@ -88,4 +87,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %>   
     </select>
 
-    <input type="submit" value="Split Values"/>
+    <input id="submit" type="submit" value="Split Values"/>

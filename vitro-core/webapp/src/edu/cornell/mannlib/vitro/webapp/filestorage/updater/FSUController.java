@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import java.io.File;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-import edu.cornell.mannlib.vitro.webapp.filestorage.FileModelHelper;
+import edu.cornell.mannlib.vitro.webapp.filestorage.UploadedFileHelper;
 import edu.cornell.mannlib.vitro.webapp.filestorage.backend.FileStorage;
 
 /**
@@ -49,11 +49,11 @@ public interface FSUController {
 	/** The place to find or to create image files. */
 	ImageDirectoryWithBackup getImageDirectoryWithBackup();
 
+	/** A helper with access to the DAO layer and the file storage system. */
+	UploadedFileHelper getUploadedFileHelper();
+
 	/** The file storage system. */
 	FileStorage getFileStorage();
-
-	/** A file model helper with access to the DAO layer. */
-	FileModelHelper getFileModelHelper();
 
 	/** Where to store the files that were translated. */
 	File getTranslatedDirectory();

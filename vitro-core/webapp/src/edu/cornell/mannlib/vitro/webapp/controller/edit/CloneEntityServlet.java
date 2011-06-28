@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
-import edu.cornell.mannlib.vedit.beans.LoginFormBean;
+import edu.cornell.mannlib.vedit.beans.LoginStatusBean;
 import edu.cornell.mannlib.vedit.controller.BaseEditController;
 import edu.cornell.mannlib.vitro.webapp.beans.Individual;
 import edu.cornell.mannlib.vitro.webapp.beans.PropertyInstance;
@@ -105,7 +105,7 @@ public class CloneEntityServlet extends BaseEditController {
             return;
         }
         
-        LoginFormBean loginBean = (LoginFormBean) request.getSession().getAttribute("loginHandler");
+        LoginStatusBean loginBean = LoginStatusBean.getBean(request);
 		WebappDaoFactory myWebappDaoFactory = request.getFullWebappDaoFactory().getUserAwareDaoFactory(loginBean.getUserURI());
         IndividualDao individualDao = myWebappDaoFactory.getIndividualDao();
         PropertyInstanceDao propertyInstanceDao = myWebappDaoFactory.getPropertyInstanceDao();

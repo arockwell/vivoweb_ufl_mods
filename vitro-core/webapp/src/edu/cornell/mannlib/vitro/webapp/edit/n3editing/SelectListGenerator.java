@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,7 +57,6 @@ import edu.cornell.mannlib.vitro.webapp.dao.VClassGroupDao;
 import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
 import edu.cornell.mannlib.vitro.webapp.dao.jena.WebappDaoFactoryJena;
 import edu.cornell.mannlib.vitro.webapp.dao.jena.pellet.PelletListener;
-import edu.cornell.mannlib.vitro.webapp.search.beans.ProhibitedFromSearch;
 
 public class SelectListGenerator {
     
@@ -93,7 +91,7 @@ public class SelectListGenerator {
             case HARDCODED_LITERALS:  // not auto-sorted, and empty values not removed or replaced
                 List<List<String>> hardcodedLiteralOptions = field.getLiteralOptions();
                 if (hardcodedLiteralOptions==null) {
-                    log.error("no literalOptions List found for field \""+fieldName+"\" in SelectListGenerator.getOptions() when OptionsType UNSORTED_LITERALS specified");
+                    log.error("no literalOptions List found for field \""+fieldName+"\" in SelectListGenerator.getOptions() when OptionsType HARDCODED_LITERALS specified");
                     return new HashMap <String,String>();
                 }
                 for(Object obj: ((Iterable)hardcodedLiteralOptions)){
@@ -101,7 +99,7 @@ public class SelectListGenerator {
                     String value=(String)literalPair.get(0);
                     if( value != null){  // allow empty string as a value
                         String label=(String)literalPair.get(1);
-                        if (label!=null && label.trim().length() > 0) {
+                        if (label!=null) { 
                             optionsMap.put(value,label);
                         } else {
                             optionsMap.put(value, value);
@@ -210,13 +208,11 @@ public class SelectListGenerator {
                                                         if( stmts == null ) log.error("object properties for subject were null in SelectListGenerator.getOptions()");
     
                         individuals = removeIndividualsAlreadyInRange(individuals,stmts,predicateUri,editConfig.getObject());
-                        //Collections.sort(individuals,new compareIndividualsByName());
-    
-                        ProhibitedFromSearch pfs = editConfig.getProhibitedFromSearch();
+                        //Collections.sort(individuals,new compareIndividualsByName());    
                         
                         for( Individual ind : individuals ){
                             String uri = ind.getURI();
-                            if( uri != null && (pfs == null || !ind.isMemberOfClassProhibitedFromSearch(pfs)) ){              
+                            if( uri != null ){              
                         		optionsMap.put(uri,ind.getName().trim());                        
                         		++optionsCount;             	
                             }
@@ -277,15 +273,33 @@ public class SelectListGenerator {
                         List<Individual> individuals = new ArrayList<Individual>();
                         individuals.addAll(individualMap.values());
                         Collections.sort(individuals);
+                		
+                        for (Individual ind : wDaoFact.getIndividualDao().getIndividualsByVClassURI(vclass.getURI(),-1,-1)) {
+                        	if (ind.getURI() != null) {                        		
+                            	individualMap.put(ind.getURI(), ind);
+                        	}
+                        }
+                        
+                        if (!inferenceAvailable) {
+                        	for (String subclassURI : wDaoFact.getVClassDao().getAllSubClassURIs(vclass.getURI())) {
+                        		 for (Individual ind : wDaoFact.getIndividualDao().getIndividualsByVClassURI(subclassURI,-1,-1)) {
+                                 	if (ind.getURI() != null) {
+                                 		individualMap.put(ind.getURI(), ind);
+                                 	}
+                                 }
+                        	}
+                        }
+                        
+                        individuals.addAll(individualMap.values());
+                        Collections.sort(individuals);
                         
                         if (individuals.size()==0){ 
                             log.error("No individuals of type "+vclass.getName()+" to add to pick list in SelectListGenerator.getOptions(); check portal visibility");
                             optionsMap.put("", "No " + vclass.getName() + " found");
                         }else{
-                        	ProhibitedFromSearch pfs = editConfig.getProhibitedFromSearch();
                             for( Individual ind : individuals ) {
                                 String uri = ind.getURI();
-                                if( uri != null && (pfs == null || !ind.isMemberOfClassProhibitedFromSearch(pfs)) ) {       
+                                if( uri != null ) {       
                                 	optionsMap.put(uri,ind.getName().trim());                        
                             		++optionsCount;
                                 }

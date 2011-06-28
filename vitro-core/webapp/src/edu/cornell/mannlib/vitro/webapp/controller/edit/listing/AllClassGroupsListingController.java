@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import edu.cornell.mannlib.vedit.controller.BaseEditController;
 import edu.cornell.mannlib.vitro.webapp.beans.Portal;
 import edu.cornell.mannlib.vitro.webapp.beans.VClass;
@@ -46,6 +48,9 @@ import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.dao.VClassGroupDao;
 
 public class AllClassGroupsListingController extends BaseEditController {
+
+    private static final long serialVersionUID = 1L;
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         if(!checkLoginStatus(request,response))
@@ -74,23 +79,23 @@ public class AllClassGroupsListingController extends BaseEditController {
         results.add("XX");
 
         if (groups != null) {
-            Iterator groupsIt = groups.iterator();
+            Iterator<?> groupsIt = groups.iterator();
             while (groupsIt.hasNext()) {
                 VClassGroup vcg = (VClassGroup) groupsIt.next();
                 results.add("XX");
-                if (vcg.getPublicName() != null) {
-                    try {
-                        results.add("<a href=\"./editForm?uri="+URLEncoder.encode(vcg.getURI(),"UTF-8")+"&amp;home="+portal.getPortalId()+"&amp;controller=Classgroup\">"+vcg.getPublicName()+"</a>");
-                    } catch (Exception e) {
-                        results.add(vcg.getPublicName());
-                    }
-                } else {
-                    results.add("");
+                String publicName = vcg.getPublicName();
+                if ( StringUtils.isBlank(publicName) ) {
+                    publicName = "(unnamed group)";
+                }           
+                try {
+                    results.add("<a href=\"./editForm?uri="+URLEncoder.encode(vcg.getURI(),"UTF-8")+"&amp;home="+portal.getPortalId()+"&amp;controller=Classgroup\">"+publicName+"</a>");
+                } catch (Exception e) {
+                    results.add(publicName);
                 }
                 results.add(Integer.valueOf(vcg.getDisplayRank()).toString());
                 results.add("???"); // VClassGroup doesn't yet supprt getModTime()
                 results.add("XX");
-                List classList = vcg.getVitroClassList();
+                List<?> classList = vcg.getVitroClassList();
                 if (classList != null && classList.size()>0) {
                     results.add("+");
                     results.add("XX");
@@ -98,7 +103,7 @@ public class AllClassGroupsListingController extends BaseEditController {
                     results.add("example");
                     results.add("description");
                     results.add("@@entities");
-                    Iterator classIt = classList.iterator();
+                    Iterator<?> classIt = classList.iterator();
                     while (classIt.hasNext()) {
                         VClass vcw = (VClass) classIt.next();
                         results.add("XX");

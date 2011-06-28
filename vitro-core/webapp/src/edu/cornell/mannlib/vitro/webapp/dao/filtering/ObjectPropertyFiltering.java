@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -142,8 +142,8 @@ public class ObjectPropertyFiltering extends ObjectProperty {
     }
 
     @Override
-    public String getEditLabel() {
-        return innerObjectProperty.getEditLabel();
+    public String getLabel() {
+        return innerObjectProperty.getLabel();
     }
 
     @Override
@@ -380,8 +380,8 @@ public class ObjectPropertyFiltering extends ObjectProperty {
     }
 
     @Override
-    public void setEditLabel(String label) {
-        innerObjectProperty.setEditLabel(label);
+    public void setLabel(String label) {
+        innerObjectProperty.setLabel(label);
     }
 
     @Override

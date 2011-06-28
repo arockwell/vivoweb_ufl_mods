@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -50,6 +50,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class RegeneratingModel implements OntModel {
 
     private ModelGenerator generator;
@@ -2189,7 +2190,7 @@ public class RegeneratingModel implements OntModel {
         }
     }
 
-    @Deprecated
+    @SuppressWarnings("deprecation")
     public Resource createResource(ResourceF arg0) {
         try {
             return model.createResource(arg0);
@@ -2208,7 +2209,7 @@ public class RegeneratingModel implements OntModel {
         }
     }
 
-    @Deprecated
+    @SuppressWarnings("deprecation")
     public Resource createResource(String arg0, ResourceF arg1) {
         try {
             return model.createResource(arg0, arg1);
@@ -2419,7 +2420,7 @@ public class RegeneratingModel implements OntModel {
         }
     }
 
-    @Deprecated
+    @SuppressWarnings("deprecation")
     public Resource getResource(String arg0, ResourceF arg1) {
         try {
             return model.getResource(arg0, arg1);
@@ -3010,6 +3011,15 @@ public class RegeneratingModel implements OntModel {
 			regenerate();
 			return model.addLiteral(arg0, arg1, arg2);
 		}		
+	}
+
+	public Resource wrapAsResource(Node arg0) {
+		try {
+			return model.wrapAsResource(arg0);
+		} catch (Exception e) {
+			regenerate();
+			return model.wrapAsResource(arg0);
+		}
 	}
 
 }

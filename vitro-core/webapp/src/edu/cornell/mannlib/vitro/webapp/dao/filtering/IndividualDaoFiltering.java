@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -112,8 +112,8 @@ class IndividualDaoFiltering extends BaseFiltering implements IndividualDao{
     }
 
 
-    public String getIndividualURIFromNetId(String netIdStr) {
-        String uri = innerIndividualDao.getIndividualURIFromNetId(netIdStr);
+    public String getIndividualURIFromNetId(String netIdStr, String netidMatchingPropertyUri) {
+        String uri = innerIndividualDao.getIndividualURIFromNetId(netIdStr, netidMatchingPropertyUri);
         if( uri == null ) return null;
         Individual ent = getIndividualByURI(uri);
         if( ent != null && filters.getIndividualFilter().fn(ent) )

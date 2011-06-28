@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,10 +43,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.shared.Lock;
 import com.hp.hpl.jena.util.iterator.ClosableIterator;
@@ -58,7 +56,6 @@ import edu.cornell.mannlib.vitro.webapp.beans.Link;
 import edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatement;
 import edu.cornell.mannlib.vitro.webapp.beans.ObjectPropertyStatementImpl;
 import edu.cornell.mannlib.vitro.webapp.dao.LinksDao;
-import edu.cornell.mannlib.vitro.webapp.dao.WebappDaoFactory;
 
 public class LinksDaoJena extends JenaBaseDao implements LinksDao {
 
@@ -74,16 +71,16 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
     }
 
     public void addLinksToIndividual(Individual individual) {
-        List linksList = new ArrayList<Link>();
+        List<Link> linksList = new ArrayList<Link>();
         getOntModel().enterCriticalSection(Lock.READ);
         try {
-            com.hp.hpl.jena.ontology.Individual entInd = getOntModel().getIndividual(individual.getURI());
+            Resource entInd = ResourceFactory.createResource(individual.getURI());
             if (ADDITIONAL_LINK != null) {
-                ClosableIterator links = getOntModel().listStatements(entInd,ADDITIONAL_LINK,(Resource)null);
+                ClosableIterator<Statement> links = getOntModel().listStatements(entInd,ADDITIONAL_LINK,(Resource)null);
                 try {
                     while (links.hasNext()) {
                         try {
-                            Resource linkRes = (Resource) ((Statement) links.next()).getObject();
+                            Resource linkRes = (Resource) links.next().getObject();
                             linksList.add(linkFromLinkResource(linkRes, ADDITIONAL_LINK));
                         } catch (ClassCastException cce) {/*no thanks; we don't want any*/}
                     }
@@ -103,7 +100,18 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
                             Collator collator = Collator.getInstance();
                             int compval = collator.compare(first.getDisplayRank(),second.getDisplayRank());
                             if (compval == 0) {
-                                compval = collator.compare(first.getAnchor(),second.getAnchor());
+                                String firstAnchor = first.getAnchor();
+                                String secondAnchor = second.getAnchor();
+                                if (firstAnchor == null) {
+                                    if (secondAnchor == null) {
+                                        return 0;
+                                    }
+                                    return 1;
+                                } 
+                                if (secondAnchor == null) {
+                                    return -1;
+                                }
+                                compval = collator.compare(firstAnchor, secondAnchor);
                             }
                             return compval;
                         }
@@ -117,16 +125,16 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
     }
     
     public void addPrimaryLinkToIndividual(Individual individual) {
-        List linksList = new ArrayList<Link>();
+        List<Link> linksList = new ArrayList<Link>();
         getOntModel().enterCriticalSection(Lock.READ);
         try {
             com.hp.hpl.jena.ontology.Individual entInd = getOntModel().getIndividual(individual.getURI());
             if (PRIMARY_LINK != null) {
-                ClosableIterator links = getOntModel().listStatements(entInd,PRIMARY_LINK,(Resource)null);
+                ClosableIterator<Statement> links = getOntModel().listStatements(entInd,PRIMARY_LINK,(Resource)null);
                 try {
                     while (links.hasNext()) {
                         try {
-                            Resource linkRes = (Resource) ((Statement) links.next()).getObject();
+                            Resource linkRes = (Resource) links.next().getObject();
                             linksList.add(linkFromLinkResource(linkRes,PRIMARY_LINK));
                         } catch (ClassCastException cce) {/*no thanks; we don't want any*/}
                     }
@@ -146,7 +154,18 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
                             Collator collator = Collator.getInstance();
                             int compval = collator.compare(first.getDisplayRank(),second.getDisplayRank());
                             if (compval == 0) {
-                                compval = collator.compare(first.getAnchor(),second.getAnchor());
+                                String firstAnchor = first.getAnchor();
+                                String secondAnchor = second.getAnchor();
+                                if (firstAnchor == null) {
+                                    if (secondAnchor == null) {
+                                        return 0;
+                                    }
+                                    return 1;
+                                } 
+                                if (secondAnchor == null) {
+                                    return -1;
+                                }                                
+                                compval = collator.compare(firstAnchor, secondAnchor);
                             }
                             return compval;
                         }
@@ -154,9 +173,9 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
                 }
                 
                 if (linksList.size()>0) {
-                    Iterator iter = linksList.iterator();
+                    Iterator<Link> iter = linksList.iterator();
                     if (iter.hasNext()) { // take the first only
-                        individual.setPrimaryLink((Link)iter.next());
+                        individual.setPrimaryLink(iter.next());
                     }
                 }
             }
@@ -166,11 +185,11 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
     }
 
 
-    public void addLinksToIndividualsInObjectPropertyStatement(List objectPropertyStatements) {
+    public void addLinksToIndividualsInObjectPropertyStatement(List<ObjectPropertyStatement> objectPropertyStatements) {
         if (objectPropertyStatements != null) {
-            Iterator objectPropertyStatementsIt = objectPropertyStatements.iterator();
+            Iterator<ObjectPropertyStatement> objectPropertyStatementsIt = objectPropertyStatements.iterator();
             while (objectPropertyStatementsIt.hasNext()) {
-                ObjectPropertyStatement ops = (ObjectPropertyStatement) objectPropertyStatementsIt.next();
+                ObjectPropertyStatement ops = objectPropertyStatementsIt.next();
                 if (ops.getSubject() != null && ops.getSubject() instanceof Individual)
                     addLinksToIndividual((Individual)ops.getSubject());
                 if (ops.getObject() != null && ops.getObject() instanceof Individual)
@@ -297,10 +316,10 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
     private Link linkFromLinkResource(Resource linkRes, com.hp.hpl.jena.ontology.ObjectProperty whichLinkProp) {
         Link link = new Link();
         link.setURI(linkRes.getURI());
-        ClosableIterator typesIt = linkRes.listProperties(RDF.type);
+        ClosableIterator<Statement> typesIt = linkRes.listProperties(RDF.type);
         try {
             while (typesIt.hasNext()) {
-                Statement st = (Statement) typesIt.next();
+                Statement st = typesIt.next();
                 try {
                     Resource typeRes = (Resource) st.getObject();
                     if (!typeRes.getURI().equalsIgnoreCase(LINK.getURI())) {  // TODO: remove IgnoreCase ; there because some serializations use "link" instead of "Link"
@@ -313,10 +332,10 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
         }
         if (LINK_ANCHOR != null) {
             try {
-                ClosableIterator anchorStatements = getOntModel().listStatements(linkRes, LINK_ANCHOR, (Literal)null);
+                ClosableIterator<Statement> anchorStatements = getOntModel().listStatements(linkRes, LINK_ANCHOR, (Literal)null);
                 try {
                     if (anchorStatements.hasNext()) {
-                        Literal l = (Literal) ((Statement)anchorStatements.next()).getObject();
+                        Literal l = (Literal) anchorStatements.next().getObject();
                         if (l != null) {
                             link.setAnchor(l.getString());
                         }
@@ -328,10 +347,10 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
         }
         if (LINK_URL != null) {
             try {
-                ClosableIterator UrlStatements = getOntModel().listStatements(linkRes, LINK_URL, (Literal)null);
+                ClosableIterator<Statement> UrlStatements = getOntModel().listStatements(linkRes, LINK_URL, (Literal)null);
                 try {
                     if (UrlStatements.hasNext()) {
-                        Literal l = (Literal) ((Statement)UrlStatements.next()).getObject();
+                        Literal l = (Literal) UrlStatements.next().getObject();
                         if (l != null) {
 							if( (l.getDatatype() != null) && XSDDatatype.XSDanyURI.equals(l.getDatatype()) ) {
 								try {
@@ -350,10 +369,10 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
         }
         if (LINK_DISPLAYRANK != null) {
             try {
-                ClosableIterator rankStatements = getOntModel().listStatements(linkRes, LINK_DISPLAYRANK, (Literal)null);
+                ClosableIterator<Statement> rankStatements = getOntModel().listStatements(linkRes, LINK_DISPLAYRANK, (Literal)null);
                 try {
                     if (rankStatements.hasNext()) {
-                        Literal l = (Literal) ((Statement)rankStatements.next()).getObject();
+                        Literal l = (Literal) rankStatements.next().getObject();
                         if (l != null) {
                             if (l.getDatatype()==XSDDatatype.XSDinteger) {
                                 link.setDisplayRank(String.valueOf(l.getInt()));
@@ -371,10 +390,10 @@ public class LinksDaoJena extends JenaBaseDao implements LinksDao {
             } catch (ClassCastException e) {}
         }
 
-        ClosableIterator stmtIt = getOntModel().listStatements(null, (com.hp.hpl.jena.rdf.model.Property)whichLinkProp, linkRes); // jena Property, not vitro Property
+        ClosableIterator<Statement> stmtIt = getOntModel().listStatements(null, (com.hp.hpl.jena.rdf.model.Property)whichLinkProp, linkRes); // jena Property, not vitro Property
         try {
             if (stmtIt.hasNext()) {
-                Statement stmt = (Statement) stmtIt.next();
+                Statement stmt = stmtIt.next();
                 Resource indRes = stmt.getSubject();
                 link.setEntityURI(indRes.getURI());
                 ObjectPropertyStatement op = new ObjectPropertyStatementImpl();

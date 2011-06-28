@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -56,6 +56,10 @@ public class DataPropertyStatementFiltering implements DataPropertyStatement {
         return innerStmt.toString();
     }
 
+    public Individual getIndividual() {
+        return innerStmt.getIndividual();
+    }
+    
     public String getIndividualURI() {
         return innerStmt.getIndividualURI();
     }
@@ -86,6 +90,10 @@ public class DataPropertyStatementFiltering implements DataPropertyStatement {
     
     public String getString() {
         return innerStmt.getString();
+    }
+    
+    public void setIndividual(Individual individual) {
+        innerStmt.setIndividual(individual);
     }
     
     public void setIndividualURI(String individualURI) {

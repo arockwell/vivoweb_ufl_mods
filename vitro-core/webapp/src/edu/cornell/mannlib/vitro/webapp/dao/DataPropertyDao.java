@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -61,4 +61,8 @@ public interface DataPropertyDao extends PropertyDao {
     List<DataProperty> getRootDataProperties();
     
     boolean annotateDataPropertyAsExternalIdentifier(String dataPropertyURI);
+    
+    public List<DataProperty> getDataPropertyList(Individual subject);
+    
+    public List<DataProperty> getDataPropertyList(String subjectUri);
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -138,7 +138,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
                 // now first get the properties this entity actually has, presumably populated with statements 
                 List<ObjectProperty> objectPropertyList = subject.getObjectPropertyList();
                 for (ObjectProperty op : objectPropertyList) {
-                    op.setEditLabel(op.getDomainPublic());
+                    op.setLabel(op.getDomainPublic());
                     mergedPropertyList.add(op);
                 }
             } else {
@@ -148,7 +148,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
                     for (PropertyInstance pi : allPropInstColl) {
                         if (pi!=null) {
                             ObjectProperty op = opDao.getObjectPropertyByURI(pi.getPropertyURI());
-                            op.setEditLabel(op.getDomainPublic()); // no longer relevant: pi.getSubjectSide() ? op.getDomainPublic() : op.getRangePublic());
+                            op.setLabel(op.getDomainPublic()); // no longer relevant: pi.getSubjectSide() ? op.getDomainPublic() : op.getRangePublic());
                             mergedPropertyList.add(op);
                         } else {
                             log.error("a property instance in the Collection created by PropertyInstanceDao.getAllPossiblePropInstForIndividual() is unexpectedly null");
@@ -164,7 +164,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
                 // now do much the same with data properties: get the list of populated data properties, then add in placeholders for missing ones
                 List<DataProperty> dataPropertyList = subject.getDataPropertyList();
                 for (DataProperty dp : dataPropertyList) {
-                    dp.setEditLabel(dp.getPublicName());
+                    dp.setLabel(dp.getPublicName());
                     mergedPropertyList.add(dp);
                 }                
             } else {
@@ -173,7 +173,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
                 if (allDatapropColl != null) {
                     for (DataProperty dp : allDatapropColl ) {
                         if (dp!=null) {
-                            dp.setEditLabel(dp.getPublicName());
+                            dp.setLabel(dp.getPublicName());
                             mergedPropertyList.add(dp);
                         } else {
                             log.error("a data property in the Collection created in DataPropertyDao.getAllPossibleDatapropsForIndividual() is unexpectedly null)");
@@ -269,7 +269,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
         int count = groupsList.size();
         PropertyGroup tempGroup = null;
         if (unassignedGroupName!=null) {
-            tempGroup = pgDao.createTempPropertyGroup(unassignedGroupName,MAX_GROUP_DISPLAY_RANK);
+            tempGroup = pgDao.createDummyPropertyGroup(unassignedGroupName,MAX_GROUP_DISPLAY_RANK);
             log.debug("creating temp property group "+unassignedGroupName+" for any unassigned properties");
         }
         switch (count) {
@@ -296,7 +296,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
                      if (tempGroup!=null) { // not assigned any group yet and are creating a group for unassigned properties
                          if (!alreadyOnPropertyList(tempGroup.getPropertyList(),p)) {
                              tempGroup.getPropertyList().add(p);
-                             log.debug("adding property "+p.getEditLabel()+" to members of temp group "+unassignedGroupName);
+                             log.debug("adding property "+p.getLabel()+" to members of temp group "+unassignedGroupName);
                          }
                      } // otherwise don't put that property on the list
                  } else if (p.getGroupURI().equals(pg.getURI())) {
@@ -376,7 +376,7 @@ public class DashboardPropertyListController extends VitroHttpServlet {
             if (diff==0) {
                 diff = determineDisplayRank(p1) - determineDisplayRank(p2);
                 if (diff==0) {
-                    return p1.getEditLabel().compareTo(p2.getEditLabel());
+                    return p1.getLabel().compareTo(p2.getLabel());
                 } else {
                     return diff;
                 }

@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -74,20 +74,15 @@ parameter set up by editRequestDispatch.
     
     VClass type = wdf.getVClassDao().getVClassByURI(vreq.getParameter("typeOfNew"));
     
-    //If the type of the new indivuidal is to be a person, we use a slightly different form.
     Boolean isPersonType = Boolean.FALSE;
-    if( type != null && FOAF_PERSON.equals( type.getURI() ) ){
-    	isPersonType = Boolean.TRUE;
-    }else{
-    	List<String> superTypes = wdf.getVClassDao().getAllSuperClassURIs(vreq.getParameter("typeOfNew"));    
-	    if( superTypes != null ){
-	    	for( String typeUri : superTypes){
-	    		if( FOAF_PERSON.equals(typeUri)) {
-	    			isPersonType = Boolean.TRUE;
-	    			break;
-	    		}
-	    	}    	
-	    }
+    List<String> superTypes = wdf.getVClassDao().getAllSuperClassURIs(vreq.getParameter("typeOfNew"));    
+    if( superTypes != null ){
+    	for( String typeUri : superTypes){
+    		if( FOAF_PERSON.equals(typeUri)) {
+    			isPersonType = Boolean.TRUE;
+    			break;
+    		}
+    	}    	
     }
     
     List<String> customCss = new ArrayList<String>(Arrays.asList("/edit/forms/css/customForm.css"
@@ -206,7 +201,7 @@ parameter set up by editRequestDispatch.
 
 <h2>Create a new ${typeName}</h2>
 
-<form action="<c:url value="/edit/processRdfForm2.jsp"/>" >
+<form class="customForm" action="<c:url value="/edit/processRdfForm2.jsp"/>" >
 	<c:if test="${! isPersonType}">
 		<v:input type="text" label="Name ${requiredHint}" id="label" size="30" />
 	</c:if>

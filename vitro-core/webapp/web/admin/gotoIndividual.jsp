@@ -1,5 +1,5 @@
 <%--
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,17 +28,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <%@page import="edu.cornell.mannlib.vitro.webapp.filters.VitroRequestPrep"%>
 <%@ page import="edu.cornell.mannlib.vitro.webapp.controller.Controllers" %>
-<%@page import="edu.cornell.mannlib.vedit.beans.LoginFormBean"%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib prefix="vitro" uri="/WEB-INF/tlds/VitroUtils.tld" %>
+
+<vitro:confirmLoginStatus level="DBA" />
 
 <%
-
-if (session == null || !LoginFormBean.loggedIn(request, LoginFormBean.DBA)) {
-    %><c:redirect url="<%= Controllers.LOGIN %>" /><%
-}
-
-
 if( request.getParameter("uri") != null ){
     %> <c:redirect url="/entity"><c:param name="uri" value="${param.uri}"/></c:redirect> <%
     return;

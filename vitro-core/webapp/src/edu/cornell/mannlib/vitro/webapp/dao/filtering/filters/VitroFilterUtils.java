@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -70,14 +70,12 @@ public class VitroFilterUtils {
      * Gets a filter that filters out any resource
      * that has a annotation of hiddenFromDisplayBelowRoleLevel higher than current user's role level
      */
-    public static VitroFilters getDisplayFilterByRoleLevel(RoleLevel role, WebappDaoFactory wdf){
-        log.info("initializing HiddenFromDisplayBelowRoleLevelFilter");
+    public static VitroFilters getDisplayFilterByRoleLevel(RoleLevel role, WebappDaoFactory wdf){        
         return new HiddenFromDisplayBelowRoleLevelFilter(role, wdf);
     }
     
     /* bdc34: Currently, this is not called from anywhere in the code. */
-    public static VitroFilters getUpdateFilterByRoleLevel(RoleLevel role, WebappDaoFactory wdf){
-        log.info("initializing ProhibitedFromUpdateBelowRoleLevelFilter");
+    public static VitroFilters getUpdateFilterByRoleLevel(RoleLevel role, WebappDaoFactory wdf){    
         return new ProhibitedFromUpdateBelowRoleLevelFilter(role, wdf);
     }
 

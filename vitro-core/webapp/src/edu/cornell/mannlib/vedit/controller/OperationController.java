@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -241,7 +241,10 @@ public class OperationController extends BaseEditController {
     	Object newObj = null;
     	if (epo.getOriginalBean() != null) { // we're updating or deleting an existing bean
             if (epo.getImplementationClass() != null) {
-                newObj = OperationUtils.cloneBean(epo.getOriginalBean(), epo.getImplementationClass());
+                newObj = OperationUtils.cloneBean(
+                        epo.getOriginalBean(), 
+                        epo.getImplementationClass(), 
+                        epo.getBeanClass());
             } else {
                 newObj = OperationUtils.cloneBean(epo.getOriginalBean());
             }

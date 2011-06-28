@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,11 @@ import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 public class MainMenu extends Menu {
 
     private static final long serialVersionUID = 1L;
-    private static final Log log = LogFactory.getLog(MainMenu.class.getName());
+    private static final Log log = LogFactory.getLog(MainMenu.class);
     
     protected VitroRequest vreq;
+    
+    public MainMenu(){ }
     
     public MainMenu(VitroRequest vreq) {
         this.vreq = vreq;
@@ -60,6 +62,6 @@ public class MainMenu extends Menu {
     }
     
     protected boolean isActiveItem(String path) {
-        return vreq.getServletPath().equals(path);
+        return  vreq != null && vreq.getServletPath().equals(path);                    
     }
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -158,7 +158,7 @@ public class EditLiteral implements Literal {
         throw new UnsupportedOperationException();
     }
 
-    public RDFNode inModel(Model model) {
+    public Literal inModel(Model model) {
         throw new UnsupportedOperationException();
     }
 
@@ -217,9 +217,9 @@ public class EditLiteral implements Literal {
     }
 
     @Deprecated
-	public Object getObject(ObjectF arg0) {
-		throw new UnsupportedOperationException();
-	}
+	//public Object getObject(ObjectF arg0) {
+	//	throw new UnsupportedOperationException();
+	//}
 
 	public <T extends RDFNode> T as(Class<T> arg0) {
         throw new UnsupportedOperationException();
@@ -227,5 +227,17 @@ public class EditLiteral implements Literal {
 
 	public <T extends RDFNode> boolean canAs(Class<T> arg0) {
         throw new UnsupportedOperationException();
+	}
+
+	public Literal asLiteral() {
+		throw new UnsupportedOperationException();
+	}
+
+	public Resource asResource() {
+		throw new UnsupportedOperationException();
+	}
+
+	public Model getModel() {
+		throw new UnsupportedOperationException();
 	}
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -157,18 +157,10 @@ public TabEntityFactoryJena(Tab tab, int auth_level,
         }
         @Override
         public Boolean fn(Individual arg){
-            if( arg.getName() == null  )
+            if( arg.getName() == null )
                 return Boolean.FALSE;
-            else{
-            	Boolean rv = Boolean.FALSE;
-            	try{
-            		rv = firstLetter.equalsIgnoreCase( arg.getName().substring(0,1) );
-            	}catch( java.lang.StringIndexOutOfBoundsException ex){
-            		//string was 0 length, not a problem.
-            		return Boolean.FALSE;
-            	}
-            	return rv;
-            }
+            else
+                return new Boolean( firstLetter.equalsIgnoreCase( arg.getName().substring(0,1) ) );
         }
     }
 

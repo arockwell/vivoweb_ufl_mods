@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,11 +28,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 $(document).ready(function(){
 
-  // login form is hidden by default; use JavaScript to reveal
-  $("#formLogin").removeClass("hidden");
+    // login form is hidden by default; use JavaScript to reveal
+    $("#login").removeClass('hidden');
   
-  // focus on email or newpassword field
-  $('.focus').focus();
+    // focus on email or newpassword field
+    $('.focus').focus();
+    
+    // fade in error alerts
+    $('section#error-alert').css('display', 'none').fadeIn(1500); 
 
 });
-

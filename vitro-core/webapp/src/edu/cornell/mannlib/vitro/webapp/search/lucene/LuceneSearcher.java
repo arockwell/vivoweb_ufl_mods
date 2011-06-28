@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Cornell University
+Copyright (c) 2011, Cornell University
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -337,8 +337,6 @@ public class LuceneSearcher implements Searcher {
             log.error("LuceneSearcher expects to get a LuceneQuery");
             throw new Error("LuceneSearcher expects to get a LuceneQuery");
         }
-        if( queryIn == null )
-            return null;
 
         LuceneHighlighter highlighter = null;
         try {
@@ -350,9 +348,9 @@ public class LuceneSearcher implements Searcher {
             }
             highlighter = new LuceneHighlighter( query, analyzer );
         } catch (SearchException e) {
-            log.error(e);
+            log.error(e, e);
         } catch (IOException e) {
-            log.error(e);
+            log.error(e, e);
         }
         return   (VitroHighlighter)highlighter;
     }
